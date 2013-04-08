@@ -7,11 +7,11 @@ module MassInsert
       end
 
       def string_columns
-        "('#{table_columns.join("', '")}') "
+        "(#{table_columns.join(", ")}) "
       end
 
       def string_values
-        "VALUES ((#{string_rows_values}))"
+        "VALUES (#{string_rows_values})"
       end
 
       def string_rows_values
