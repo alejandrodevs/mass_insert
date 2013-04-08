@@ -49,21 +49,11 @@ describe MassInsert::Execution do
       it "respond to" do
         subject.respond_to?(:table_name).should be_true
       end
-
-      it "should return the correct value" do
-        execution = MassInsert::Execution.new([], {:table_name => "users"})
-        execution.table_name.should eq("users")
-      end
     end
 
     describe "class_name" do
       it "respond to" do
         subject.respond_to?(:class_name).should be_true
-      end
-
-      it "should return the correct value" do
-        execution = MassInsert::Execution.new([], {:class_name => "User"})
-        execution.class_name.should eq("User")
       end
     end
 

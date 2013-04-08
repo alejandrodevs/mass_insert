@@ -1,6 +1,5 @@
 module MassInsert
   class Execution
-    include QueryBuilder
 
     attr_accessor :values, :options
 
@@ -18,7 +17,7 @@ module MassInsert
     end
 
     def query
-      generate_query
+      MassInsert::QueryBuilder.new(values, options).execute
     end
 
   end

@@ -18,7 +18,6 @@ module MassInsert
     #
     def mass_insert values, options = {}
       options[:class_name] = options[:class_name] || self
-      options[:table_name] = options[:table_name] || self.table_name
 
       execution = MassInsert::Execution.new(values, options)
       execution.start
