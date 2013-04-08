@@ -39,9 +39,9 @@ describe MassInsert::Execution do
       end
     end
 
-    describe "query" do
+    describe "generate_sql" do
       it "respond to" do
-        subject.respond_to?(:query).should be_true
+        subject.respond_to?(:generate_sql).should be_true
       end
     end
   end

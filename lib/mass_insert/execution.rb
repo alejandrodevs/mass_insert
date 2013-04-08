@@ -8,16 +8,16 @@ module MassInsert
       @options = options
     end
 
-    def execute query
-      ActiveRecord::Base.connection.execute(query)
+    def execute sql
+      ActiveRecord::Base.connection.execute(sql)
     end
 
     def start
-      execute(query)
+      execute(generate_sql)
     end
 
-    def query
-      MassInsert::QueryBuilder.new(values, options).execute
+    def generate_sql
+      MassInsert::QueryBuilder.new(values, options).build
     end
 
   end

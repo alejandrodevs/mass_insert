@@ -13,11 +13,11 @@ module MassInsert
     end
 
     def table_name
-      options[:class_name].table_name
+      options[:table_name]
     end
 
     def table_columns
-      table_name.column_defaults.keys
+      class_name.column_defaults.keys
     end
 
     def column_type column
@@ -28,7 +28,7 @@ module MassInsert
       ActiveRecord::Base.connection.instance_values["config"][:adapter]
     end
 
-    def execute
+    def build
 
     end
 
