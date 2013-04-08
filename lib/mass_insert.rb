@@ -1,4 +1,5 @@
 require "mass_insert/version"
+Dir[File.dirname(__FILE__) + "/adapters/*.rb"].each { |file| require file }
 
 module MassInsert
   autoload :Base,         'mass_insert/base.rb'

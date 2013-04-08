@@ -56,5 +56,3 @@ module MassInsert
 
   end
 end
-
-Dir[File.dirname(__FILE__) + "/adapters/*.rb"].each { |file| require file }
