@@ -44,29 +44,5 @@ describe MassInsert::Execution do
         subject.respond_to?(:query).should be_true
       end
     end
-
-    describe "table_name" do
-      it "respond to" do
-        subject.respond_to?(:table_name).should be_true
-      end
-    end
-
-    describe "class_name" do
-      it "respond to" do
-        subject.respond_to?(:class_name).should be_true
-      end
-    end
-
-    describe "adapter" do
-      it "respond to" do
-        subject.respond_to?(:adapter).should be_true
-      end
-    end
-
-    describe "generate_query" do
-      it "respond to" do
-        subject.respond_to?(:generate_query).should be_true
-      end
-    end
   end
 end
