@@ -9,4 +9,12 @@ describe MassInsert do
   it 'should define Base' do
     MassInsert::Base.should be
   end
+
+  it 'should define Execution' do
+    MassInsert::Execution.should be
+  end
+
+  it 'should define QueryBuilder' do
+    MassInsert::QueryBuilder.should be
+  end
 end

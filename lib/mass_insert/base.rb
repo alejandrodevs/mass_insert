@@ -5,18 +5,23 @@ module MassInsert
     #
     #   User.mass_insert(values)
     #
-    # The values should be a hash with the object values
-    # Example...
+    # The values should be an array with the object values
+    # in a hash. Example...
     #
-    #   values = {
-    #     :name   => "user name"
-    #     :email  => "user email"
-    #   }
+    #   [
+    #     {:name   => "user name", :email  => "user email"},
+    #     {:name   => "user name", :email  => "user email"},
+    #     {:name   => "user name", :email  => "user email"}
+    #   ]
     #
-    # The id attribute and timestamp attributes isn't required.
+    # The id and timestamp attributes isn't required.
     #
-    def mass_insert values
+    def mass_insert values, options = {}
+      options[:class_name] = options[:class_name] || self
+      options[:table_name] = options[:table_name] || self.table_name
 
+      execution = MassInsert::Execution.new(values, options)
+      execution.start
     end
 
   end
