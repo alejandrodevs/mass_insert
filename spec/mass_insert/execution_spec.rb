@@ -44,5 +44,33 @@ describe MassInsert::Execution do
         subject.respond_to?(:generate_sql).should be_true
       end
     end
+
+    describe "adapter" do
+      it "respond to" do
+        subject.respond_to?(:adapter).should be_true
+      end
+    end
+
+    describe "adapter_instance_class" do
+      it "respond to" do
+        subject.respond_to?(:generate_sql).should be_true
+      end
+
+      context "when adapter is mysql" do
+        it "should return a Mysql Adapter instance" do
+          subject.stub(:adapter).and_return("mysql")
+          instance_class = MassInsert::Adapters::Mysql
+          subject.adapter_instance_class.class.should be(instance_class)
+        end
+      end
+
+      context "when adapter is mysql2" do
+        it "should return a Mysql2 Adapter instance" do
+          subject.stub(:adapter).and_return("mysql2")
+          instance_class = MassInsert::Adapters::Mysql
+          subject.adapter_instance_class.class.should be(instance_class)
+        end
+      end
+    end
   end
 end

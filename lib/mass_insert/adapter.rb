@@ -1,9 +1,10 @@
 module MassInsert
-  # This class provides some helper methods to build the query string that
+  # This class provides some helper methods to build the sql string that
   # be executed. The methods here provides a functionality that be required
   # in all the adapters.
   #
-  # This class will be inherit in all adapter types classes.
+  # All adapter types classes will inherit of this class. This class will
+  # include other helpful methods from others modules.
   class Adapter
 
     attr_accessor :values, :options, :columns
@@ -22,7 +23,7 @@ module MassInsert
       options[:class_name]
     end
 
-    # Returns a string with the database table name where  all the records
+    # Returns a string with the database table name where all the records
     # will be saved.
     def table_name
       options[:table_name]
@@ -38,8 +39,9 @@ module MassInsert
       class_name.column_names
     end
 
-    # Returns an array with the column names to teh class name, but
-    # This array can be modified according to the options.
+    # Returns an array with the column names to the database table,
+    # but this array can be modified according to the options and its
+    # sorted to avoid errors when execute the sql string.
     def columns
       @columns ||= table_columns.sort
     end
@@ -69,12 +71,10 @@ module MassInsert
     end
 
     def set_timestamps_columns raw
-      if timestamp?
-        raw.merge!({
-          :created_at => Time.now.to_s(:db),
-          :updated_at => Time.now.to_s(:db),
-        })
-      end
+      raw.merge!({
+        :created_at => Time.now.to_s,
+        :updated_at => Time.now.to_s
+      })
     end
 
   end
