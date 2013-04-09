@@ -32,13 +32,18 @@ module MassInsert
     #
     # Include all the columns names without exception.
     def table_columns
-      class_name.column_defaults.keys
+      class_name.column_names
     end
 
     # Returns a symbol with the column type in the database. The column or
     # attribute should belongs to the class that invokes the mass insert.
     def column_type column
       class_name.columns_hash[column.to_s].type
+    end
+
+    # Returns true o false if the database table has the timestamp columns.
+    def timestamp?
+      table_columns.include?("created_at") && table_columns.include?("updated_at")
     end
 
   end
