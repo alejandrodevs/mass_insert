@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class Mysql < MassInsert::QueryBuilder
+    class Mysql < Adapter
 
       def begin_of_string
         "INSERT INTO #{table_name} "

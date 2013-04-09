@@ -14,7 +14,7 @@ describe MassInsert do
     MassInsert::Execution.should be
   end
 
-  it 'should define QueryBuilder' do
-    MassInsert::QueryBuilder.should be
+  it 'should define Adapter' do
+    MassInsert::Adapter.should be
   end
 end
