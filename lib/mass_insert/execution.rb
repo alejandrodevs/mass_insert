@@ -39,11 +39,9 @@ module MassInsert
     def adapter_instance_class
       case adapter
       when "mysql", "mysql2"
-        MassInsert::Adapters::Mysql.new(values, options)
+        MassInsert::Adapters::MysqlAdapter.new(values, options)
       end
     end
 
   end
 end
-
-Dir[File.dirname(__FILE__) + "/adapters/*.rb"].each { |file| require file }

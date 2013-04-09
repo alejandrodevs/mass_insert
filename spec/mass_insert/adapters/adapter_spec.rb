@@ -1,9 +1,9 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Adapter do
+describe MassInsert::Adapters::Adapter do
   before :each do
-    @adapter = MassInsert::Adapter.new([], {})
+    @adapter = MassInsert::Adapters::Adapter.new([], {})
   end
 
   subject{ @adapter }
@@ -14,7 +14,7 @@ describe MassInsert::Adapter do
       before :each do
         @values  = [{:name => "name"}]
         @options = {:option_one => 10}
-        @adapter = MassInsert::Adapter.new(@values, @options)
+        @adapter = MassInsert::Adapters::Adapter.new(@values, @options)
       end
 
       it "should initialize the values" do
