@@ -19,7 +19,7 @@ module MassInsert
       end
 
       def string_single_row_values raw
-        set_timestamps_columns(raw)
+        set_timestamps_columns(raw) if timestamp?
         columns.map{ |col| string_single_value(raw, col) }.join(", ")
       end
 
