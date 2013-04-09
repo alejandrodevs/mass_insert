@@ -17,4 +17,8 @@ describe MassInsert do
   it 'should define Adapter' do
     MassInsert::Adapter.should be
   end
+
+  it 'should define Timestamp' do
+    MassInsert::Timestamp.should be
+  end
 end

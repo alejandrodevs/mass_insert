@@ -17,8 +17,13 @@ module MassInsert
     # The id and timestamp attributes isn't required.
     #
     def mass_insert values, options = {}
+      # prepare default options
       options[:class_name] = options[:class_name] || self
       options[:table_name] = options[:table_name] || self.table_name
+
+      # prepare attributes options
+      options[:primary_key]      = options[:primary_key]      || "id"
+      options[:primary_key_mode] = options[:primary_key_mode] || "automatic"
 
       execution = MassInsert::Execution.new(values, options)
       execution.start

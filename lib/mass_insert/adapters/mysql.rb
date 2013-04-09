@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class Mysql < Adapter
+    class Mysql < MassInsert::Adapter
 
       def begin_of_string
         "INSERT INTO #{table_name} "
@@ -19,7 +19,8 @@ module MassInsert
       end
 
       def string_single_row_values raw
-        table_columns.map{ |col| string_single_value(raw, col) }.join(", ")
+        set_timestamps_columns(raw)
+        columns.map{ |col| string_single_value(raw, col) }.join(", ")
       end
 
       def string_single_value raw, column

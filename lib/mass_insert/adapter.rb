@@ -6,11 +6,16 @@ module MassInsert
   # This class will be inherit in all adapter types classes.
   class Adapter
 
-    attr_accessor :values, :options
+    include MassInsert::Timestamp
+
+    attr_accessor :values, :options, :columns
 
     def initialize values, options
       @values  = values
       @options = options
+
+      # Prepare the columns according to the options.
+      sanitize_columns
     end
 
     # Returns the class like a constant that invokes the mass insert.
@@ -35,15 +40,29 @@ module MassInsert
       class_name.column_names
     end
 
+    # Returns an array with the column names to teh class name, but
+    # This array can be modified according to the options.
+    def columns
+      @columns ||= table_columns.sort
+    end
+
+    # Update the array with the columns names according to the options
+    # and prepare the columns array with only valid columns.
+    def sanitize_columns
+      sanitize_primary_key_column
+    end
+
+    # Prepare the primary key column according to primary key options.
+    def sanitize_primary_key_column
+      if options[:primary_key_mode] == "automatic"
+        columns.delete(options[:primary_key])
+      end
+    end
+
     # Returns a symbol with the column type in the database. The column or
     # attribute should belongs to the class that invokes the mass insert.
     def column_type column
       class_name.columns_hash[column.to_s].type
-    end
-
-    # Returns true o false if the database table has the timestamp columns.
-    def timestamp?
-      table_columns.include?("created_at") && table_columns.include?("updated_at")
     end
 
   end
