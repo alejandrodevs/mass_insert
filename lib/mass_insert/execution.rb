@@ -39,7 +39,7 @@ module MassInsert
     def adapter_instance_class
       case adapter
       when "mysql", "mysql2"
-        MassInsert::Adapters::MysqlAdapter.new(values, options)
+        Adapters::MysqlAdapter.new(values, options)
       end
     end
 
