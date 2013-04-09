@@ -6,8 +6,6 @@ module MassInsert
   # This class will be inherit in all adapter types classes.
   class Adapter
 
-    include MassInsert::Timestamp
-
     attr_accessor :values, :options, :columns
 
     def initialize values, options
@@ -63,6 +61,20 @@ module MassInsert
     # attribute should belongs to the class that invokes the mass insert.
     def column_type column
       class_name.columns_hash[column.to_s].type
+    end
+
+    # Returns true o false if the database table has the timestamp columns.
+    def timestamp?
+      columns.include?("created_at") && columns.include?("updated_at")
+    end
+
+    def set_timestamps_columns raw
+      if timestamp?
+        raw.merge!({
+          :created_at => Time.now.to_s(:db),
+          :updated_at => Time.now.to_s(:db),
+        })
+      end
     end
 
   end
