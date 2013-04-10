@@ -22,8 +22,8 @@ module MassInsert
       options[:table_name] = options[:table_name] || self.table_name
 
       # prepare attributes options
-      options[:primary_key]      = options[:primary_key]      || "id"
-      options[:primary_key_mode] = options[:primary_key_mode] || "automatic"
+      options[:primary_key]      = options[:primary_key]      || :id
+      options[:primary_key_mode] = options[:primary_key_mode] || :automatic
 
       execution = MassInsert::Execution.new(values, options)
       execution.start

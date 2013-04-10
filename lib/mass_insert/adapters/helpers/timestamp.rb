@@ -6,8 +6,8 @@ module MassInsert
         # Returns true o false if the database table has the
         # timestamp columns.
         def timestamp?
-          column_names.include?("created_at") &&
-            column_names.include?("updated_at")
+          column_names.include?(:created_at) &&
+            column_names.include?(:updated_at)
         end
 
         # Adds to the row hash the timestamp values that will

@@ -29,10 +29,10 @@ module MassInsert
         options[:table_name]
       end
 
-      # Returns an array with the column names to the database table,
-      # but this array can be modified according to the options.
+      # Returns an array with the column names to the database table like
+      # a symbols. This array can be modified according to the options.
       def column_names
-        @column_names ||= class_name.column_names
+        @column_names ||= class_name.column_names.map(&:to_sym)
       end
 
       # Returns a symbol with the column type in the database. The column or
