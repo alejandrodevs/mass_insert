@@ -13,7 +13,8 @@ module MassInsert
     #
     #   ActiveRecord::Base.connection.execute(sql_string)
     def execute sql
-      ActiveRecord::Base.connection.execute(sql)
+      #ActiveRecord::Base.connection.execute(sql)
+      puts sql
     end
 
     # This function is called from Base module and starts the mass
