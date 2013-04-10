@@ -7,7 +7,7 @@ module MassInsert
       end
 
       def string_columns
-        "(#{table_columns.join(", ")}) "
+        "(#{column_names.join(", ")}) "
       end
 
       def string_values
@@ -15,20 +15,20 @@ module MassInsert
       end
 
       def string_rows_values
-        values.map{ |raw| string_single_row_values(raw) }.join("), (")
+        values.map{ |row| string_single_row_values(row) }.join("), (")
       end
 
-      def string_single_row_values raw
-        set_timestamps_columns(raw) if timestamp?
-        columns.map{ |col| string_single_value(raw, col) }.join(", ")
+      def string_single_row_values row
+        sanitize_row_values(row)
+        column_names.map{ |col| string_single_value(row, col) }.join(", ")
       end
 
-      def string_single_value raw, column
+      def string_single_value row, column
         case column_type(column)
         when :string, :text, :date, :datetime, :time, :timestamp
-          raw[column] ? "'#{raw[column]}'" : "''"
+          row[column] ? "'#{row[column]}'" : "''"
         when :integer, :float, :decimal, :boolean, :binary
-          raw[column].to_s
+          row[column].to_s
         end
       end
 

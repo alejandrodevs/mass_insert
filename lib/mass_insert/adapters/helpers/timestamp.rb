@@ -3,14 +3,17 @@ module MassInsert
     module Helpers
       module Timestamp
 
-        # Returns true o false if the database table has the timestamp
-        # columns.
+        # Returns true o false if the database table has the
+        # timestamp columns.
         def timestamp?
-          columns.include?("created_at") && columns.include?("updated_at")
+          column_names.include?("created_at") &&
+            column_names.include?("updated_at")
         end
 
-        def set_timestamps_columns raw
-          raw.merge!({
+        # Adds to the row hash the timestamp values that will
+        # be saved in the database insertion.
+        def set_timestamps_columns row
+          row.merge!({
             :created_at => Time.now.to_s,
             :updated_at => Time.now.to_s
           })

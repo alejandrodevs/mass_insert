@@ -40,10 +40,9 @@ describe MassInsert::Adapters::Adapter do
       end
     end
 
-    describe "columns" do
-      it "should returns the table columns in order" do
-        subject.stub(:table_columns).and_return(["a", "c", "b"])
-        subject.columns.should eq(["a", "b", "c"])
+    describe "column_names" do
+      it "should respond to column_names method" do
+        subject.respond_to?(:column_names).should be_true
       end
     end
 
@@ -54,21 +53,21 @@ describe MassInsert::Adapters::Adapter do
           :primary_key      => "id",
           :primary_key_mode => "automatic",
         }
-        subject.stub(:columns).and_return(["id", "name"])
+        subject.stub(:column_names).and_return(["id", "name"])
       end
 
       context "when primary_key_mode is automatic" do
-        it "should returns the columns without primary_key" do
+        it "should returns the column names without primary_key" do
           subject.sanitize_primary_key_column
-          subject.columns.should eq(["name"])
+          subject.column_names.should eq(["name"])
         end
       end
 
       context "when primary_key_mode is not automatic" do
-        it "should returns the columns without primary_key" do
+        it "should returns the column names with primary_key" do
           subject.options.merge!(:primary_key_mode => "manually")
           subject.sanitize_primary_key_column
-          subject.columns.should eq(["id", "name"])
+          subject.column_names.should eq(["id", "name"])
         end
       end
     end
@@ -76,25 +75,25 @@ describe MassInsert::Adapters::Adapter do
     describe "timestamp?" do
       context "when respond to timestamp columns" do
         it "should return true" do
-          subject.stub(:columns).and_return(["updated_at", "created_at"])
+          subject.stub(:column_names).and_return(["updated_at", "created_at"])
           subject.timestamp?.should be_true
         end
       end
 
       context "when not respond to timestamp columns" do
         it "should return false" do
-          subject.stub(:columns).and_return(["created_at"])
+          subject.stub(:column_names).and_return(["created_at"])
           subject.timestamp?.should be_false
         end
       end
     end
 
     describe "set_timestamps_columns" do
-      it "should merge to raw the timestamp values" do
-        raw = {:name => "name", :email => "email"}
-        subject.set_timestamps_columns(raw)
-        raw.has_key?(:created_at).should be_true
-        raw.has_key?(:updated_at).should be_true
+      it "should merge to row the timestamp values" do
+        row = {:name => "name", :email => "email"}
+        subject.set_timestamps_columns(row)
+        row.has_key?(:created_at).should be_true
+        row.has_key?(:updated_at).should be_true
       end
     end
   end
