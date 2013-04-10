@@ -26,9 +26,13 @@ module MassInsert
       def string_single_value row, column
         case column_type(column)
         when :string, :text, :date, :datetime, :time, :timestamp
-          row[column.to_sym] ? "'#{row[column.to_sym]}'" : "''"
-        when :integer, :float, :decimal, :boolean, :binary
-          row[column.to_sym].to_s
+          row[column] ? "'#{row[column]}'" : "''"
+        when :integer
+          row[column].to_i.to_s
+        when :decimal, :float
+          row[column].to_f.to_s
+        when :boolean, :binary
+          row[column] ? 1 : 0
         end
       end
 
