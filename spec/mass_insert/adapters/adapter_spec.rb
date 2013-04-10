@@ -50,16 +50,16 @@ describe MassInsert::Adapters::Adapter do
 
       before :each do
         subject.options = {
-          :primary_key      => "id",
-          :primary_key_mode => "automatic",
+          :primary_key      => :id,
+          :primary_key_mode => :auto,
         }
-        subject.stub(:column_names).and_return(["id", "name"])
+        subject.stub(:column_names).and_return([:id, :name])
       end
 
       context "when primary_key_mode is automatic" do
         it "should returns the column names without primary_key" do
           subject.sanitize_primary_key_column
-          subject.column_names.should eq(["name"])
+          subject.column_names.should eq([:name])
         end
       end
 
@@ -67,7 +67,7 @@ describe MassInsert::Adapters::Adapter do
         it "should returns the column names with primary_key" do
           subject.options.merge!(:primary_key_mode => "manually")
           subject.sanitize_primary_key_column
-          subject.column_names.should eq(["id", "name"])
+          subject.column_names.should eq([:id, :name])
         end
       end
     end
@@ -75,7 +75,7 @@ describe MassInsert::Adapters::Adapter do
     describe "timestamp?" do
       context "when respond to timestamp columns" do
         it "should return true" do
-          subject.stub(:column_names).and_return(["updated_at", "created_at"])
+          subject.stub(:column_names).and_return([:updated_at, :created_at])
           subject.timestamp?.should be_true
         end
       end

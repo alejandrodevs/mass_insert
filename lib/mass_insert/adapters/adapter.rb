@@ -41,6 +41,18 @@ module MassInsert
         class_name.columns_hash[column.to_s].type
       end
 
+      # Returns the primary_key column that was configured by the user.
+      # Default primary_key it's id
+      def primary_key
+        options[:primary_key]
+      end
+
+      # Returns the primary key mode according to the user configuration.
+      # Default primary key mode it's automatic.
+      def primary_key_mode
+        options[:primary_key_mode]
+      end
+
     end
   end
 end

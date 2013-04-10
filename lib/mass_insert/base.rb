@@ -23,7 +23,7 @@ module MassInsert
 
       # prepare attributes options
       options[:primary_key]      = options[:primary_key]      || :id
-      options[:primary_key_mode] = options[:primary_key_mode] || :automatic
+      options[:primary_key_mode] = options[:primary_key_mode] || :auto
 
       execution = MassInsert::Execution.new(values, options)
       execution.start
