@@ -20,7 +20,7 @@ module MassInsert
         # This method can be modified the row hash, adding or removing keys
         # or values.
         def sanitize_row_values row
-          sanitize_row_keys(row)
+          #sanitize_row_keys(row)
           set_timestamps_columns(row) if timestamp?
         end
 
