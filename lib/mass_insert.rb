@@ -1,8 +1,10 @@
 require "mass_insert/version"
 
 module MassInsert
-  autoload :Base,       'mass_insert/base.rb'
-  autoload :Execution,  'mass_insert/execution.rb'
+  autoload :Base,             'mass_insert/base.rb'
+  autoload :ProcessControl,   'mass_insert/process_control.rb'
+  autoload :QueryBuilder,     'mass_insert/query_builder.rb'
+  autoload :QueryExecution,   'mass_insert/query_execution.rb'
 
   module Adapters
     autoload :Adapter,      'mass_insert/adapters/adapter.rb'

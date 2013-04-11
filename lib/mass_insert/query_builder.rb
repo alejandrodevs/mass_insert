@@ -1,5 +1,5 @@
 module MassInsert
-  class Execution
+  class QueryBuilder
 
     attr_accessor :values, :options
 
@@ -8,23 +8,9 @@ module MassInsert
       @options = options
     end
 
-    # Saves the sql string into database. Use the helper that
-    # ActiveRecord  provides.
-    #
-    #   ActiveRecord::Base.connection.execute(sql_string)
-    def execute sql
-      ActiveRecord::Base.connection.execute(sql)
-    end
-
-    # This function is called from Base module and starts the mass
-    # database insertion.
-    def start
-      execute(generate_sql)
-    end
-
-    # This function calls the correct adapter class and returns the sql
-    # string ready to be executed.
-    def generate_sql
+    # This function calls the correct adapter class and returns the
+    # sql string ready to be executed.
+    def execute
       adapter_instance_class.execute
     end
 

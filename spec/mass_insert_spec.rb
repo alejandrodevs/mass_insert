@@ -10,8 +10,16 @@ describe MassInsert do
     MassInsert::Base.should be
   end
 
-  it 'should define Execution' do
-    MassInsert::Execution.should be
+  it 'should define ProcessControl' do
+    MassInsert::ProcessControl.should be
+  end
+
+  it 'should define QueryBuilder' do
+    MassInsert::QueryBuilder.should be
+  end
+
+  it 'should define QueryExecution' do
+    MassInsert::QueryExecution.should be
   end
 
   it 'should define Adapters module' do

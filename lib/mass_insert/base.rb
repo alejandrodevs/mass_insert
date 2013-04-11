@@ -8,7 +8,7 @@ module MassInsert
     # The values should be an array with the object values
     # in a hash. Example...
     #
-    #   [
+    #   values = [
     #     {:name   => "user name", :email  => "user email"},
     #     {:name   => "user name", :email  => "user email"},
     #     {:name   => "user name", :email  => "user email"}
@@ -25,8 +25,7 @@ module MassInsert
       options[:primary_key]      = options[:primary_key]      || :id
       options[:primary_key_mode] = options[:primary_key_mode] || :auto
 
-      execution = MassInsert::Execution.new(values, options)
-      execution.start
+      MassInsert::ProcessControl.new(values, options).execute
     end
 
   end

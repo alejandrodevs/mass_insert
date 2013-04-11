@@ -1,59 +1,46 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Execution do
-
+describe MassInsert::QueryBuilder do
   before :each do
-    @execution = MassInsert::Execution.new([], {})
+    @builder = MassInsert::QueryBuilder.new([], {})
   end
 
-  subject{ @execution }
+  subject{ @builder }
 
   describe "instance methods" do
-    describe "initialize" do
+    describe "#initialize" do
 
       before :each do
         @values  = [{:name => "name"}]
         @options = {:option_one => 10}
-        @execution = MassInsert::Execution.new(@values, @options)
+        @builder = MassInsert::QueryBuilder.new(@values, @options)
       end
 
-      it "should initialize the values" do
-        @execution.values.should eq(@values)
+      it "should initialize the values attribute" do
+        @builder.values.should eq(@values)
       end
 
-      it "should initialize the options" do
-        @execution.options.should eq(@options)
+      it "should initialize the options attribute" do
+        @builder.options.should eq(@options)
       end
     end
 
-    describe "execute" do
-      it "respond to" do
+    describe "#execute" do
+      it "should respond to execute method" do
         subject.respond_to?(:execute).should be_true
       end
     end
 
-    describe "start" do
-      it "respond to" do
-        subject.respond_to?(:start).should be_true
-      end
-    end
-
-    describe "generate_sql" do
-      it "respond to" do
-        subject.respond_to?(:generate_sql).should be_true
-      end
-    end
-
     describe "adapter" do
-      it "respond to" do
+      it "should respond to adapter method" do
         subject.respond_to?(:adapter).should be_true
       end
     end
 
     describe "adapter_instance_class" do
-      it "respond to" do
-        subject.respond_to?(:generate_sql).should be_true
+      it "should respond to adapter_instance_class method" do
+        subject.respond_to?(:adapter_instance_class).should be_true
       end
 
       context "when adapter is mysql" do
