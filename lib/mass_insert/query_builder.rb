@@ -11,7 +11,7 @@ module MassInsert
     # This function calls the correct adapter class and returns the
     # sql string ready to be executed and returns it to be execute in
     # the QueryExecution class.
-    def execute
+    def build
       adapter_instance_class.execute
     end
 

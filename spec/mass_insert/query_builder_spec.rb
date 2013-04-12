@@ -25,15 +25,15 @@ describe MassInsert::QueryBuilder do
       end
     end
 
-    describe "#execute" do
-      it "should respond to execute method" do
-        subject.respond_to?(:execute).should be_true
+    describe "#build" do
+      it "should respond to build method" do
+        subject.respond_to?(:build).should be_true
       end
 
       it "should return the query string" do
         subject.stub(:adapter_instance_class).and_return("adapter_instance")
         subject.adapter_instance_class.stub(:execute).and_return("query_string")
-        subject.execute.should eq("query_string")
+        subject.build.should eq("query_string")
       end
     end
 

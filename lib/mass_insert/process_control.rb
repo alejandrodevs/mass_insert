@@ -11,11 +11,8 @@ module MassInsert
     # This method is responsible to call all the necessary process to
     # complete the mass insertion process.
     def execute
-      query_builder = QueryBuilder.new(values, options)
-      query = query_builder.execute
-
-      query_execution = QueryExecution.new(query)
-      query_execution.execute
+      query = QueryBuilder.new(values, options).build
+      QueryExecution.new(query).execute
     end
 
   end
