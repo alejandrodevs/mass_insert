@@ -4,21 +4,16 @@ require "./lib/mass_insert"
 describe MassInsert::QueryExecution do
 
   before :each do
-    @execution = MassInsert::QueryExecution.new("")
+    @execution = MassInsert::QueryExecution.new("query string")
   end
 
   subject{ @execution }
 
   describe "instance methods" do
     describe "#initialize" do
-
-      before :each do
-        @query     = "Some query string"
-        @execution = MassInsert::QueryExecution.new(@query)
-      end
-
       it "should initialize the query attribute" do
-        @execution.query.should eq(@query)
+        execution = MassInsert::QueryExecution.new("query_string")
+        execution.query.should eq("query_string")
       end
     end
 
@@ -28,7 +23,9 @@ describe MassInsert::QueryExecution do
       end
 
       it "should execute the query string" do
-
+        ActiveRecord::Base.connection.stub(:execute)
+        ActiveRecord::Base.connection.should_receive(:execute)
+        subject.execute
       end
     end
   end

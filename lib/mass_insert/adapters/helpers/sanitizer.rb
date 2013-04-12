@@ -16,21 +16,6 @@ module MassInsert
           end
         end
 
-        # Prepares an individually row hash to be added to a sql string.
-        # This method can be modified the row hash, adding or removing keys
-        # or values.
-        def sanitize_row_values row
-          sanitize_row_keys(row)
-          set_timestamps_columns(row) if timestamp?
-        end
-
-        # Converts all the keys to symbols to match with the columns names.
-        # If the values hashes that were passed by the user have string
-        # keys will be change them to symbols.
-        def sanitize_row_keys row
-          row.each{ |k, v| row.merge!(k.to_sym => v) }
-        end
-
       end
     end
   end

@@ -30,7 +30,7 @@ module MassInsert
       def string_single_row_values row
         # Prepare the single row to be included in the sql string.
         # Sanitizes keys and values or includes others.
-        sanitize_row_values(row)
+        row.merge!(timestamp_values) if timestamp?
 
         # Generates the values to this row that will be included according
         # to the type column and values.
@@ -40,15 +40,17 @@ module MassInsert
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
       def string_single_value row, column
+        column_value = row[column.to_sym]
+
         case column_type(column)
         when :string, :text, :date, :datetime, :time, :timestamp
-          row[column] ? "'#{row[column]}'" : "''"
+          column_value ? "'#{column_value}'" : "''"
         when :integer
-          row[column].to_i.to_s
+          column_value.to_i.to_s
         when :decimal, :float
-          row[column].to_f.to_s
+          column_value.to_f.to_s
         when :boolean, :binary
-          row[column] ? 1 : 0
+          column_value ? 1 : 0
         end
       end
 

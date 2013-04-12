@@ -10,10 +10,9 @@ describe MassInsert::QueryBuilder do
 
   describe "instance methods" do
     describe "#initialize" do
-
       before :each do
         @values  = [{:name => "name"}]
-        @options = {:option_one => 10}
+        @options = {:class_name => User}
         @builder = MassInsert::QueryBuilder.new(@values, @options)
       end
 
@@ -30,15 +29,27 @@ describe MassInsert::QueryBuilder do
       it "should respond to execute method" do
         subject.respond_to?(:execute).should be_true
       end
-    end
 
-    describe "adapter" do
-      it "should respond to adapter method" do
-        subject.respond_to?(:adapter).should be_true
+      it "should return the query string" do
+        subject.stub(:adapter_instance_class).and_return("adapter_instance")
+        subject.adapter_instance_class.stub(:execute).and_return("query_string")
+        subject.execute.should eq("query_string")
       end
     end
 
-    describe "adapter_instance_class" do
+    describe "#adapter" do
+      it "should respond to adapter method" do
+        subject.respond_to?(:adapter).should be_true
+      end
+
+      it "should return the adapter type" do
+        config = {"config" => {:adapter => "sql"}}
+        ActiveRecord::Base.connection.stub(:instance_values).and_return(config)
+        subject.adapter.should eq("sql")
+      end
+    end
+
+    describe "#adapter_instance_class" do
       it "should respond to adapter_instance_class method" do
         subject.respond_to?(:adapter_instance_class).should be_true
       end

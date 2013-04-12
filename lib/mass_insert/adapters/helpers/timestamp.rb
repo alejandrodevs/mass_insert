@@ -10,13 +10,13 @@ module MassInsert
             column_names.include?(:updated_at)
         end
 
-        # Adds to the row hash the timestamp values that will
-        # be saved in the database insertion.
-        def set_timestamps_columns row
-          row.merge!({
+        # Returns the timestamp values to be merge into row values that
+        # will be saved in the database.
+        def timestamp_values
+          {
             :created_at => Time.now.to_s,
             :updated_at => Time.now.to_s
-          })
+          }
         end
 
       end
