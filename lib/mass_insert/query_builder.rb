@@ -30,9 +30,9 @@ module MassInsert
       when "mysql2"
         Adapters::MysqlAdapter.new(values, options)
       when "postgresql"
-        Adapters::MysqlAdapter.new(values, options)
+        Adapters::PostgresqlAdapter.new(values, options)
       when "sqlite3"
-        Adapters::MysqlAdapter.new(values, options)
+        Adapters::Sqlite3Adapter.new(values, options)
       end
     end
 

@@ -13,7 +13,7 @@ describe "User" do
   end
 
   context "when is used without options" do
-    it "should save 1000 record into users table" do
+    it "should save 10 record into users table" do
       10.times do
         @values << {
           :name   => "some_name",
@@ -28,7 +28,7 @@ describe "User" do
 
   context "when is used with options" do
     context "when the table name params doesn't exit" do
-      it "should save 1000 record into users table" do
+      it "should save 10 record into users table" do
         10.times do
           @values << {
             :name   => "some_name",
