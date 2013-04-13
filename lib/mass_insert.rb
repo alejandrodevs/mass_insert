@@ -8,6 +8,7 @@ module MassInsert
 
   module Adapters
     autoload :Adapter,            'mass_insert/adapters/adapter.rb'
+    autoload :AbstractQuery,      'mass_insert/adapters/abstract_query.rb'
     autoload :MysqlAdapter,       'mass_insert/adapters/mysql_adapter.rb'
     autoload :PostgresqlAdapter,  'mass_insert/adapters/postgresql_adapter.rb'
     autoload :Sqlite3Adapter,     'mass_insert/adapters/sqlite3_adapter.rb'

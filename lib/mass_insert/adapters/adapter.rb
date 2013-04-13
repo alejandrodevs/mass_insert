@@ -4,6 +4,7 @@ module MassInsert
     # be executed. The methods here provides a functionality that be required
     # in all the adapters.
     class Adapter
+      include AbstractQuery
       include Helpers::Timestamp
       include Helpers::Sanitizer
 
