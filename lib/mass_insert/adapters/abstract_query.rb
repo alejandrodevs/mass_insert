@@ -17,7 +17,7 @@ module MassInsert
       # Returns the string with all the row values that will be included
       # in the sql string.
       def string_values
-        "VALUES (#{string_rows_values})"
+        "VALUES (#{string_rows_values});"
       end
 
       # Gives the correct format to the values string to all rows. This
@@ -29,7 +29,6 @@ module MassInsert
 
       def string_single_row_values row
         # Prepare the single row to be included in the sql string.
-        # Sanitizes keys and values or includes others.
         row.merge!(timestamp_values) if timestamp?
 
         # Generates the values to this row that will be included according
@@ -44,7 +43,7 @@ module MassInsert
 
         case column_type(column)
         when :string, :text, :date, :datetime, :time, :timestamp
-          column_value ? "'#{column_value}'" : "''"
+          "'#{column_value}'"
         when :integer
           column_value.to_i.to_s
         when :decimal, :float

@@ -6,15 +6,12 @@ describe "User" do
   before :each do
     @values  = []
     @options = {}
-  end
-
-  after :each do
     User.delete_all
   end
 
   context "when is used without options" do
     it "should save 10 record into users table" do
-      10.times do
+      500.times do
         @values << {
           :name   => "some_name",
           :email  => "some_email",
@@ -22,7 +19,7 @@ describe "User" do
         }
       end
       User.mass_insert(@values, @options)
-      User.count.should eq(10)
+      User.count.should eq(500)
     end
   end
 
