@@ -3,11 +3,10 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+
+# ======================================================================
+# Adapters supported
+# ======================================================================
 
 mysql2:
   adapter: mysql2
@@ -18,9 +17,30 @@ mysql2:
   timeout: 5000
   encoding: utf8
 
+postgresql:
+  adapter: postgresql
+  database: postgresql_test
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+
+sqlite3:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+
+development:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
 test:
   adapter: sqlite3
   database: db/test.sqlite3

@@ -27,7 +27,11 @@ module MassInsert
     # is instanced.
     def adapter_instance_class
       case adapter
-      when "mysql", "mysql2"
+      when "mysql2"
+        Adapters::MysqlAdapter.new(values, options)
+      when "postgresql"
+        Adapters::MysqlAdapter.new(values, options)
+      when "sqlite3"
         Adapters::MysqlAdapter.new(values, options)
       end
     end

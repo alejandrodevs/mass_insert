@@ -54,14 +54,6 @@ describe MassInsert::QueryBuilder do
         subject.respond_to?(:adapter_instance_class).should be_true
       end
 
-      context "when adapter is mysql" do
-        it "should return a Mysql Adapter instance" do
-          subject.stub(:adapter).and_return("mysql")
-          instance_class = MassInsert::Adapters::MysqlAdapter
-          subject.adapter_instance_class.class.should be(instance_class)
-        end
-      end
-
       context "when adapter is mysql2" do
         it "should return a Mysql2 Adapter instance" do
           subject.stub(:adapter).and_return("mysql2")
