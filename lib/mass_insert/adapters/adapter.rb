@@ -12,9 +12,6 @@ module MassInsert
       def initialize values, options
         @values  = values
         @options = options
-
-        # Prepare the columns according to the options.
-        sanitize_columns
       end
 
       # Returns the class like a constant that invokes the mass insert.
@@ -29,10 +26,16 @@ module MassInsert
         options[:table_name]
       end
 
-      # Returns an array with the column names to the database table like
-      # a symbols. This array can be modified according to the options.
+      # Returns an array with the column names in the database table like
+      # a symbols.
+      def table_columns
+        class_name.column_names.map(&:to_sym)
+      end
+
+      # Returns the array with the column names valid to be included into the
+      # query string according to the options.
       def column_names
-        @column_names ||= class_name.column_names.map(&:to_sym)
+        @column_names ||= sanitized_columns
       end
 
       # Returns a symbol with the column type in the database. The column or

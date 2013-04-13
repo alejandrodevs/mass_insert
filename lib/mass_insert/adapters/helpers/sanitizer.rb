@@ -5,15 +5,10 @@ module MassInsert
 
         # Update the array with the columns names according to the options
         # and prepare the columns array with only valid columns.
-        def sanitize_columns
-          sanitize_primary_key_column
-        end
-
-        # Prepare the primary key column according to primary key options.
-        def sanitize_primary_key_column
-          if primary_key_mode == :auto
-            column_names.delete(primary_key)
-          end
+        def sanitized_columns
+          columns = table_columns
+          columns.delete(primary_key) if primary_key_mode == :auto
+          columns
         end
 
       end

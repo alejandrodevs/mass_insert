@@ -61,7 +61,6 @@ describe MassInsert::Adapters::Adapter do
             :primary_key_mode => :auto
           })
           column_names = [:name, :email, :age, :created_at, :updated_at]
-          subject.sanitize_columns
           subject.column_names.should eq(column_names)
         end
       end
@@ -74,7 +73,6 @@ describe MassInsert::Adapters::Adapter do
             :primary_key_mode => :manual
           })
           column_names = [:id, :name, :email, :age, :created_at, :updated_at]
-          subject.sanitize_columns
           subject.column_names.should eq(column_names)
         end
       end

@@ -13,7 +13,7 @@ mysql2:
   adapter: mysql2
   database: mysql2_test
   user: root
-  password: D3s4rr0ll0$.
+  password: D3s4rr0ll0
   pool: 5
   timeout: 5000
   encoding: utf8

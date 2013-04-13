@@ -18,7 +18,7 @@ describe MassInsert::Adapters::Helpers::Timestamp do
 
     context "when not respond to timestamp columns" do
       it "should return false" do
-        subject.stub(:column_names).and_return(["created_at"])
+        subject.stub(:column_names).and_return([:created_at])
         subject.timestamp?.should be_false
       end
     end
