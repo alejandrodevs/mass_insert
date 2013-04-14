@@ -11,9 +11,19 @@ describe MassInsert::QueryExecution do
 
   describe "instance methods" do
     describe "#initialize" do
-      it "should initialize the query attribute" do
-        execution = MassInsert::QueryExecution.new("query_string")
-        execution.query.should eq("query_string")
+      context "when params passed is a string" do
+        it "query_container should be an array with the param" do
+          execution = MassInsert::QueryExecution.new("option")
+          execution.query_container.should eq(["option"])
+        end
+      end
+
+      context "when params passed is an array" do
+        it "query_container should be the array passed by param" do
+          params = ["option_one", "option_two"]
+          execution = MassInsert::QueryExecution.new(params)
+          execution.query_container.should eq(params)
+        end
       end
     end
 
@@ -22,10 +32,21 @@ describe MassInsert::QueryExecution do
         subject.respond_to?(:execute).should be_true
       end
 
-      it "should execute the query string" do
-        ActiveRecord::Base.connection.stub(:execute)
-        ActiveRecord::Base.connection.should_receive(:execute)
-        subject.execute
+      context "when query container has one query" do
+        it "should call ActiveRecord execute one time" do
+          ActiveRecord::Base.connection.stub(:execute)
+          ActiveRecord::Base.connection.should_receive(:execute).exactly(1).times
+          subject.execute
+        end
+      end
+
+      context "when query container is an array with two queries" do
+        it "should call ActiveRecord execute one time" do
+          subject.query_container = ["query1", "query2"]
+          ActiveRecord::Base.connection.stub(:execute)
+          ActiveRecord::Base.connection.should_receive(:execute).exactly(2).times
+          subject.execute
+        end
       end
     end
   end

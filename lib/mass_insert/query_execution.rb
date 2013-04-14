@@ -4,20 +4,25 @@ module MassInsert
   # to execute the query string directly.
   class QueryExecution
 
-    attr_accessor :query
+    attr_accessor :query_container
 
     # The query string is usually passed by params when the ProcessControl
-    # class instances this class.
-    def initialize query
-      @query = query
+    # class instances this class. The query can be a string or an array,
+    # therefore to be sure that the query_container attribute is an array
+    # the param passed to this class is converted to array. The query
+    # container attribute will be iterated in execute method in this class
+    # to execute each query that it contains.
+    def initialize query_container
+      @query_container = Array(query_container)
     end
 
-    # Saves the query string into database. Use the helper that ActiveRecord
-    # provides. The query string that is saved into the database is passed
-    # by params when is initialized the class. The sql string is stored in
-    # the query instance variable.
+    # Saves query container into database. Use the helper that ActiveRecord
+    # provides. Query container attribute is iterated to save each query
+    # that it contains.
     def execute
-      ActiveRecord::Base.connection.execute(@query)
+      @query_container.each do |query|
+        ActiveRecord::Base.connection.execute(query)
+      end
     end
 
   end
