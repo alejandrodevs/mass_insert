@@ -55,9 +55,33 @@ describe MassInsert::QueryBuilder do
       end
 
       context "when adapter is mysql2" do
-        it "should return a Mysql2 Adapter instance" do
+        it "should return a Mysql2Adapter instance" do
           subject.stub(:adapter).and_return("mysql2")
-          instance_class = MassInsert::Adapters::MysqlAdapter
+          instance_class = MassInsert::Adapters::Mysql2Adapter
+          subject.adapter_instance_class.class.should be(instance_class)
+        end
+      end
+
+      context "when adapter is postgresql" do
+        it "should return a PostgreSQLAdapter instance" do
+          subject.stub(:adapter).and_return("postgresql")
+          instance_class = MassInsert::Adapters::PostgreSQLAdapter
+          subject.adapter_instance_class.class.should be(instance_class)
+        end
+      end
+
+      context "when adapter is sqlite3" do
+        it "should return a SQLite3Adapter instance" do
+          subject.stub(:adapter).and_return("sqlite3")
+          instance_class = MassInsert::Adapters::SQLite3Adapter
+          subject.adapter_instance_class.class.should be(instance_class)
+        end
+      end
+
+      context "when adapter is sqlserver" do
+        it "should return a SQLServerAdapter instance" do
+          subject.stub(:adapter).and_return("sqlserver")
+          instance_class = MassInsert::Adapters::SQLServerAdapter
           subject.adapter_instance_class.class.should be(instance_class)
         end
       end

@@ -1,10 +1,10 @@
 module MassInsert
   module Adapters
-    class PostgresqlAdapter < Adapter
+    class PostgreSQLAdapter < Adapter
 
       # This functions calls the necessary functions to create a complete
-      # mysql query to multiple insertion. The methods are in the Abstract
-      # Sql String module. If some method is too specific to this database
+      # postgresql query to multiple insertion. The methods are in the
+      # AbstractQuery module. If some method is too specific to this database
       # adapter you can overwrite it.
       def execute
         begin_string << string_columns << string_values

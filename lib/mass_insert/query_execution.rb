@@ -16,9 +16,9 @@ module MassInsert
       @query_container = Array(query_container)
     end
 
-    # Saves query container into database. Use the helper that ActiveRecord
-    # provides. Query container attribute is iterated to save each query
-    # that it contains.
+    # Saves queries contained in query_container attributes into database.
+    # Use the helper that ActiveRecord provides. Query container attribute
+    # is iterated to save each query that it contains.
     def execute
       @query_container.each do |query|
         ActiveRecord::Base.connection.execute(query)

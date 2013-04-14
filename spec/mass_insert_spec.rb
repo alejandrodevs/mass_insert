@@ -26,12 +26,28 @@ describe MassInsert do
     MassInsert::Adapters.should be
   end
 
-  it 'should define AdapterHelper class' do
+  it 'should define Adapter class' do
     MassInsert::Adapters::Adapter.should be
   end
 
+  it 'should define AbstractQuery class' do
+    MassInsert::Adapters::AbstractQuery.should be
+  end
+
   it 'should define MysqlAdapter class' do
-    MassInsert::Adapters::MysqlAdapter.should be
+    MassInsert::Adapters::Mysql2Adapter.should be
+  end
+
+  it 'should define PostgreSQLAdapter class' do
+    MassInsert::Adapters::PostgreSQLAdapter.should be
+  end
+
+  it 'should define SQLite3Adapter class' do
+    MassInsert::Adapters::SQLite3Adapter.should be
+  end
+
+  it 'should define SQLServerAdapter class' do
+    MassInsert::Adapters::SQLServerAdapter.should be
   end
 
   it 'should define Helpers module' do

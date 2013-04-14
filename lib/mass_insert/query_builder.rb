@@ -28,11 +28,13 @@ module MassInsert
     def adapter_instance_class
       case adapter
       when "mysql2"
-        Adapters::MysqlAdapter.new(values, options)
+        Adapters::Mysql2Adapter.new(values, options)
       when "postgresql"
-        Adapters::PostgresqlAdapter.new(values, options)
+        Adapters::PostgreSQLAdapter.new(values, options)
       when "sqlite3"
-        Adapters::Sqlite3Adapter.new(values, options)
+        Adapters::SQLite3Adapter.new(values, options)
+      when "sqlserver"
+        Adapters::SQLServerAdapter.new(values, options)
       end
     end
 

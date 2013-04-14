@@ -5,9 +5,9 @@ module MassInsert
       MAX_VALUES_PER_INSERTION = 500
 
       # This functions calls the necessary functions to create a complete
-      # mysql query to multiple insertion. The methods are in the Abstract
-      # Sql String module. If some method is too specific to this database
-      # adapter you can overwrite it.
+      # sqlserver query to multiple insertion. The methods are in the Abstract
+      # Query module. If some method is too specific to this database adapter
+      # you can overwrite it.
       def execute
         @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|
           @values = slice

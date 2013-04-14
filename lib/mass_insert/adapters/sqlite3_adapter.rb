@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class Sqlite3Adapter < Adapter
+    class SQLite3Adapter < Adapter
 
       MAX_VALUES_PER_INSERTION = 500
 
@@ -43,8 +43,8 @@ module MassInsert
       end
 
       # This functions calls the necessary functions to create a complete
-      # mysql query to multiple insertion. The methods are in the Abstract
-      # Sql String module. If some method is too specific to this database
+      # sqlite3 query to multiple insertion. The methods are in the Abstract
+      # Query module. If some method is too specific to this database
       # adapter you can overwrite it.
       def execute
         @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|

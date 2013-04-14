@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class MysqlAdapter < Adapter
+    class Mysql2Adapter < Adapter
 
       # This functions calls the necessary functions to create a complete
       # mysql query to multiple insertion. The methods are in the Abstract
