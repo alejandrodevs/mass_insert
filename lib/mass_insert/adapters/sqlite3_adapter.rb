@@ -2,6 +2,8 @@ module MassInsert
   module Adapters
     class Sqlite3Adapter < Adapter
 
+      MAX_VALUES_PER_INSERTION = 500
+
       attr_accessor :counter_id
 
       # This method is overwrite because the query string to the Sqlite3
@@ -45,7 +47,10 @@ module MassInsert
       # Sql String module. If some method is too specific to this database
       # adapter you can overwrite it.
       def execute
-        begin_string << string_columns << string_values
+        @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|
+          @values = slice
+          begin_string << string_columns << string_values
+        end
       end
 
     end
