@@ -4,7 +4,7 @@ module MassInsert
 
       MAX_VALUES_PER_INSERTION = 500
 
-      attr_accessor :counter_id
+      attr_accessor :counter_primary_key
 
       # This method is overwrite because the query string to the Sqlite3
       # adapter is different. Then the method in the AbstractQuery module
@@ -29,8 +29,8 @@ module MassInsert
 
       def string_single_row_values row
         # Prepare the single row to be included in the sql string.
-        @counter_id = counter_id + 1
-        row.merge!(primary_key => counter_id)
+        @counter_primary_key = counter_primary_key + 1
+        row.merge!(primary_key => counter_primary_key)
         row.merge!(timestamp_values) if timestamp?
 
         # Generates the values to this row that will be included according
@@ -38,8 +38,8 @@ module MassInsert
         column_names.map{ |col| string_single_value(row, col) }.join(", ")
       end
 
-      def counter_id
-        @counter_id ||= class_name.last.id rescue 0
+      def counter_primary_key
+        @counter_primary_key ||= class_name.last.try(primary_key).to_i
       end
 
       # This functions calls the necessary functions to create a complete
