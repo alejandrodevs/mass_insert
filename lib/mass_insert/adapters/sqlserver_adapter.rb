@@ -2,7 +2,7 @@ module MassInsert
   module Adapters
     class SQLServerAdapter < Adapter
 
-      MAX_VALUES_PER_INSERTION = 500
+      MAX_VALUES_PER_INSERTION = 1000
 
       # This functions calls the necessary functions to create a complete
       # sqlserver query to multiple insertion. The methods are in the Abstract
