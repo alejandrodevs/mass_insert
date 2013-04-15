@@ -39,18 +39,7 @@ module MassInsert
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
       def string_single_value row, column
-        column_value = row[column.to_sym]
-
-        case column_type(column)
-        when :string, :text, :date, :datetime, :time, :timestamp
-          "'#{column_value}'"
-        when :integer
-          column_value.to_i.to_s
-        when :decimal, :float
-          column_value.to_f.to_s
-        when :boolean, :binary
-          column_value ? 1 : 0
-        end
+        ColumnValue.new(row, column, options).build
       end
 
     end

@@ -34,6 +34,10 @@ describe MassInsert do
     MassInsert::Adapters::AbstractQuery.should be
   end
 
+	it 'should define ColumnValue class' do
+    MassInsert::Adapters::ColumnValue.should be
+  end
+
   it 'should define MysqlAdapter class' do
     MassInsert::Adapters::Mysql2Adapter.should be
   end

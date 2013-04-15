@@ -78,17 +78,6 @@ describe MassInsert::Adapters::Adapter do
       end
     end
 
-    describe "#column_type" do
-      it "should respond to column_type method" do
-        subject.respond_to?(:column_type).should be_true
-      end
-
-      it "should return the column type value" do
-        subject.options.merge!(:class_name => User)
-        subject.column_type(:name).should eq(:string)
-      end
-    end
-
     describe "#primary_key" do
       it "should respond to primary_key method" do
         subject.respond_to?(:primary_key).should be_true

@@ -39,12 +39,6 @@ module MassInsert
         @column_names ||= sanitized_columns
       end
 
-      # Returns a symbol with the column type in the database. The column or
-      # attribute should belongs to the class that invokes the mass insert.
-      def column_type column
-        class_name.columns_hash[column.to_s].type
-      end
-
       # Returns the primary_key column that was configured by the user.
       # Default primary_key it's id
       def primary_key
