@@ -48,22 +48,22 @@ describe MassInsert::Adapters::Adapter do
       end
     end
 
-		describe "#table_columns" do
+    describe "#table_columns" do
       it "should respond to table_columns method" do
         subject.respond_to?(:table_columns).should be_true
       end
 
       it "should returns the table_columns in ActiveRecord class" do
-				class Test
+        class Test
           def self.column_names
             ["id", "name", "email"]
-					end
-				end
+          end
+        end
         subject.options = {:class_name => Test}
-				columns = [:id, :name, :email]
+        columns = [:id, :name, :email]
         subject.table_columns.should eq(columns)
       end
-		end
+    end
 
     describe "#column_names" do
       it "should respond to column_names method" do
@@ -72,11 +72,11 @@ describe MassInsert::Adapters::Adapter do
 
       context "when primary_key is auto" do
         it "should return an array without primary key column" do
-					class Test
+          class Test
             def self.column_names
               ["id", "name", "email"]
-						end
-					end
+            end
+          end
           subject.options.merge!({
             :class_name       => Test,
             :primary_key      => :id,
@@ -89,11 +89,11 @@ describe MassInsert::Adapters::Adapter do
 
       context "when primary key is manual" do
         it "should return an array with primary key column" do
-					class Test
+          class Test
             def self.column_names
               ["id", "name", "email"]
-						end
-					end
+            end
+          end
           subject.options.merge!({
             :class_name       => Test,
             :primary_key      => :id,

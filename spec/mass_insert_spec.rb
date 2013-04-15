@@ -34,7 +34,7 @@ describe MassInsert do
     MassInsert::Adapters::AbstractQuery.should be
   end
 
-	it 'should define ColumnValue class' do
+  it 'should define ColumnValue class' do
     MassInsert::Adapters::ColumnValue.should be
   end
 

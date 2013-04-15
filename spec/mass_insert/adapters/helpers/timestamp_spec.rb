@@ -11,7 +11,7 @@ describe MassInsert::Adapters::Helpers::Timestamp do
   describe "#timestamp?" do
     it "should respond_to timestamp? method" do
       subject.respond_to?(:timestamp?).should be_true
-		end
+    end
 
     context "when respond to timestamp columns" do
       it "should return true" do
@@ -31,7 +31,7 @@ describe MassInsert::Adapters::Helpers::Timestamp do
   describe "#timestamp_values" do
     it "should respond_to timestamp_values method" do
       subject.respond_to?(:timestamp_values).should be_true
-		end
+    end
 
     it "should return the timestamp values in a hash" do
       timestamp_values = {
