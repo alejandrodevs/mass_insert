@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(:version => 20130412154541) do
     t.string   "name"
     t.string   "email"
     t.integer  "age"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.decimal  "money",      :precision => 10, :scale => 4
+    t.boolean  "active"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
 end

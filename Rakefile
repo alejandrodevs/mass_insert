@@ -7,36 +7,37 @@ namespace :spec do
       bundle install
       cd spec/active_record_dummy/
       bundle install
-      rake db:create db:migrate RAILS_ENV=mysql2
-      rake db:create db:migrate RAILS_ENV=postgresql
+      rake db:drop db:create db:migrate RAILS_ENV=mysql2
+      rake db:drop db:create db:migrate RAILS_ENV=postgresql
+      rake db:drop db:create db:migrate RAILS_ENV=sqlite3
     ")
   end
-  
-  desc "Runs all the specs"
+
+	desc "Runs all unit tests"
   task :all do
-    system("echo '\e[00;32m\033[1mRunning all the unit tests...\e[00m'")
-    system("bundle exec rspec spec/mass_insert spec/mass_insert_spec.rb")
+    system("echo '\e[00;32m\033[1mRunning all unit tests...\e[00m'")
+    system("bundle exec rspec spec/mass_insert_spec.rb spec/mass_insert")
   end
   
   desc "Runs all the mysql2 specs"
   task :mysql2 do
     ENV["RAILS_ENV"] = "mysql2"
     system("echo '\e[00;32m\033[1mRunning the Mysql2 adapter tests...\e[00m'")
-    system("bundle exec rspec spec/active_record_models")
+    system("bundle exec rspec")
   end
 
   desc "Runs all the Postgresql specs"
   task :postgresql do
     ENV["RAILS_ENV"] = "postgresql"
     system("echo '\e[00;32m\033[1mRunning the Postgresql adapter tests...\e[00m'")
-    system("bundle exec rspec spec/active_record_models")
+		system("bundle exec rspec")
   end
 
   desc "Runs all the Sqlite3 specs"
   task :sqlite3 do
     ENV["RAILS_ENV"] = "sqlite3"
     system("echo '\e[00;32m\033[1mRunning the Sqlite3 adapter tests...\e[00m'")
-    system("bundle exec rspec spec/active_record_models")
+		system("bundle exec rspec")
   end
 end
 

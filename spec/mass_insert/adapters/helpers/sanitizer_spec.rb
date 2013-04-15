@@ -9,7 +9,7 @@ describe MassInsert::Adapters::Helpers::Sanitizer do
 
   subject{ @adapter }
 
-  describe "sanitized_columns" do
+  describe "#sanitized_columns" do
     before :each do
       options = {
         :primary_key      => :id,

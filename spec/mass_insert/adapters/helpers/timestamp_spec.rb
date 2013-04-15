@@ -8,7 +8,11 @@ describe MassInsert::Adapters::Helpers::Timestamp do
 
   subject{ @adapter }
 
-  describe "timestamp?" do
+  describe "#timestamp?" do
+    it "should respond_to timestamp? method" do
+      subject.respond_to?(:timestamp?).should be_true
+		end
+
     context "when respond to timestamp columns" do
       it "should return true" do
         subject.stub(:column_names).and_return([:updated_at, :created_at])
@@ -24,7 +28,11 @@ describe MassInsert::Adapters::Helpers::Timestamp do
     end
   end
 
-  describe "timestamp_values" do
+  describe "#timestamp_values" do
+    it "should respond_to timestamp_values method" do
+      subject.respond_to?(:timestamp_values).should be_true
+		end
+
     it "should return the timestamp values in a hash" do
       timestamp_values = {
         :created_at => Time.now.to_s,

@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.integer :age
+      t.decimal :money, :precision => 10, :scale => 4
+      t.boolean :active
 
       t.timestamps
     end

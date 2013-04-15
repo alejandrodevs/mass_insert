@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class ColumnValue < Adapter
+    class ColumnValue
 
       attr_accessor :row, :column, :options
 
@@ -8,6 +8,10 @@ module MassInsert
         @row     = row
         @column  = column
         @options = options
+      end
+
+      def class_name
+        options[:class_name]
       end
 
       # Returns a symbol with the column type in the database. The column or
@@ -20,6 +24,10 @@ module MassInsert
         row[column.to_sym]
       end
 
+      def adapter
+        ActiveRecord::Base.connection.instance_values["config"][:adapter]
+      end
+
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
       def build
@@ -30,8 +38,15 @@ module MassInsert
           column_value.to_i.to_s
         when :decimal, :float
           column_value.to_f.to_s
-        when :boolean, :binary
+        when :binary
           column_value ? 1 : 0
+        when :boolean
+          case adapter
+          when "mysql2", "postgresql", "sqlserver"
+            column_value ? true : false
+          when "sqlite3"
+            column_value ? 0 : 1
+          end
         end
       end
 

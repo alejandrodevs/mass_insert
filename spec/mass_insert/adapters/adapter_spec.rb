@@ -48,6 +48,23 @@ describe MassInsert::Adapters::Adapter do
       end
     end
 
+		describe "#table_columns" do
+      it "should respond to table_columns method" do
+        subject.respond_to?(:table_columns).should be_true
+      end
+
+      it "should returns the table_columns in ActiveRecord class" do
+				class Test
+          def self.column_names
+            ["id", "name", "email"]
+					end
+				end
+        subject.options = {:class_name => Test}
+				columns = [:id, :name, :email]
+        subject.table_columns.should eq(columns)
+      end
+		end
+
     describe "#column_names" do
       it "should respond to column_names method" do
         subject.respond_to?(:column_names).should be_true
@@ -55,24 +72,34 @@ describe MassInsert::Adapters::Adapter do
 
       context "when primary_key is auto" do
         it "should return an array without primary key column" do
+					class Test
+            def self.column_names
+              ["id", "name", "email"]
+						end
+					end
           subject.options.merge!({
-            :class_name       => User,
+            :class_name       => Test,
             :primary_key      => :id,
             :primary_key_mode => :auto
           })
-          column_names = [:name, :email, :age, :created_at, :updated_at]
+          column_names = [:name, :email]
           subject.column_names.should eq(column_names)
         end
       end
 
       context "when primary key is manual" do
         it "should return an array with primary key column" do
+					class Test
+            def self.column_names
+              ["id", "name", "email"]
+						end
+					end
           subject.options.merge!({
-            :class_name       => User,
+            :class_name       => Test,
             :primary_key      => :id,
             :primary_key_mode => :manual
           })
-          column_names = [:id, :name, :email, :age, :created_at, :updated_at]
+          column_names = [:id, :name, :email]
           subject.column_names.should eq(column_names)
         end
       end
