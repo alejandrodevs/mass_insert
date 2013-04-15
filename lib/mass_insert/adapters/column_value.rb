@@ -2,7 +2,7 @@ module MassInsert
   module Adapters
     class ColumnValue < Adapter
 
-      attr_accessor :row, :column, :options, :column_value
+      attr_accessor :row, :column, :options
 
       def initialize row, column, options
         @row     = row
@@ -16,8 +16,8 @@ module MassInsert
         class_name.columns_hash[@column.to_s].type
       end
 
-      def row_value
-        @column_value ||= row[column.to_sym]
+      def column_value
+        row[column.to_sym]
       end
 
       # Returns a single column string value with the correct format and
@@ -25,13 +25,13 @@ module MassInsert
       def build
         case column_type
         when :string, :text, :date, :datetime, :time, :timestamp
-          "'#{row_value}'"
+          "'#{column_value}'"
         when :integer
-          row_value.to_i.to_s
+          column_value.to_i.to_s
         when :decimal, :float
-          row_value.to_f.to_s
+          column_value.to_f.to_s
         when :boolean, :binary
-          row_value ? 1 : 0
+          column_value ? 1 : 0
         end
       end
 
