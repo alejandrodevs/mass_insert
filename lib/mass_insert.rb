@@ -18,6 +18,7 @@ module MassInsert
     module Helpers
       autoload :Timestamp,  'mass_insert/adapters/helpers/timestamp.rb'
       autoload :Sanitizer,  'mass_insert/adapters/helpers/sanitizer.rb'
+      autoload :PrimaryKey, 'mass_insert/adapters/helpers/primary_key.rb'
     end
   end
 end

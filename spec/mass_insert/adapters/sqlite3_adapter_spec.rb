@@ -72,7 +72,8 @@ describe MassInsert::Adapters::SQLite3Adapter do
       it "should returns the correct string" do
         subject.stub(:string_single_value).and_return("single_value")
         subject.stub(:column_names).and_return([:name, :email])
-        subject.string_single_row_values({}).should eq("single_value, single_value")
+        expected_string = "single_value, single_value"
+        subject.string_single_row_values({}).should eq(expected_string)
       end
 
       it "should contains the primary_key_values" do
@@ -102,12 +103,6 @@ describe MassInsert::Adapters::SQLite3Adapter do
           subject.string_single_row_values(row)
           row.should eq(@primary_key_values)
         end
-      end
-    end
-
-    describe "#counter_primary_key" do
-      it "should respond to counter_primary_key method" do
-        subject.respond_to?(:counter_primary_key).should be_true
       end
     end
 
