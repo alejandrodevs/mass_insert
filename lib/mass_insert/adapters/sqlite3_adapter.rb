@@ -6,11 +6,18 @@ module MassInsert
 
       attr_accessor :counter_primary_key
 
+      # This method is overwrite and when is called by columns_name method
+      # ignore the method that is in the Sanitizer module. It's over write
+      # because the Sqlite3 adapter require other rules in its columns.
+      def sanitized_columns
+        table_columns
+      end
+
       # This method is overwrite because the query string to the Sqlite3
       # adapter is different. Then the method in the AbstractQuery module
       # is ignored.
       def string_values
-        "SELECT #{string_rows_values}"
+        "SELECT #{string_rows_values};"
       end
 
       # This method is overwrite because the query string to complete the
@@ -18,13 +25,6 @@ module MassInsert
       # 'UNION SELECT' instead of '), (' in other sql adapters.
       def string_rows_values
         values.map{ |row| string_single_row_values(row) }.join(" UNION SELECT ")
-      end
-
-      # This method is overwrite and when is called by columns_name method
-      # ignore the method that is in the Sanitizer module. It's over write
-      # because the Sqlite3 adapter require other rules in its columns.
-      def sanitized_columns
-        table_columns
       end
 
       def string_single_row_values row
@@ -64,7 +64,7 @@ module MassInsert
       def execute
         @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|
           @values = slice
-          begin_string << string_columns << string_values
+          "#{begin_string}#{string_columns}#{string_values}"
         end
       end
 

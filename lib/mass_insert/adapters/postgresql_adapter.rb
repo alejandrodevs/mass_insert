@@ -7,7 +7,7 @@ module MassInsert
       # AbstractQuery module. If some method is too specific to this database
       # adapter you can overwrite it.
       def execute
-        begin_string << string_columns << string_values
+        "#{begin_string}#{string_columns}#{string_values}"
       end
 
     end

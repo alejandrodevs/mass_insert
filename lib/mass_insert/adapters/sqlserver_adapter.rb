@@ -14,7 +14,7 @@ module MassInsert
       def execute
         @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|
           @values = slice
-          begin_string << string_columns << string_values
+          "#{begin_string}#{string_columns}#{string_values}"
         end
       end
 

@@ -1,5 +1,6 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
+require "./spec/dummy_models/test"
 
 describe MassInsert::Adapters::Adapter do
   before :each do
@@ -32,8 +33,8 @@ describe MassInsert::Adapters::Adapter do
       end
 
       it "should returns the class_name in options" do
-        subject.options = {:class_name => "User"}
-        subject.class_name.should eq("User")
+        subject.options = {:class_name => Test}
+        subject.class_name.should eq(Test)
       end
     end
 
@@ -54,11 +55,6 @@ describe MassInsert::Adapters::Adapter do
       end
 
       it "should returns the table_columns in ActiveRecord class" do
-        class Test
-          def self.column_names
-            ["id", "name", "email"]
-          end
-        end
         subject.options = {:class_name => Test}
         columns = [:id, :name, :email]
         subject.table_columns.should eq(columns)
@@ -72,11 +68,6 @@ describe MassInsert::Adapters::Adapter do
 
       context "when primary_key is auto" do
         it "should return an array without primary key column" do
-          class Test
-            def self.column_names
-              ["id", "name", "email"]
-            end
-          end
           subject.options.merge!({
             :class_name       => Test,
             :primary_key      => :id,
@@ -89,11 +80,6 @@ describe MassInsert::Adapters::Adapter do
 
       context "when primary key is manual" do
         it "should return an array with primary key column" do
-          class Test
-            def self.column_names
-              ["id", "name", "email"]
-            end
-          end
           subject.options.merge!({
             :class_name       => Test,
             :primary_key      => :id,

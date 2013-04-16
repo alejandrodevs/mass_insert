@@ -11,17 +11,15 @@ describe MassInsert::QueryBuilder do
   describe "instance methods" do
     describe "#initialize" do
       before :each do
-        @values  = [{:name => "name"}]
-        @options = {:class_name => User}
-        @builder = MassInsert::QueryBuilder.new(@values, @options)
+        @builder = MassInsert::QueryBuilder.new("values", "options")
       end
 
       it "should initialize the values attribute" do
-        @builder.values.should eq(@values)
+        @builder.values.should eq("values")
       end
 
       it "should initialize the options attribute" do
-        @builder.options.should eq(@options)
+        @builder.options.should eq("options")
       end
     end
 
