@@ -66,36 +66,7 @@ describe MassInsert::Adapters::ColumnValue do
 
   describe "#build" do
     context "when is a string column" do
-      context "when is an empty attribute" do
-        it "should return ''" do
-          subject.stub(:column_type).and_return(:string)
-          subject.stub(:column_value).and_return(nil)
-          subject.build.should eq("''")
-        end
-      end
 
-      context "when is not an empty attribute" do
-        it "should return 'name'" do
-          subject.build.should eq("'name'")
-        end
-      end
-    end
-
-    context "when is a integer column" do
-      context "when is an empty attribute" do
-        it "should return an empty string" do
-          subject.stub(:column_type).and_return(:integer)
-          subject.stub(:column_value).and_return(nil)
-          subject.build.should eq("0")
-        end
-      end
-
-      context "when is not an empty attribute" do
-        it "should return 'name'" do
-          subject.column = :age
-          subject.build.should eq("10")
-        end
-      end
     end
 
     context "when is a decimal column" do

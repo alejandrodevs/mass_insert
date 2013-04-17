@@ -34,24 +34,37 @@ module MassInsert
         ActiveRecord::Base.connection.instance_values["config"][:adapter]
       end
 
+      # Returns the default value string to be included in query string.
+      # This default value is added to the query if the row hash does not
+      # contains the database column value.
+      def default_value
+        default_db_value ? default_db_value.to_s : "null"
+      end
+
+      # Return the database default value using methods that ActiveRecord
+      # provides to see database columns settings.
+      def default_db_value
+        class_name.columns_hash[@column.to_s].default
+      end
+
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
       def build
         case column_type
         when :string, :text, :date, :datetime, :time, :timestamp
-          column_value ? "'#{column_value}'" : "null"
+          column_value ? "'#{column_value}'" : default_value
         when :integer
-          column_value ? column_value.to_i.to_s : "null"
+          column_value ? column_value.to_i.to_s : default_value
         when :decimal, :float
-          column_value ? column_value.to_f.to_s : "null"
+          column_value ? column_value.to_f.to_s : default_value
         when :binary
-          column_value ? 1 : 0
+          column_value ? "1" : default_value
         when :boolean
           case adapter
           when "mysql2", "postgresql", "sqlserver"
-            column_value ? "true" : "false"
+            column_value ? "true" : default_value
           when "sqlite3"
-            column_value ? "0" : "1"
+            column_value ? "1" : default_value
           end
         end
       end
