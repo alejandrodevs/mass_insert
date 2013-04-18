@@ -49,22 +49,29 @@ module MassInsert
 
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
+      #
+      # THAT FUNCTION NEEDS TO BE REFACTORED.
       def build
         case column_type
         when :string, :text, :date, :datetime, :time, :timestamp
-          column_value ? "'#{column_value}'" : default_value
+          column_value.nil? ? default_value : "'#{column_value}'"
         when :integer
-          column_value ? column_value.to_i.to_s : default_value
+          column_value.nil? ? default_value : column_value.to_i.to_s
         when :decimal, :float
-          column_value ? column_value.to_f.to_s : default_value
+          column_value.nil? ? default_value : column_value.to_f.to_s
         when :binary
-          column_value ? "1" : default_value
+          case adapter
+          when "mysql2", "sqlite3", "sqlserver"
+            column_value.nil? ? default_value : "1"
+          when "postgresql"
+            column_value.nil? ? default_value : "'\x74'"
+          end
         when :boolean
           case adapter
           when "mysql2", "postgresql", "sqlserver"
-            column_value ? "true" : default_value
+            column_value.nil? ? default_value : "true"
           when "sqlite3"
-            column_value ? "1" : default_value
+            column_value.nil? ? default_value : "1"
           end
         end
       end

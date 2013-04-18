@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :age
       t.decimal :money, :precision => 10, :scale => 4
       t.boolean :active
+      t.binary :checked
 
       t.timestamps
     end

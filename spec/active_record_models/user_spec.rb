@@ -6,9 +6,11 @@ describe "User" do
   before :each do
     @values, @options  = [], {}
     @basic_values = {
-      :name   => "some_name",
-      :email  => "some_email",
-      :age    => 20
+      :name    => "some_name",
+      :email   => "some_email",
+      :age     => 20,
+      :active  => true,
+      :checked => true
     }
     User.delete_all
   end
