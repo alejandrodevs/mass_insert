@@ -7,7 +7,6 @@ module MassInsert
       include AbstractQuery
       include Helpers::Timestamp
       include Helpers::Sanitizer
-      include Helpers::PrimaryKey
 
       attr_accessor :values, :options, :column_names
 

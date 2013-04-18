@@ -65,8 +65,4 @@ describe MassInsert do
   it 'should define Sanitizer module' do
     MassInsert::Adapters::Helpers::Sanitizer.should be
   end
-
-  it 'should define PrimaryKey module' do
-    MassInsert::Adapters::Helpers::PrimaryKey.should be
-  end
 end
