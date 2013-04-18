@@ -49,30 +49,59 @@ module MassInsert
 
       # Returns a single column string value with the correct format and
       # according to the database configuration, column type and presence.
-      #
-      # THAT FUNCTION NEEDS TO BE REFACTORED.
       def build
-        case column_type
-        when :string, :text, :date, :datetime, :time, :timestamp
-          column_value.nil? ? default_value : "'#{column_value}'"
-        when :integer
-          column_value.nil? ? default_value : column_value.to_i.to_s
-        when :decimal, :float
-          column_value.nil? ? default_value : column_value.to_f.to_s
-        when :binary
-          case adapter
-          when "mysql2", "sqlite3", "sqlserver"
-            column_value.nil? ? default_value : "1"
-          when "postgresql"
-            column_value.nil? ? default_value : "'\x74'"
-          end
-        when :boolean
-          case adapter
-          when "mysql2", "postgresql", "sqlserver"
-            column_value.nil? ? default_value : "true"
-          when "sqlite3"
-            column_value.nil? ? default_value : "1"
-          end
+        self.send "column_value_#{column_type}".to_sym
+      end
+
+      # Returns the correct value when the column value is string, text,
+      # date, time, datetime, timestamp. There are alias method to the
+      # other column types that need a similar query value.
+      def column_value_string
+        column_value.nil? ? default_value : "'#{column_value}'"
+      end
+      alias :column_value_text      :column_value_string
+      alias :column_value_date      :column_value_string
+      alias :column_value_time      :column_value_string
+      alias :column_value_datetime  :column_value_string
+      alias :column_value_timestamp :column_value_string
+
+      # Returns the correct value to column value is integer. If the row
+      # hash does not include the value to this column return the default
+      # value according to database configuration.
+      def column_value_integer
+        column_value.nil? ? default_value : column_value.to_i.to_s
+      end
+
+      # Returns the correct value to column value is decimal. There is an
+      # alias method to float type. If the row hash does not include the
+      # value to this column return the default value according to database
+      # configuration.
+      def column_value_decimal
+        column_value.nil? ? default_value : column_value.to_f.to_s
+      end
+      alias :column_value_float :column_value_decimal
+
+      # Returns the correct value to column value is binary. If the row
+      # hash does not include the value to this column return the default
+      # value according to database configuration.
+      def column_value_binary
+        case adapter
+        when "mysql2", "sqlite3", "sqlserver"
+          column_value.nil? ? default_value : "1"
+        when "postgresql"
+          column_value.nil? ? default_value : "'\x74'"
+        end
+      end
+
+      # Returns the correct value to column value is boolean. If the row
+      # hash does not include the value to this column return the default
+      # value according to database configuration.
+      def column_value_boolean
+        case adapter
+        when "mysql2", "postgresql", "sqlserver"
+          column_value.nil? ? default_value : "true"
+        when "sqlite3"
+          column_value.nil? ? default_value : "1"
         end
       end
 
