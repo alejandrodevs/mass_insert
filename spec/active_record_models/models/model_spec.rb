@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe "User" do
+describe "Model" do
 
   before :each do
     @values, @options  = [], {}
@@ -22,10 +22,10 @@ describe "User" do
       User.count.should eq(10)
     end
 
-    it "should save if values cointains 1000 records" do
-      1000.times{ @values << @basic_values }
+    it "should save if values cointains 2000 records" do
+      2000.times{ @values << @basic_values }
       User.mass_insert(@values, @options)
-      User.count.should eq(1000)
+      User.count.should eq(2000)
     end
   end
 
