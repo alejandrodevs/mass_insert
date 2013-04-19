@@ -1,4 +1,4 @@
-# MassInsert
+# MassInsert [![Build Status](https://travis-ci.org/alejandrogutierrez/mass_insert.png?branch=master)](https://travis-ci.org/alejandrogutierrez/mass_insert)
 
 TODO: Write a gem description
 

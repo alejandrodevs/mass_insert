@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.description   = "Mass database insertion in Rails"
   spec.summary       = ""
   spec.homepage      = "https://github.com/alejandrogutierrez/mass_insert"
-  spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
