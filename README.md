@@ -1,6 +1,7 @@
 # MassInsert [![Build Status](https://travis-ci.org/alejandrogutierrez/mass_insert.png?branch=master)](https://travis-ci.org/alejandrogutierrez/mass_insert)
 
-TODO: Write a gem description
+This gem aims to provide an easy and faster way to do single database insertions in Rails.
+Support Mysql, PostgreSQL, SQLite3 and SQLServer adapters.
 
 ## Installation
 
@@ -10,13 +11,13 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+Or install it yourself with:
 
     $ gem install mass_insert
 
-## Usage
+## Basic Usage
 
 To use MassInsert gem you need to call mass_insert method from your ActiveRecord model and pass it an array with the values that you want to persist into the database.
 
@@ -43,6 +44,10 @@ The array of values:
 And call mass_insert method:
 
     User.mass_insert(values)
+
+## Attention
+
+Since this is a single database insertion your model validation will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
 
 ## Contributing
 
