@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alejandro Gutiérrez"]
   spec.email         = ["alejandrodevs@gmail.com"]
   spec.description   = "Mass database insertion in Rails"
-  spec.summary       = ""
+  spec.summary       = "This gem aims to provide an easy and faster way to do single database insertions in Rails."
   spec.homepage      = "https://github.com/alejandrogutierrez/mass_insert"
 
   spec.files         = `git ls-files`.split($/)

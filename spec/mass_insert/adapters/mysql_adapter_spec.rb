@@ -13,6 +13,16 @@ describe MassInsert::Adapters::Mysql2Adapter do
   end
 
   describe "instance methods" do
+    describe "#timestamp_format" do
+      it "should respond to timestamp_format method" do
+        subject.respond_to?(:timestamp_format).should be_true
+      end
+
+      it "should return the format string" do
+        subject.timestamp_format.should eq("%Y-%m-%d %H:%M:%S")
+      end
+    end
+
     describe "#execute" do
       it "should respond to execute method" do
         subject.respond_to?(:execute).should be_true

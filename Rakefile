@@ -42,4 +42,4 @@ namespace :spec do
 end
 
 
-task default: ['spec:all', 'spec:mysql2', 'spec:postgresql', 'spec:sqlite3']
+task default: ['spec:mysql2', 'spec:postgresql', 'spec:sqlite3', 'spec:all']
