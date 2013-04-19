@@ -5,7 +5,6 @@ describe "String" do
 
   before :each do
     @values, @options  = [{:name => "some name"}], {}
-    User.delete_all
   end
 
   context "when exist in values hashes" do

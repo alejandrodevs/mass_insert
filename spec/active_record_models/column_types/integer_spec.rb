@@ -5,7 +5,6 @@ describe "Integer" do
 
   before :each do
     @values, @options  = [{:age => 20}], {}
-    User.delete_all
   end
 
   context "when exist in values hashes" do

@@ -25,7 +25,7 @@ module MassInsert
       # Returns the value to this column in the row hash. The value is
       # finding by symbol or string key to be most flexible.
       def column_value
-        row[column.to_sym] || row[column.to_s]
+        row[column.to_sym]
       end
 
       # Returns the string with the database adapter name usually in the
@@ -64,6 +64,7 @@ module MassInsert
       alias :column_value_time      :column_value_string
       alias :column_value_datetime  :column_value_string
       alias :column_value_timestamp :column_value_string
+      alias :column_value_binary    :column_value_string
 
       # Returns the correct value to column value is integer. If the row
       # hash does not include the value to this column return the default
@@ -81,27 +82,23 @@ module MassInsert
       end
       alias :column_value_float :column_value_decimal
 
-      # Returns the correct value to column value is binary. If the row
-      # hash does not include the value to this column return the default
-      # value according to database configuration.
-      def column_value_binary
-        case adapter
-        when "mysql2", "sqlite3", "sqlserver"
-          column_value.nil? ? default_value : "1"
-        when "postgresql"
-          column_value.nil? ? default_value : "'\x74'"
-        end
-      end
-
       # Returns the correct value to column value is boolean. If the row
       # hash does not include the value to this column return the default
       # value according to database configuration.
       def column_value_boolean
         case adapter
         when "mysql2", "postgresql", "sqlserver"
-          column_value.nil? ? default_value : "true"
+          if column_value.nil?
+            default_value
+          else
+            column_value ? "true" : "false"
+          end
         when "sqlite3"
-          column_value.nil? ? default_value : "1"
+          if column_value.nil?
+            default_value
+          else
+            column_value ? "1" : "0"
+          end
         end
       end
 

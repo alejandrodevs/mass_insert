@@ -1,11 +1,12 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
+require "./spec/dummy_models/test"
 
 describe "Model" do
 
   before :each do
     @values, @options  = [], {}
-    @basic_values = {
+    @value_hash = {
       :name    => "some_name",
       :email   => "some_email",
       :age     => 20,
@@ -16,23 +17,23 @@ describe "Model" do
   end
 
   context "when is used without options" do
-    it "should save 10 record into users table" do
-      10.times{ @values << @basic_values }
+    it "should save 5 record into users table" do
+      5.times{ @values << @value_hash }
       User.mass_insert(@values, @options)
-      User.count.should eq(10)
+      User.count.should eq(5)
     end
 
-    it "should save if values cointains 2000 records" do
-      2000.times{ @values << @basic_values }
+    it "should save if values cointains 1500 records" do
+      1500.times{ @values << @value_hash }
       User.mass_insert(@values, @options)
-      User.count.should eq(2000)
+      User.count.should eq(1500)
     end
   end
 
   context "when is used with options" do
     context "when the table name doesn't exit" do
       it "should not save any record" do
-        10.times{ @values << @basic_values }
+        5.times{ @values << @value_hash }
         @options.merge!(:table_name => "countries")
         lambda{ User.mass_insert(@values, @options) }.should raise_exception
       end
@@ -40,9 +41,8 @@ describe "Model" do
 
     context "when the class name not inherit from ActiveRecord" do
       it "should not save any record" do
-        10.times{ @values << @basic_values }
-        InvalidClass = 1
-        @options.merge!(:class_name => InvalidClass)
+        5.times{ @values << @value_hash }
+        @options.merge!(:class_name => Test)
         lambda{ User.mass_insert(@values, @options) }.should raise_exception
       end
     end
