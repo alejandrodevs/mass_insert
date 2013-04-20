@@ -47,9 +47,9 @@ And call mass_insert method:
 
 ## Advantages
 
-* Faster
-Well, it's depending of the computer but these are some results...
-PostgreSQL - Saving 10,000 records in 0.84s
+Faster. It's depending of the computer but these are some results...
+
+* PostgreSQL - Saving 10,000 records in 0.84s
 
 ## Attention
 
