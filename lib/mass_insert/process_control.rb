@@ -1,4 +1,5 @@
 require 'benchmark'
+require 'ostruct'
 
 module MassInsert
   class ProcessControl
@@ -23,13 +24,24 @@ module MassInsert
     # This method does a QueryExecution instance where the query will be
     # execute. The query string is the instance variable @query.
     def execute_query
-      QueryExecution.new(@query).execute
+      QueryExecution.new(@query).execute if @query
     end
 
     # Returns the correct query string  according to database adapter
     # previosly configured usually in database.yml in Rails project.
     def build_query
       @query = QueryBuilder.new(values, options).build
+    end
+
+    # Provides an OpenStruc instance to see the process results. This
+    # method is usually called from mass_insert_results in Base module.
+    def results
+      result = OpenStruct.new
+      result.time         = @build_time + @execute_time
+      result.records      = values.count
+      result.build_time   = @build_time
+      result.execute_time = @execute_time
+      result
     end
 
   end

@@ -32,17 +32,14 @@ module MassInsert
       @mass_insert_process.start
     end
 
-    module ClassMethods
 
-      # Returns an MassInsert::Result instance where is possible to see
-      # the results of MassInsert process. If there is not a instance
-      # variable with the MassInsert process will raise a exception.
+    module ClassMethods
+      # Returns an OpenStruc instance where is possible to see the
+      # results of MassInsert process. This method calls results method
+      # in ProcessControl class. Returns nil if there is not a instance
+      # variable with the MassInset process.
       def mass_insert_results
-        if @mass_insert_process
-          MassInsert::Result.new(@mass_insert_process)
-        else
-          raise Exception.new("There isn't a MassInsert process completed")
-        end
+        @mass_insert_process.results if @mass_insert_process
       end
 
       private

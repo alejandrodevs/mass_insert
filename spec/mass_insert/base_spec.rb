@@ -41,6 +41,22 @@ describe MassInsert::Base do
       end
     end
 
+    describe ".mass_insert_results" do
+      it "should respond to mass_insert_results class method" do
+        Test.respond_to?(:mass_insert_results).should be_true
+      end
+
+      context "when mass_insert_process instance variable exists" do
+        it "should call results method in ProcessControl class" do
+          process = MassInsert::ProcessControl
+          process.any_instance.stub(:results).and_return(true)
+          process.any_instance.should_receive(:results).exactly(1).times
+          Test.mass_insert([], {})
+          Test.mass_insert_results
+        end
+      end
+    end
+
     describe ".mass_insert_options" do
       describe "class_name" do
         it "returns class name that call if that option doesn't exist" do
