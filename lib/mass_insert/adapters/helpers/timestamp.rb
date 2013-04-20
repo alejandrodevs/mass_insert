@@ -6,15 +6,15 @@ module MassInsert
         # Returns true o false if the database table has the
         # timestamp columns.
         def timestamp?
-          @timestamp_respond ||= (column_names.include?(:created_at) &&
-            column_names.include?(:updated_at))
+          column_names.include?(:created_at) &&
+            column_names.include?(:updated_at)
         end
 
         # Returns timestamp format according to the database adapter. This
         # function can be overwrite in database adapters classes to put the
         # correct format to that database.
         def timestamp_format
-          @timestamp_format ||= "%Y-%m-%d %H:%M:%S.%6N"
+          "%Y-%m-%d %H:%M:%S.%6N"
         end
 
         # Returns the timestamp value with specific format according to the

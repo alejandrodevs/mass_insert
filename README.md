@@ -45,6 +45,12 @@ And call mass_insert method:
 
     User.mass_insert(values)
 
+## Advantages
+
+* Faster
+Well, it's depending of the computer but these are some results...
+PostgreSQL - Saving 10,000 records in 0.84s
+
 ## Attention
 
 Since this is a single database insertion your model validation will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
