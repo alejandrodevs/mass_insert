@@ -5,8 +5,6 @@ namespace :spec do
   task :prepare do
     system("
       bundle install
-      cd spec/active_record_dummy/
-      bundle install
       rake db:drop db:create db:migrate RAILS_ENV=mysql2
       rake db:drop db:create db:migrate RAILS_ENV=postgresql
       rake db:drop db:create db:migrate RAILS_ENV=sqlite3
