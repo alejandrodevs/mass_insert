@@ -37,10 +37,10 @@ module MassInsert
     # method is usually called from mass_insert_results in Base module.
     def results
       result = OpenStruct.new
-      result.time         = @build_time + @execute_time
+      result.time         = @build_time.real + @execute_time.real
       result.records      = values.count
-      result.build_time   = @build_time
-      result.execute_time = @execute_time
+      result.build_time   = @build_time.real
+      result.execute_time = @execute_time.real
       result
     end
 
