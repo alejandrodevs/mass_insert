@@ -6,7 +6,7 @@ describe MassInsert::Base do
   describe "class methods" do
     describe ".mass_insert" do
       before :each do
-        MassInsert::ProcessControl.any_instance.stub(:execute => true)
+        MassInsert::ProcessControl.any_instance.stub(:start => true)
       end
 
       it "should respond to mass_insert class method" do
@@ -30,7 +30,7 @@ describe MassInsert::Base do
 
       it "should call execute ProcessControl method" do
         process = MassInsert::ProcessControl.any_instance
-        process.should_receive(:execute).exactly(1).times
+        process.should_receive(:start).exactly(1).times
         Test.mass_insert([], {})
       end
 

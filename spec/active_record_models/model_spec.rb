@@ -23,10 +23,10 @@ describe "Model" do
       User.count.should eq(5)
     end
 
-    it "should save if values cointains 1500 records" do
-      1500.times{ @values << @value_hash }
+    it "should save if values cointains 1200 records" do
+      1200.times{ @values << @value_hash }
       User.mass_insert(@values, @options)
-      User.count.should eq(1500)
+      User.count.should eq(1200)
     end
   end
 
