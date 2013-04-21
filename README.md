@@ -41,9 +41,40 @@ The array of values:
       }
     ]
 
-And call mass_insert method:
+And call mass_insert method from your model:
 
     User.mass_insert(values)
+
+
+## Results
+
+Sometimes after MassInsert process you need to see some necessary information about the process. Then MassInsert gem provides a simple way to do it. Only call the next method from your model after the MassInsert execution.
+
+    User.mass_insert_results.records                    # => 120000
+
+Some result options are...
+
+1. `records` : Returns the amount of records that were persisted.
+2. `time` : Returns the time that took all the MassInsert process.
+3. `build_time` : Returns the time that took to create the query string that was persisted.
+4. `execute_time` : Returns the time that took to execute the query string that was persisted.
+
+
+## Options
+
+MassInsert accepts options hash by second param when you call `mass_insert` from your model. This options allow you to configure the way that the records will be created. Example...
+
+    options = {
+      :primary_key => :user_id,
+      :primary_key_mode => :manual
+    }
+
+    User.mass_insert(values, options)
+
+OR directly
+
+    User.mass_insert(values, :primary_key => :user_id, :primary_key_mode => :manual)
+
 
 ## Advantages
 
