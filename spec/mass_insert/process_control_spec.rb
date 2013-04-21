@@ -107,12 +107,14 @@ describe MassInsert::ProcessControl do
   describe "#results" do
     before :each do
       subject.stub(:values).and_return([{}, {}])
-      subject.instance_variable_set(:@build_time, 10)
-      subject.instance_variable_set(:@execute_time, 20)
+      a = Benchmark.measure{}
+      a.stub(:total).and_return(10.0)
+      subject.instance_variable_set(:@build_time, a)
+      subject.instance_variable_set(:@execute_time, a)
     end
 
     it "should return total time in results" do
-      subject.results.time.should eql(30)
+      subject.results.time.should eql(20.0)
     end
 
     it "should return records persisted in results" do
@@ -120,11 +122,11 @@ describe MassInsert::ProcessControl do
     end
 
     it "should return build time in results" do
-      subject.results.build_time.should eql(10)
+      subject.results.build_time.should eql(10.0)
     end
 
     it "should return execute time in results" do
-      subject.results.execute_time.should eql(20)
+      subject.results.execute_time.should eql(10.0)
     end
   end
 end
