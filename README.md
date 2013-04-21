@@ -48,14 +48,14 @@ And call mass_insert method from your model:
 
 ## Results
 
-Sometimes after MassInsert process you need to see some necessary information about the process. Then MassInsert gem provides a simple way to do it. Only call the next method from your model after the MassInsert execution.
+Sometimes after MassInsert process you need to see some necessary information about the process. MassInsert gem provides a simple way to do it. Only call the next methods from your model after MassInsert execution.
 
     User.mass_insert_results.records                    # => 120000
 
 Some result options are...
 
 1. `records` : Returns the amount of records that were persisted.
-2. `time` : Returns the time that took all the MassInsert process.
+2. `time` : Returns the time that took to do all the MassInsert process.
 3. `build_time` : Returns the time that took to create the query string that was persisted.
 4. `execute_time` : Returns the time that took to execute the query string that was persisted.
 
@@ -74,6 +74,20 @@ MassInsert accepts options hash by second param when you call `mass_insert` from
 OR directly
 
     User.mass_insert(values, :primary_key => :user_id, :primary_key_mode => :manual)
+
+Some options that you can include are...
+
+1. `:table_name` : Default value is the table name to your model. This options rarely needs to change but you can do it if you pass a string with the table name. Example...
+
+    :table_name => "users"
+
+2. `:primary_key` : Default value is `:id`. You can change the name of primary key column send it a symbol with the column name.
+
+    :primary_key => :post_id
+
+3. `:primary_key_mode` : Default value is `:auto`. When is `:auto` MassInsert knows that the database will generate the value of the primary key column automatically. If you pass `:manual` as primary key mode you need to create your value hashes with the key and value of the primary key column.
+
+    :primary_key_mode => :manual
 
 
 ## Advantages
