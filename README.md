@@ -79,15 +79,15 @@ Some options that you can include are...
 
 1. `:table_name` : Default value is the table name to your model. This options rarely needs to change but you can do it if you pass a string with the table name. Example...
 
-    :table_name => "users"
+    options = {:table_name => "users"}
 
 2. `:primary_key` : Default value is `:id`. You can change the name of primary key column send it a symbol with the column name.
 
-    :primary_key => :post_id
+    options = {:primary_key => :post_id}
 
 3. `:primary_key_mode` : Default value is `:auto`. When is `:auto` MassInsert knows that the database will generate the value of the primary key column automatically. If you pass `:manual` as primary key mode you need to create your value hashes with the key and value of the primary key column.
 
-    :primary_key_mode => :manual
+    options = {:primary_key_mode => :manual}
 
 
 ## Advantages
