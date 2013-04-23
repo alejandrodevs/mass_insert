@@ -5,7 +5,7 @@ module MassInsert
       # This method is overwrite because the timestamp format to this
       # database engine does not need precision in nanoseconds.
       def timestamp_format
-        @timestamp_format ||= "%Y-%m-%d %H:%M:%S"
+        "%Y-%m-%d %H:%M:%S"
       end
 
       # This functions calls the necessary functions to create a complete
