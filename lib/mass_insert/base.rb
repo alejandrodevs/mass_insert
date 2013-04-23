@@ -17,7 +17,7 @@ module MassInsert
     #     {:name   => "user name", :email  => "user email"}
     #   ]
     #
-    # == MassInsert OPTIONS
+    # == Options
     #
     # And MassInset gem allow you to send it some options as second param
     # Example...

@@ -6,6 +6,10 @@ describe MassInsert::Adapters::Helpers do
     should be
   end
 
+  it 'should define AbstractQuery class' do
+    MassInsert::Adapters::Helpers::AbstractQuery.should be
+  end
+
   it 'should define Timestamp module' do
     MassInsert::Adapters::Helpers::Timestamp.should be
   end

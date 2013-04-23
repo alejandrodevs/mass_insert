@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Adapters::AbstractQuery do
+describe MassInsert::Adapters::Helpers::AbstractQuery do
   before :each do
     @adapter = MassInsert::Adapters::Adapter.new([], {})
   end
