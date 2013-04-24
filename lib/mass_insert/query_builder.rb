@@ -12,7 +12,7 @@ module MassInsert
     # sql string ready to be executed and returns it to be execute in
     # the QueryExecution class.
     def build
-      adapter_instance_class.execute
+      adapter_class.new(values, options).execute
     end
 
     # Returns a string that contains the adapter type previosly
@@ -25,16 +25,16 @@ module MassInsert
     # instance will be called to generate the sql string. The values
     # and options are passed by params when the correct adapter class
     # is instanced.
-    def adapter_instance_class
+    def adapter_class
       case adapter
       when "mysql2"
-        Adapters::Mysql2Adapter.new(values, options)
+        Adapters::Mysql2Adapter
       when "postgresql"
-        Adapters::PostgreSQLAdapter.new(values, options)
+        Adapters::PostgreSQLAdapter
       when "sqlite3"
-        Adapters::SQLite3Adapter.new(values, options)
+        Adapters::SQLite3Adapter
       when "sqlserver"
-        Adapters::SQLServerAdapter.new(values, options)
+        Adapters::SQLServerAdapter
       end
     end
 

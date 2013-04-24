@@ -29,9 +29,10 @@ describe MassInsert::QueryBuilder do
       end
 
       it "should return the query string" do
-        subject.stub(:adapter_instance_class).and_return("adapter_instance")
-        subject.adapter_instance_class.stub(:execute).and_return("query_string")
-        subject.build.should eq("query_string")
+        subject.stub(:adapter_class).and_return("adapter_class")
+        subject.adapter_class.stub(:new).and_return("adapter_instance")
+        subject.adapter_class.new.stub(:execute).and_return("query")
+        subject.build.should eq("query")
       end
     end
 
@@ -47,16 +48,16 @@ describe MassInsert::QueryBuilder do
       end
     end
 
-    describe "#adapter_instance_class" do
-      it "should respond to adapter_instance_class method" do
-        subject.respond_to?(:adapter_instance_class).should be_true
+    describe "#adapter_class" do
+      it "should respond to adapter_class method" do
+        subject.respond_to?(:adapter_class).should be_true
       end
 
       context "when adapter is mysql2" do
         it "should return a Mysql2Adapter instance" do
           subject.stub(:adapter).and_return("mysql2")
           instance_class = MassInsert::Adapters::Mysql2Adapter
-          subject.adapter_instance_class.class.should be(instance_class)
+          subject.adapter_class.should eq(instance_class)
         end
       end
 
@@ -64,7 +65,7 @@ describe MassInsert::QueryBuilder do
         it "should return a PostgreSQLAdapter instance" do
           subject.stub(:adapter).and_return("postgresql")
           instance_class = MassInsert::Adapters::PostgreSQLAdapter
-          subject.adapter_instance_class.class.should be(instance_class)
+          subject.adapter_class.should eq(instance_class)
         end
       end
 
@@ -72,7 +73,7 @@ describe MassInsert::QueryBuilder do
         it "should return a SQLite3Adapter instance" do
           subject.stub(:adapter).and_return("sqlite3")
           instance_class = MassInsert::Adapters::SQLite3Adapter
-          subject.adapter_instance_class.class.should be(instance_class)
+          subject.adapter_class.should eq(instance_class)
         end
       end
 
@@ -80,7 +81,7 @@ describe MassInsert::QueryBuilder do
         it "should return a SQLServerAdapter instance" do
           subject.stub(:adapter).and_return("sqlserver")
           instance_class = MassInsert::Adapters::SQLServerAdapter
-          subject.adapter_instance_class.class.should be(instance_class)
+          subject.adapter_class.should eq(instance_class)
         end
       end
     end
