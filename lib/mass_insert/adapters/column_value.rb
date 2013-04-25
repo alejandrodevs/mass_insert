@@ -86,17 +86,13 @@ module MassInsert
       # hash does not include the value to this column return the default
       # value according to database configuration.
       def column_value_boolean
-        case adapter
-        when "mysql2", "postgresql", "sqlserver"
-          if column_value.nil?
-            default_value
-          else
+        if column_value.nil?
+          default_value
+        else
+          case adapter
+          when "mysql2", "postgresql", "sqlserver"
             column_value ? "true" : "false"
-          end
-        when "sqlite3"
-          if column_value.nil?
-            default_value
-          else
+          when "sqlite3"
             column_value ? "1" : "0"
           end
         end
