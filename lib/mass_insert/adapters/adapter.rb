@@ -27,12 +27,6 @@ module MassInsert
         options[:table_name]
       end
 
-      # Returns an array with the column names in the database table like
-      # a symbols.
-      def table_columns
-        class_name.column_names.map(&:to_sym)
-      end
-
       # Returns the array with the column names valid to be included into the
       # query string according to the options.
       def column_names

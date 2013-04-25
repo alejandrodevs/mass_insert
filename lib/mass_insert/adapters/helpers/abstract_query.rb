@@ -10,7 +10,7 @@ module MassInsert
         end
 
         # Returns a string  with the column names to the class table name
-        # and divided by commmas.
+        # and divided by commas.
         def string_columns
           "(#{column_names.join(", ")}) "
         end
@@ -28,12 +28,11 @@ module MassInsert
           values.map{ |row| string_single_row_values(row) }.join("), (")
         end
 
+        # Returns the row column values string to be added in query string
+        # according to the type column and values.
+        # Before that row is prepared with the correct values.
         def string_single_row_values row
-          # Prepare the single row to be included in the sql string.
           row.merge!(timestamp_values) if timestamp?
-
-          # Generates the values to this row that will be included according
-          # to the type column and values.
           column_names.map{ |col| string_single_value(row, col) }.join(", ")
         end
 

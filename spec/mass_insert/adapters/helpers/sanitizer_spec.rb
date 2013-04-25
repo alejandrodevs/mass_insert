@@ -36,4 +36,16 @@ describe MassInsert::Adapters::Helpers::Sanitizer do
       end
     end
   end
+
+  describe "#table_columns" do
+    it "should respond to table_columns method" do
+      subject.respond_to?(:table_columns).should be_true
+    end
+
+    it "should returns the table_columns in ActiveRecord class" do
+      subject.options = {:class_name => Test}
+      columns = [:id, :name, :email]
+      subject.table_columns.should eq(columns)
+    end
+  end
 end
