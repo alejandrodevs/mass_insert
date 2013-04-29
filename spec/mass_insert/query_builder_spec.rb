@@ -8,14 +8,14 @@ describe MassInsert::QueryBuilder do
   describe "instance methods" do
     describe "#initialize" do
 
-      let(:builder){ MassInsert::QueryBuilder.new("values", "options")
+      let(:builder){ MassInsert::QueryBuilder.new("values", "options") }
 
       it "should initialize the values attribute" do
-        builder.values.should eq("values")
+        expect(builder.values).to eq("values")
       end
 
       it "should initialize the options attribute" do
-        builder.options.should eq("options")
+        expect(builder.options).to eq("options")
       end
     end
 

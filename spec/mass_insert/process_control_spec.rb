@@ -2,39 +2,29 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::ProcessControl do
-
-  before :each do
-    @process = MassInsert::ProcessControl.new([], {})
-  end
-
-  subject{ @process }
+  let!(:subject){ MassInsert::ProcessControl.new([], {}) }
 
   describe "instance methods" do
     describe "#initialize" do
-
-      before :each do
-        @values  = [{:name => "name"}]
-        @options = {:option_one => 10}
-        @process = MassInsert::ProcessControl.new(@values, @options)
-      end
+      let(:process){ MassInsert::ProcessControl.new("values", "options") }
 
       it "should initialize the values" do
-        @process.values.should eq(@values)
+        expect(process.values).to eq("values")
       end
 
       it "should initialize the options" do
-        @process.options.should eq(@options)
+        expect(process.options).to eq("options")
       end
     end
 
     describe "#start" do
       before :each do
-        subject.stub(:build_query).and_return(true)
-        subject.stub(:execute_query).and_return(true)
+        subject.stub(:build_query)
+        subject.stub(:execute_query)
       end
 
       it "should respond to start method" do
-        subject.respond_to?(:start).should be_true
+        expect(subject).to respond_to(:start)
       end
 
       it "should call build_query" do
@@ -44,7 +34,7 @@ describe MassInsert::ProcessControl do
 
       it "should define instance variable @build_time" do
         subject.start
-        subject.instance_variables.include?(:@build_time).should be_true
+        expect(subject.instance_variables).to include(:@build_time)
       end
 
       it "should call execute_query" do
@@ -54,31 +44,32 @@ describe MassInsert::ProcessControl do
 
       it "should define instance variable @execute_time" do
         subject.start
-        subject.instance_variables.include?(:@execute_time).should be_true
+        expect(subject.instance_variables).to include(:@execute_time)
       end
     end
 
     describe "#execute_query" do
-      it "should respond to execute_query method" do
-        subject.respond_to?(:execute_query).should be_true
+      before :each do
+        @execution = MassInsert::QueryExecution.any_instance
+        @execution.stub(:execute)
       end
 
-      context "when query instance variable exists" do
+      it "should respond to execute_query method" do
+        expect(subject).to respond_to(:execute_query)
+      end
+
+      context "when query instance variable returns not nil" do
         it "should instance and call QueryExecution class" do
           subject.instance_variable_set(:@query, "query")
-          execution = MassInsert::QueryExecution.any_instance
-          execution.stub(:execute).and_return("executed")
-          execution.should_receive(:execute).exactly(1).times
+          @execution.should_receive(:execute).exactly(1).times
           subject.execute_query
         end
       end
 
-      context "when query instance variable does not exists" do
+      context "when query instance variable returns nil" do
         it "should instance and call QueryExecution class" do
           subject.instance_variable_set(:@query, nil)
-          execution = MassInsert::QueryExecution.any_instance
-          execution.stub(:execute).and_return("executed")
-          execution.should_not_receive(:execute)
+          @execution.should_not_receive(:execute)
           subject.execute_query
         end
       end
@@ -86,47 +77,49 @@ describe MassInsert::ProcessControl do
 
     describe "#build_query" do
       it "should respond to build_query method" do
-        subject.respond_to?(:build_query).should be_true
+        expect(subject).to respond_to(:build_query)
       end
 
       it "should instance and call QueryBuilder class" do
-        builder = MassInsert::QueryBuilder.any_instance
-        builder.stub(:build).and_return("query")
-        subject.build_query.should eq("query")
+        MassInsert::QueryBuilder.any_instance.stub(:build => "query")
+        expect(subject.build_query).to eq("query")
       end
 
       it "should set query instance variable" do
-        builder = MassInsert::QueryBuilder.any_instance
-        builder.stub(:build).and_return("query")
+        MassInsert::QueryBuilder.any_instance.stub(:build)
         subject.build_query
-        subject.instance_variables.include?(:@query).should be_true
+        expect(subject.instance_variables).to include(:@query)
       end
     end
   end
 
   describe "#results" do
     before :each do
-      subject.stub(:values).and_return([{}, {}])
       a = Benchmark.measure{}
       a.stub(:total).and_return(10.0)
       subject.instance_variable_set(:@build_time, a)
       subject.instance_variable_set(:@execute_time, a)
     end
 
+    it "should respond to results method" do
+      expect(subject).to respond_to(:results)
+    end
+
     it "should return total time in results" do
-      subject.results.time.should eql(20.0)
+      expect(subject.results.time).to eql(20.0)
     end
 
     it "should return records persisted in results" do
-      subject.results.records.should eql(2)
+      subject.stub(:values => [{}, {}])
+      expect(subject.results.records).to eql(2)
     end
 
     it "should return build time in results" do
-      subject.results.build_time.should eql(10.0)
+      expect(subject.results.build_time).to eql(10.0)
     end
 
     it "should return execute time in results" do
-      subject.results.execute_time.should eql(10.0)
+      expect(subject.results.execute_time).to eql(10.0)
     end
   end
 end
