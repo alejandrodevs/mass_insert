@@ -2,7 +2,6 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::QueryExecution do
-
   let!(:subject){ MassInsert::QueryExecution.new("query string") }
 
   describe "instance methods" do
@@ -23,8 +22,7 @@ describe MassInsert::QueryExecution do
     end
 
     describe "#execute" do
-
-      before :all do
+      before :each do
         @connection = ActiveRecord::Base.connection
         @connection.stub(:execute)
       end

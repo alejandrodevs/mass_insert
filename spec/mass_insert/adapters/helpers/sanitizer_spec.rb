@@ -2,12 +2,7 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::Adapters::Helpers::Sanitizer do
-
-  before :each do
-    @adapter = MassInsert::Adapters::Adapter.new([], {})
-  end
-
-  subject{ @adapter }
+  let!(:subject){ MassInsert::Adapters::Adapter.new([], {}) }
 
   describe "#sanitized_columns" do
     before :each do
@@ -20,32 +15,32 @@ describe MassInsert::Adapters::Helpers::Sanitizer do
     end
 
     it "should respond to sanitized_columns" do
-      subject.respond_to?(:sanitized_columns).should be_true
+      expect(subject).to respond_to(:sanitized_columns)
     end
 
     context "when primary_key_mode is automatic" do
       it "should returns the column without primary_key" do
-        subject.sanitized_columns.should eq([:name])
+        expect(subject.sanitized_columns).to eq([:name])
       end
     end
 
     context "when primary_key_mode is not automatic" do
       it "should returns the columns including primary_key" do
         subject.options.merge!(:primary_key_mode => :manual)
-        subject.sanitized_columns.should eq([:id, :name])
+        expect(subject.sanitized_columns).to eq([:id, :name])
       end
     end
   end
 
   describe "#table_columns" do
     it "should respond to table_columns method" do
-      subject.respond_to?(:table_columns).should be_true
+      expect(subject).to respond_to(:table_columns)
     end
 
     it "should returns the table_columns in ActiveRecord class" do
       subject.options = {:class_name => Test}
       columns = [:id, :name, :email]
-      subject.table_columns.should eq(columns)
+      expect(subject.table_columns).to eq(columns)
     end
   end
 end

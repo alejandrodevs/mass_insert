@@ -10,22 +10,22 @@ describe MassInsert::Base do
       end
 
       it "should respond to mass_insert class method" do
-        Test.respond_to?(:mass_insert).should be_true
+        expect(Test).to respond_to(:mass_insert)
       end
 
       it "should can receive values and many options" do
         values  = [{:name => "name"}]
         options = {:option_one => "one", :option_two => "two"}
-        Test.mass_insert(values, options).should be_true
+        expect(Test.mass_insert(values, options)).to be_true
       end
 
       it "should can receive only values" do
         values  = [{:name => "name"}]
-        Test.mass_insert(values).should be_true
+        expect(Test.mass_insert(values)).to be_true
       end
 
       it "should not can called with values" do
-        lambda{ Test.mass_insert }.should raise_error
+        expect(lambda{ Test.mass_insert }).to raise_error
       end
 
       it "should call execute ProcessControl method" do
@@ -43,7 +43,7 @@ describe MassInsert::Base do
 
     describe ".mass_insert_results" do
       it "should respond to mass_insert_results class method" do
-        Test.respond_to?(:mass_insert_results).should be_true
+        expect(Test).to respond_to(:mass_insert_results)
       end
 
       context "when mass_insert_process instance variable exists" do
@@ -61,52 +61,52 @@ describe MassInsert::Base do
       describe "class_name" do
         it "returns class name that call if that option doesn't exist" do
           options = Test.send(:mass_insert_options)
-          options[:class_name].should eq(Test)
+          expect(options[:class_name]).to eq(Test)
         end
 
         it "returns class_name option if is in the options" do
           args = {:class_name => "OtherClass"}
           options = Test.send(:mass_insert_options, args)
-          options[:class_name].should eq("OtherClass")
+          expect(options[:class_name]).to eq("OtherClass")
         end
       end
 
       describe "table_name" do
         it "returns class table_name that call if options doesn't exist" do
           options = Test.send(:mass_insert_options)
-          options[:table_name].should eq(Test.table_name)
+          expect(options[:table_name]).to eq(Test.table_name)
         end
 
         it "returns table_name option if is in the options" do
           args = {:table_name => "OtherTable"}
           options = Test.send(:mass_insert_options, args)
-          options[:table_name].should eq("OtherTable")
+          expect(options[:table_name]).to eq("OtherTable")
         end
       end
 
       describe "primary_key" do
         it "returns :id if option primary_key doesn't exist" do
           options = Test.send(:mass_insert_options)
-          options[:primary_key].should eq(:id)
+          expect(options[:primary_key]).to eq(:id)
         end
 
         it "returns primary_key option if is in the options" do
           args = {:primary_key => :user_id}
           options = Test.send(:mass_insert_options, args)
-          options[:primary_key].should eq(:user_id)
+          expect(options[:primary_key]).to eq(:user_id)
         end
       end
 
       describe "primary_key_mode" do
         it "returns :auto if option primary_key_mode doesn't exist" do
           options = Test.send(:mass_insert_options)
-          options[:primary_key_mode].should eq(:auto)
+          expect(options[:primary_key_mode]).to eq(:auto)
         end
 
         it "returns primary_key_mode option if is in the options" do
           args = {:primary_key_mode => :manual}
           options = Test.send(:mass_insert_options, args)
-          options[:primary_key_mode].should eq(:manual)
+          expect(options[:primary_key_mode]).to eq(:manual)
         end
       end
     end

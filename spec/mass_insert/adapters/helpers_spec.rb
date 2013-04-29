@@ -3,18 +3,18 @@ require "./lib/mass_insert"
 
 describe MassInsert::Adapters::Helpers do
   it 'should be defined' do
-    should be
+    expect(MassInsert::Adapters::Helpers).to be
   end
 
   it 'should define AbstractQuery class' do
-    MassInsert::Adapters::Helpers::AbstractQuery.should be
+    expect(MassInsert::Adapters::Helpers::AbstractQuery).to be
   end
 
   it 'should define Timestamp module' do
-    MassInsert::Adapters::Helpers::Timestamp.should be
+    expect(MassInsert::Adapters::Helpers::Timestamp).to be
   end
 
   it 'should define Sanitizer module' do
-    MassInsert::Adapters::Helpers::Sanitizer.should be
+    expect(MassInsert::Adapters::Helpers::Sanitizer).to be
   end
 end

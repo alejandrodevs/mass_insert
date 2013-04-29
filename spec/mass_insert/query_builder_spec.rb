@@ -2,12 +2,10 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::QueryBuilder do
-
   let!(:subject){ MassInsert::QueryBuilder.new([], {}) }
 
   describe "instance methods" do
     describe "#initialize" do
-
       let(:builder){ MassInsert::QueryBuilder.new("values", "options") }
 
       it "should initialize the values attribute" do
