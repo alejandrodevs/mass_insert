@@ -3,26 +3,26 @@ require "./lib/mass_insert"
 
 describe MassInsert do
   it 'should be defined' do
-    should be
+    expect(MassInsert).to be
   end
 
   it 'should define Adapters module' do
-    MassInsert::Adapters.should be
+    expect(MassInsert::Adapters).to be
   end
 
   it 'should define Base' do
-    MassInsert::Base.should be
+    expect(MassInsert::Base).to be
   end
 
   it 'should define ProcessControl' do
-    MassInsert::ProcessControl.should be
+    expect(MassInsert::ProcessControl).to be
   end
 
   it 'should define QueryBuilder' do
-    MassInsert::QueryBuilder.should be
+    expect(MassInsert::QueryBuilder).to be
   end
 
   it 'should define QueryExecution' do
-    MassInsert::QueryExecution.should be
+    expect(MassInsert::QueryExecution).to be
   end
 end
