@@ -122,10 +122,20 @@ describe MassInsert::Adapters::ColumnValue do
       subject.respond_to?(:build).should be_true
     end
 
-    it "should call a method according to column type" do
-      subject.stub(:column_type).and_return("string")
-      subject.stub(:column_value_string).and_return("column_value_string")
-      subject.build.should eq("column_value_string")
+    context "when column_value is nil" do
+      it "should return the default value" do
+        subject.stub(:column_value).and_return(nil)
+        subject.stub(:default_value).and_return("default_value")
+        subject.build.should eq("default_value")
+      end
+    end
+
+    context "when column_value is not nil" do
+      it "should call a method according to column type" do
+        subject.stub(:column_type).and_return("string")
+        subject.stub(:column_value_string).and_return("column_value_string")
+        subject.build.should eq("column_value_string")
+      end
     end
   end
 
@@ -140,25 +150,13 @@ describe MassInsert::Adapters::ColumnValue do
   ].each do |column_type|
     method = "column_value_#{column_type}".to_sym
 
-    describe "#column_value_#{method.to_s}" do
-      it "should respond to #{method.to_s} method" do
-        subject.respond_to?(method).should be_true
-      end
+    it "should respond to #{method.to_s} method" do
+      subject.respond_to?(method).should be_true
+    end
 
-      context "when column_value is nil" do
-        it "should return the default value" do
-          subject.stub(:column_value).and_return(nil)
-          subject.stub(:default_value).and_return("default_value")
-          subject.send(method).should eq("default_value")
-        end
-      end
-
-      context "when column_value is not nil" do
-        it "should return the column value" do
-          subject.stub(:column_value).and_return("name")
-          subject.send(method).should eq("'name'")
-        end
-      end
+    it "should return the column value" do
+      subject.stub(:column_value).and_return("name")
+      subject.send(method).should eq("'name'")
     end
   end
 
@@ -167,27 +165,17 @@ describe MassInsert::Adapters::ColumnValue do
       subject.respond_to?(:column_value_integer).should be_true
     end
 
-    context "when column_value is nil" do
-      it "should return the default value" do
-        subject.stub(:column_value).and_return(nil)
-        subject.stub(:default_value).and_return("default_value")
-        subject.column_value_integer.should eq("default_value")
+    context "when is a integer value" do
+      it "should return the same integer value" do
+        subject.stub(:column_value).and_return(20)
+        subject.column_value_integer.should eq("20")
       end
     end
 
-    context "when column_value is not nil" do
-      context "when is a integer value" do
-        it "should return the same integer value" do
-          subject.stub(:column_value).and_return(20)
-          subject.column_value_integer.should eq("20")
-        end
-      end
-
-      context "when is not a integer value" do
-        it "should convert it to integer value" do
-          subject.stub(:column_value).and_return("name")
-          subject.column_value_integer.should eq("0")
-        end
+    context "when is not a integer value" do
+      it "should convert it to integer value" do
+        subject.stub(:column_value).and_return("name")
+        subject.column_value_integer.should eq("0")
       end
     end
   end
@@ -200,27 +188,17 @@ describe MassInsert::Adapters::ColumnValue do
         subject.respond_to?(method).should be_true
       end
 
-      context "when column_value is nil" do
-        it "should return the default value" do
-          subject.stub(:column_value).and_return(nil)
-          subject.stub(:default_value).and_return("default_value")
-          subject.send(method).should eq("default_value")
+      context "when is a decimal value" do
+        it "should return the same decimal value" do
+          subject.stub(:column_value).and_return(20.5)
+          subject.send(method).should eq("20.5")
         end
       end
 
-      context "when column_value is not nil" do
-        context "when is a decimal value" do
-          it "should return the same decimal value" do
-            subject.stub(:column_value).and_return(20.5)
-            subject.send(method).should eq("20.5")
-          end
-        end
-
-        context "when is not a decimal value" do
-          it "should convert it to decimal value" do
-            subject.stub(:column_value).and_return("name")
-            subject.send(method).should eq("0.0")
-          end
+      context "when is not a decimal value" do
+        it "should convert it to decimal value" do
+          subject.stub(:column_value).and_return("name")
+          subject.send(method).should eq("0.0")
         end
       end
     end
@@ -231,61 +209,57 @@ describe MassInsert::Adapters::ColumnValue do
       subject.respond_to?(:column_value_boolean).should be_true
     end
 
-    context "when adapter is mysql2, postgresql or sqlserve" do
-      context "when column value is nil" do
-        it "should return database default value" do
-          subject.stub(:adapter).and_return("mysql2")
-          subject.stub(:column_value).and_return(nil)
-          subject.stub(:default_value).and_return("default_value")
-          subject.column_value_boolean.should eq("default_value")
+    it "should call a method according to database adapter" do
+      subject.stub(:adapter).and_return("mysql2")
+      subject.stub(:mysql2_column_value_boolean).and_return("boolean_value")
+      subject.column_value_boolean.should eq("boolean_value")
+    end
+  end
+
+  [
+    :mysql2,
+    :postgresql,
+    :sqlserver,
+  ].each do |adapter|
+    method = :"#{adapter}_column_value_boolean"
+
+    describe "##{method.to_s}" do
+      it "should respond to #{method.to_s} method" do
+        subject.respond_to?(method).should be_true
+      end
+
+      context "when column_value method return true value" do
+        it "should return true string" do
+          subject.stub(:column_value).and_return(true)
+          subject.send(method).should eq("true")
         end
       end
 
-      context "when column value is not nil" do
-        context "when column value is false" do
-          it "should return 'false' string" do
-            subject.stub(:adapter).and_return("mysql2")
-            subject.stub(:column_value).and_return(false)
-            subject.column_value_boolean.should eq("false")
-          end
-        end
-
-        context "when column value is true" do
-          it "should return 'true' string" do
-            subject.stub(:adapter).and_return("mysql2")
-            subject.stub(:column_value).and_return(true)
-            subject.column_value_boolean.should eq("true")
-          end
+      context "when column_value method return false value" do
+        it "should return false string" do
+          subject.stub(:column_value).and_return(false)
+          subject.send(method).should eq("false")
         end
       end
     end
+  end
 
-    context "when adapter is sqlite3" do
-      context "when column value is nil" do
-        it "should return database default value" do
-          subject.stub(:adapter).and_return("sqlite3")
-          subject.stub(:column_value).and_return(nil)
-          subject.stub(:default_value).and_return("default_value")
-          subject.column_value_boolean.should eq("default_value")
-        end
+  describe "#sqlite3_column_value_boolean" do
+    it "should respond to sqlite3_column_value_boolean method" do
+      subject.respond_to?(:sqlite3_column_value_boolean).should be_true
+    end
+
+    context "when column_value method return true value" do
+      it "should return true string" do
+        subject.stub(:column_value).and_return(true)
+        subject.sqlite3_column_value_boolean.should eq("1")
       end
+    end
 
-      context "when column value is not nil" do
-        context "when column value is false" do
-          it "should return '0' string" do
-            subject.stub(:adapter).and_return("sqlite3")
-            subject.stub(:column_value).and_return(false)
-            subject.column_value_boolean.should eq("0")
-          end
-        end
-
-        context "when column value is true" do
-          it "should return '1' string" do
-            subject.stub(:adapter).and_return("sqlite3")
-            subject.stub(:column_value).and_return(true)
-            subject.column_value_boolean.should eq("1")
-          end
-        end
+    context "when column_value method return false value" do
+      it "should return false string" do
+        subject.stub(:column_value).and_return(false)
+        subject.sqlite3_column_value_boolean.should eq("0")
       end
     end
   end
