@@ -97,7 +97,7 @@ describe MassInsert::Adapters::Helpers::AbstractQuery do
     end
 
     it "should call build method in ColumnValue class" do
-      column_value = MassInsert::Adapters::ColumnValue.any_instance
+      column_value = MassInsert::Adapters::Helpers::ColumnValue.any_instance
       column_value.stub(:build).and_return("value")
       expect(subject.string_single_value({}, :name)).to eq("value")
     end

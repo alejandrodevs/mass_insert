@@ -6,8 +6,12 @@ describe MassInsert::Adapters::Helpers do
     expect(MassInsert::Adapters::Helpers).to be
   end
 
-  it 'should define AbstractQuery class' do
+  it 'should define AbstractQuery module' do
     expect(MassInsert::Adapters::Helpers::AbstractQuery).to be
+  end
+
+  it 'should define ColumnValue class' do
+    expect(MassInsert::Adapters::Helpers::ColumnValue).to be
   end
 
   it 'should define Timestamp module' do
