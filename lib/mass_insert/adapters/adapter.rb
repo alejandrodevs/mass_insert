@@ -1,8 +1,5 @@
 module MassInsert
   module Adapters
-    # This class provides some helper methods to build the sql string that
-    # be executed. The methods here provides a functionality that be required
-    # in all the adapters.
     class Adapter
       include Helpers::AbstractQuery
       include Helpers::Timestamp
