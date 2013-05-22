@@ -23,9 +23,12 @@ module MassInsert
       end
 
       # Returns the value to this column in the row hash. The value is
-      # finding by symbol or string key to be most flexible.
+      # finding by symbol or string key to be most flexible. This method
+      # tries to get a value by symbol key with the column name first and
+      # if the symbol key doesn't exist it will try to find it by string
+      # key. Otherwise it will return nil.
       def column_value
-        row[column.to_sym]
+        row.fetch(column.to_sym){row[column.to_s]}
       end
 
       # Returns the string with the database adapter name usually in the
