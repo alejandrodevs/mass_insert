@@ -18,18 +18,5 @@ describe MassInsert::Adapters::Mysql2Adapter do
         expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S")
       end
     end
-
-    describe "#execute" do
-      it "should respond to execute method" do
-        expect(subject).to respond_to(:execute)
-      end
-
-      it "call methods and returns their values concatenated" do
-        subject.stub(:begin_string).and_return("a")
-        subject.stub(:string_columns).and_return("b")
-        subject.stub(:string_values).and_return("c")
-        expect(subject.execute).to eq("abc")
-      end
-    end
   end
 end
