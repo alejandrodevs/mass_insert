@@ -4,6 +4,12 @@ module MassInsert
 
       MAX_VALUES_PER_INSERTION = 1000
 
+      # This method is overwrite because the timestamp format to this
+      # database engine needs precision in three nanoseconds.
+      def timestamp_format
+        "%Y-%m-%d %H:%M:%S.%3N"
+      end
+
       # This functions calls the necessary functions to create a complete
       # sqlserver query to multiple insertion. The methods are in the Abstract
       # Query module. If some method is too specific to this database adapter
