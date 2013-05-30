@@ -12,7 +12,7 @@ describe "Decimal" do
       it "should convert integer value to decimal" do
         @values.first.merge!(:money => 10)
         User.mass_insert(@values, @options)
-        User.last.money.should eq(10.0)
+        expect(User.last.money).to eq(10.0)
       end
     end
 
@@ -20,21 +20,21 @@ describe "Decimal" do
       it "should convert string value to decimal" do
         @values.first.merge!(:money => "string")
         User.mass_insert(@values, @options)
-        User.last.money.should eq(0.0)
+        expect(User.last.money).to eq(0.0)
       end
     end
 
     context "when contains a decimal" do
       it "should save the correct value" do
         User.mass_insert(@values, @options)
-        User.last.money.should eq(20.50)
+        expect(User.last.money).to eq(20.50)
       end
     end
 
     context "when contains a boolean" do
       it "should raise an exception" do
         @values.first.merge!(:money => true)
-        lambda{ User.mass_insert(@values, @options) }.should raise_exception
+        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
       end
     end
   end
@@ -43,7 +43,7 @@ describe "Decimal" do
     it "should save the default value" do
       @values.first.delete(:money)
       User.mass_insert(@values, @options)
-      User.last.money.should eq(nil)
+      expect(User.last.money).to eq(nil)
     end
   end
 end

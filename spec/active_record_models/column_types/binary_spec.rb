@@ -12,7 +12,7 @@ describe "Binary" do
       context "when is 1" do
         it "should be saved correctly" do
           User.mass_insert(@values, @options)
-          User.last.checked.should eq("1")
+          expect(User.last.checked).to eq("1")
         end
       end
 
@@ -20,7 +20,7 @@ describe "Binary" do
         it "should be saved correctly" do
           @values.first.merge!(:checked => 0)
           User.mass_insert(@values, @options)
-          User.last.checked.should eq("0")
+          expect(User.last.checked).to eq("0")
         end
       end
     end
@@ -29,7 +29,7 @@ describe "Binary" do
       it "should convert string value to binary" do
         @values.first.merge!(:checked => "string")
         User.mass_insert(@values, @options)
-        User.last.checked.should eq("string")
+        expect(User.last.checked).to eq("string")
       end
     end
 
@@ -37,7 +37,7 @@ describe "Binary" do
       it "should convert decimal value to binary" do
         @values.first.merge!(:checked => 25.34)
         User.mass_insert(@values, @options)
-        User.last.checked.should eq("25.34")
+        expect(User.last.checked).to eq("25.34")
       end
     end
 
@@ -45,7 +45,7 @@ describe "Binary" do
       it "should convert boolean value to binary" do
         @values.first.merge!(:checked => true)
         User.mass_insert(@values, @options)
-        User.last.checked.should eq("true")
+        expect(User.last.checked).to eq("true")
       end
     end
   end
@@ -54,7 +54,7 @@ describe "Binary" do
     it "should save the default value" do
       @values.first.delete(:checked)
       User.mass_insert(@values, @options)
-      User.last.checked.should eq(nil)
+      expect(User.last.checked).to eq(nil)
     end
   end
 end

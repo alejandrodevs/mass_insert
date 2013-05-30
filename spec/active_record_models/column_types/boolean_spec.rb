@@ -12,7 +12,7 @@ describe "Boolean" do
       context "when is true" do
         it "should be saved correctly" do
           User.mass_insert(@values, @options)
-          User.last.active.should eq(true)
+          expect(User.last.active).to eq(true)
         end
       end
 
@@ -20,7 +20,7 @@ describe "Boolean" do
         it "should be saved correctly" do
           @values.first.merge!(:active => false)
           User.mass_insert(@values, @options)
-          User.last.active.should eq(false)
+          expect(User.last.active).to eq(false)
         end
       end
     end
@@ -29,7 +29,7 @@ describe "Boolean" do
       it "should convert string value to boolean" do
         @values.first.merge!(:active => "string")
         User.mass_insert(@values, @options)
-        User.last.active.should eq(true)
+        expect(User.last.active).to eq(true)
       end
     end
 
@@ -37,7 +37,7 @@ describe "Boolean" do
       it "should convert decimal value to boolean" do
         @values.first.merge!(:active => 25.34)
         User.mass_insert(@values, @options)
-        User.last.active.should eq(true)
+        expect(User.last.active).to eq(true)
       end
     end
   end
@@ -46,7 +46,7 @@ describe "Boolean" do
     it "should save the default value" do
       @values.first.delete(:active)
       User.mass_insert(@values, @options)
-      User.last.active.should eq(nil)
+      expect(User.last.active).to eq(nil)
     end
   end
 end
