@@ -31,11 +31,11 @@ describe "Model" do
       end
 
       it "should save correct values" do
-        User.first.name.should eq("some_name")
+        expect(User.first.name).to eq("some_name")
       end
 
       it "should have saved 5 records" do
-        User.count.should eq(5)
+        expect(User.count).to eq(5)
       end
     end
 
@@ -46,11 +46,11 @@ describe "Model" do
       end
 
       it "should save correct values" do
-        User.first.age.should eq(20)
+        expect(User.first.age).to eq(20)
       end
 
       it "should have saved 5 records" do
-        User.count.should eq(5)
+        expect(User.count).to eq(5)
       end
     end
 
@@ -68,18 +68,18 @@ describe "Model" do
       end
 
       it "should save correct values" do
-        User.first.email.should eq("some_email")
+        expect(User.first.email).to eq("some_email")
       end
 
       it "should have saved 5 records" do
-        User.count.should eq(5)
+        expect(User.count).to eq(5)
       end
     end
 
     it "should save if values cointains 1200 records" do
       1200.times{ @values << @value_hash }
       User.mass_insert(@values, @options)
-      User.count.should eq(1200)
+      expect(User.count).to eq(1200)
     end
   end
 
@@ -88,7 +88,7 @@ describe "Model" do
       it "should not save any record" do
         5.times{ @values << @value_hash }
         @options.merge!(:table_name => "countries")
-        lambda{ User.mass_insert(@values, @options) }.should raise_exception
+        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
       end
     end
 
@@ -96,7 +96,7 @@ describe "Model" do
       it "should not save any record" do
         5.times{ @values << @value_hash }
         @options.merge!(:class_name => Test)
-        lambda{ User.mass_insert(@values, @options) }.should raise_exception
+        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
       end
     end
   end
