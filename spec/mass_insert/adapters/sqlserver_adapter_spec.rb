@@ -9,6 +9,16 @@ describe MassInsert::Adapters::SQLServerAdapter do
   end
 
   describe "instance methods" do
+    describe "#timestamp_format" do
+      it "should respond to timestamp_format method" do
+        expect(subject).to respond_to(:timestamp_format)
+      end
+
+      it "should return the format string" do
+        expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%3N")
+      end
+    end
+
     describe "#execute" do
       before :each do
         subject.stub(:begin_string).and_return("a")
