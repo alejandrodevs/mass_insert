@@ -15,9 +15,7 @@ module MassInsert
     # complete the mass insertion process and save the time each method
     # takes being executed.
     def start
-      # Calls the method that build the query.
       @build_time   = Benchmark.measure{ build_query }
-      # Calls the method that execute the query.
       @execute_time = Benchmark.measure{ execute_query }
     end
 
