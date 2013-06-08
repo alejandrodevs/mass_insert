@@ -3,18 +3,12 @@ module MassInsert
     module Helpers
       class ColumnValue
 
-        attr_accessor :row, :column, :options
+        attr_accessor :row, :column, :class_name
 
-        def initialize row, column, options
-          @row     = row
-          @column  = column
-          @options = options
-        end
-
-        # Returns the class that invokes the mass insert process. The class
-        # is in the options hash.
-        def class_name
-          options[:class_name]
+        def initialize row, column, class_name
+          @row        = row
+          @column     = column
+          @class_name = class_name
         end
 
         # Returns a symbol with the column type in the database. The column or

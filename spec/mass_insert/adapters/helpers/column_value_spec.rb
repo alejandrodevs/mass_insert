@@ -2,14 +2,14 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::Adapters::Helpers::ColumnValue do
-  let(:options) {{ :class_name	=> User }}
+  let(:class_name) { User }
   let(:row) {{ :name	=> "name", :age	=> 10 }}
   let(:column){ :name }
-  let!(:subject){ MassInsert::Adapters::Helpers::ColumnValue.new(row, column, options) }
+  let!(:subject){ MassInsert::Adapters::Helpers::ColumnValue.new(row, column, class_name) }
 
   describe "#initialize" do
-    it "should assign options param to option attribute" do
-      expect(subject.options).to eq(options)
+    it "should assign class_name param to class_name attribute" do
+      expect(subject.class_name).to eq(class_name)
     end
 
     it "should assign column param to column attribute" do
@@ -18,16 +18,6 @@ describe MassInsert::Adapters::Helpers::ColumnValue do
 
     it "should assign row param to row attribute" do
       expect(subject.row).to eq(row)
-    end
-  end
-
-  describe "#class_name" do
-    it "should respond to class_name method" do
-      expect(subject).to respond_to(:class_name)
-    end
-
-    it "should return the class_name in options" do
-      expect(subject.class_name).to eq(User)
     end
   end
 
