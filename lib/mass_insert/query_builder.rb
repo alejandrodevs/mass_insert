@@ -8,9 +8,8 @@ module MassInsert
       @options = options
     end
 
-    # This function calls the correct adapter class and returns the
-    # sql string ready to be executed and returns it to be execute in
-    # the QueryExecution class.
+    # This function gets the correct adapter class and returns the
+    # sql string ready to be executed.
     def build
       adapter_class.new(values, options).execute
     end
@@ -21,10 +20,8 @@ module MassInsert
       ActiveRecord::Base.connection.instance_values["config"][:adapter]
     end
 
-    # Returns an instance of the correct database adapter and this
-    # instance will be called to generate the sql string. The values
-    # and options are passed by params when the correct adapter class
-    # is instanced.
+    # Returns the class of the correct database adapter according to the
+    # database engine that is used in Rails project.
     def adapter_class
       case adapter
       when "mysql2"
