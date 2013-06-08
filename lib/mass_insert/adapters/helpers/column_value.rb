@@ -29,7 +29,7 @@ module MassInsert
         # if the symbol key doesn't exist it will try to find it by string
         # key. Otherwise it will return nil.
         def column_value
-          row.fetch(column.to_sym){row[column.to_s]}
+          row.fetch(column){row[@column.to_s]}
         end
 
         # Returns the string with the database adapter name usually in the
