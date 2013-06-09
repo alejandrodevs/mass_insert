@@ -1,9 +1,7 @@
 module MassInsert
   module Adapters
     class Adapter
-      include Helpers::AbstractQuery
-      include Helpers::Timestamp
-      include Helpers::Sanitizer
+      include Helpers
 
       attr_accessor :values, :options, :columns
 
