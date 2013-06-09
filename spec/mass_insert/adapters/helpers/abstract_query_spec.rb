@@ -2,7 +2,8 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::Adapters::Helpers::AbstractQuery do
-  let!(:subject){ MassInsert::Adapters::Adapter.new([], {}) }
+  let!(:options){ {:class_name => "SomeClassName"} }
+  let!(:subject){ MassInsert::Adapters::Adapter.new([], options) }
 
   describe "#begin_string" do
     it "should respond to begin_string method" do

@@ -39,7 +39,7 @@ module MassInsert
         # Returns a single column string value with the correct format and
         # according to the database configuration, column type and presence.
         def string_single_value row, column
-          ColumnValue.new(row, column, options[:class_name]).build
+          ColumnValue.new(row, column, class_name).build
         end
 
         # This functions calls the necessary functions to create a complete
