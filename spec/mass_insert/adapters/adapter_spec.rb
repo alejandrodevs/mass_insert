@@ -19,10 +19,6 @@ describe MassInsert::Adapters::Adapter do
     end
 
     describe "#class_name" do
-      it "should respond to class name method" do
-        expect(subject).to respond_to(:class_name)
-      end
-
       it "should returns the class_name in options" do
         subject.options = {:class_name => Test}
         expect(subject.class_name).to eq(Test)
@@ -30,10 +26,6 @@ describe MassInsert::Adapters::Adapter do
     end
 
     describe "#table_name" do
-      it "should respond to table_name method" do
-        expect(subject).to respond_to(:table_name)
-      end
-
       it "should returns the table_name in options" do
         subject.options = {:table_name => "users"}
         expect(subject.table_name).to eq("users")
@@ -70,10 +62,6 @@ describe MassInsert::Adapters::Adapter do
     end
 
     describe "#primary_key" do
-      it "should respond to primary_key method" do
-        expect(subject).to respond_to(:primary_key)
-      end
-
       it "should returns the primary_key in options" do
         subject.options = {:primary_key => :user_id}
         expect(subject.primary_key).to eq(:user_id)
@@ -81,10 +69,6 @@ describe MassInsert::Adapters::Adapter do
     end
 
     describe "#primary_key_mode" do
-      it "should respond to primary_key_mode method" do
-        expect(subject).to respond_to(:primary_key_mode)
-      end
-
       it "should returns the primary_key_mode in options" do
         subject.options = {:primary_key_mode => :auto}
         expect(subject.primary_key_mode).to eq(:auto)
