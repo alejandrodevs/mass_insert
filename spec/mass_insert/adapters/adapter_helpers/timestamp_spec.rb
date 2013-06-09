@@ -46,29 +46,29 @@ describe MassInsert::Adapters::AdapterHelpers::Timestamp do
     end
   end
 
-  describe "#timestamp_values" do
-    it "should respond_to timestamp_values method" do
-      expect(subject).to respond_to(:timestamp_values)
+  describe "#timestamp_hash" do
+    it "should respond_to timestamp_hash method" do
+      expect(subject).to respond_to(:timestamp_hash)
     end
 
     context "when have high precision" do
       it "should no be equals" do
-        timestamp_values = {
+        timestamp_hash_expected = {
           :created_at => subject.timestamp,
           :updated_at => subject.timestamp
         }
-        expect(subject.timestamp_values).not_to eq(timestamp_values)
+        expect(subject.timestamp_hash).not_to eq(timestamp_hash_expected)
       end
     end
 
     context "when do not have precision" do
       it "should be equals" do
         subject.stub(:timestamp_format).and_return("%Y-%m-%d %H:%M:%S")
-        timestamp_values = {
+        timestamp_hash_expected = {
           :created_at => subject.timestamp,
           :updated_at => subject.timestamp
         }
-        expect(subject.timestamp_values).to eq(timestamp_values)
+        expect(subject.timestamp_hash).to eq(timestamp_hash_expected)
       end
     end
   end

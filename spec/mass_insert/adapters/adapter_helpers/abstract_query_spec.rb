@@ -77,8 +77,8 @@ describe MassInsert::Adapters::AdapterHelpers::AbstractQuery do
     context "when respond to timestamp attributes" do
       it "should call timestamp_values method" do
         subject.stub(:columns).and_return([:created_at, :updated_at])
-        subject.stub(:timestamp_values).and_return(:test => "test")
-        subject.should_receive(:timestamp_values).exactly(1).times
+        subject.stub(:timestamp_hash).and_return(:test => "test")
+        subject.should_receive(:timestamp_hash).exactly(1).times
         subject.string_single_row_values({})
       end
     end
@@ -86,7 +86,7 @@ describe MassInsert::Adapters::AdapterHelpers::AbstractQuery do
     context "when not respond to timestamp attributes" do
       it "should returns the correct string" do
         subject.stub(:columns).and_return([:name, :email])
-        subject.should_receive(:timestamp_values).exactly(0).times
+        subject.should_receive(:timestamp_hash).exactly(0).times
         subject.string_single_row_values({})
       end
     end

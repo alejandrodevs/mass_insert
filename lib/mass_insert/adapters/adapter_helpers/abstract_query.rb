@@ -32,7 +32,7 @@ module MassInsert
         # according to the type column and values.
         # Before that row is prepared with the correct values.
         def string_single_row_values row
-          row.merge!(timestamp_values) if timestamp?
+          row.merge!(timestamp_hash) if timestamp?
           columns.map{ |col| string_single_value(row, col) }.join(", ")
         end
 
