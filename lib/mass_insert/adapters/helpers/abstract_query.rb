@@ -12,7 +12,7 @@ module MassInsert
         # Returns a string  with the column names to the class table name
         # and divided by commas.
         def string_columns
-          "(#{column_names.join(", ")}) "
+          "(#{columns.join(", ")}) "
         end
 
         # Returns the string with all the row values that will be included
@@ -33,7 +33,7 @@ module MassInsert
         # Before that row is prepared with the correct values.
         def string_single_row_values row
           row.merge!(timestamp_values) if timestamp?
-          column_names.map{ |col| string_single_value(row, col) }.join(", ")
+          columns.map{ |col| string_single_value(row, col) }.join(", ")
         end
 
         # Returns a single column string value with the correct format and

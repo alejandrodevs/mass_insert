@@ -11,14 +11,14 @@ describe MassInsert::Adapters::Helpers::Timestamp do
 
     context "when respond to timestamp columns" do
       it "should return true" do
-        subject.stub(:column_names).and_return([:updated_at, :created_at])
+        subject.stub(:columns).and_return([:updated_at, :created_at])
         expect(subject.timestamp?).to be_true
       end
     end
 
     context "when not respond to timestamp columns" do
       it "should return false" do
-        subject.stub(:column_names).and_return([:created_at])
+        subject.stub(:columns).and_return([:created_at])
         expect(subject.timestamp?).to be_false
       end
     end

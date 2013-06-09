@@ -5,7 +5,7 @@ module MassInsert
       include Helpers::Timestamp
       include Helpers::Sanitizer
 
-      attr_accessor :values, :options, :column_names
+      attr_accessor :values, :options, :columns
 
       def initialize values, options
         @values  = values
@@ -26,8 +26,8 @@ module MassInsert
 
       # Returns the array with the column names valid to be included into the
       # query string according to the options.
-      def column_names
-        @column_names ||= sanitized_columns
+      def columns
+        @columns ||= sanitized_columns
       end
 
       # Returns the primary_key column that was configured by the user.

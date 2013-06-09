@@ -21,7 +21,7 @@ describe MassInsert::Adapters::Helpers::AbstractQuery do
     end
 
     it "should returns correct string to columns" do
-      subject.stub(:column_names).and_return([:name, :email])
+      subject.stub(:columns).and_return([:name, :email])
       expect(subject.string_columns).to eq("(name, email) ")
     end
   end
@@ -69,13 +69,13 @@ describe MassInsert::Adapters::Helpers::AbstractQuery do
     end
 
     it "should returns the correct string" do
-      subject.stub(:column_names).and_return([:name, :email])
+      subject.stub(:columns).and_return([:name, :email])
       expect(subject.string_single_row_values({})).to eq("value, value")
     end
 
     context "when respond to timestamp attributes" do
       it "should call timestamp_values method" do
-        subject.stub(:column_names).and_return([:created_at, :updated_at])
+        subject.stub(:columns).and_return([:created_at, :updated_at])
         subject.stub(:timestamp_values).and_return(:test => "test")
         subject.should_receive(:timestamp_values).exactly(1).times
         subject.string_single_row_values({})
@@ -84,7 +84,7 @@ describe MassInsert::Adapters::Helpers::AbstractQuery do
 
     context "when not respond to timestamp attributes" do
       it "should returns the correct string" do
-        subject.stub(:column_names).and_return([:name, :email])
+        subject.stub(:columns).and_return([:name, :email])
         subject.should_receive(:timestamp_values).exactly(0).times
         subject.string_single_row_values({})
       end

@@ -40,7 +40,7 @@ describe MassInsert::Adapters::Adapter do
       end
     end
 
-    describe "#column_names" do
+    describe "#columns" do
       before :each do
         subject.options.merge!({
           :class_name       => Test,
@@ -49,22 +49,22 @@ describe MassInsert::Adapters::Adapter do
         })
       end
 
-      it "should respond to column_names method" do
-        expect(subject).to respond_to(:column_names)
+      it "should respond to columns method" do
+        expect(subject).to respond_to(:columns)
       end
 
       context "when primary_key is auto" do
         it "should return an array without primary key column" do
           column_names = [:name, :email]
-          expect(subject.column_names).to eq(column_names)
+          expect(subject.columns).to eq(column_names)
         end
       end
 
       context "when primary key is manual" do
         it "should return an array with primary key column" do
           subject.options.merge!({:primary_key_mode => :manual})
-          column_names = [:id, :name, :email]
-          expect(subject.column_names).to eq(column_names)
+          columns_expected = [:id, :name, :email]
+          expect(subject.columns).to eq(columns_expected)
         end
       end
     end
