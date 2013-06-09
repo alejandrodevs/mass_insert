@@ -25,10 +25,7 @@ module MassInsert
         # Returns the timestamp values to be merge into row values that
         # will be saved in the database.
         def timestamp_values
-          {
-            :created_at => timestamp,
-            :updated_at => timestamp
-          }
+          {:created_at => timestamp, :updated_at => timestamp}
         end
 
       end
