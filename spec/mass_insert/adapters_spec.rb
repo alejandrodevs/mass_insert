@@ -11,7 +11,7 @@ describe MassInsert::Adapters do
   end
 
   it 'should define ColumnValue class' do
-    expect(MassInsert::Adapters::Helpers).to be
+    expect(MassInsert::Adapters::AdapterHelpers).to be
   end
 
   it 'should define MysqlAdapter class' do

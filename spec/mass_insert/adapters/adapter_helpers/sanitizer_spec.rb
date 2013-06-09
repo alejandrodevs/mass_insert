@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Adapters::Helpers::Sanitizer do
+describe MassInsert::Adapters::AdapterHelpers::Sanitizer do
   let!(:subject){ MassInsert::Adapters::Adapter.new([], {}) }
 
   describe "#sanitized_columns" do

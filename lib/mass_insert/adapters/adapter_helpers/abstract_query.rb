@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    module Helpers
+    module AdapterHelpers
       module AbstractQuery
 
         # Returns a begin string to a basic mysql query insertion. Include

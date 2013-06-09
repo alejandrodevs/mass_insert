@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    module Helpers
+    module AdapterHelpers
       module Sanitizer
 
         # Returns an array with the column names in the database table like

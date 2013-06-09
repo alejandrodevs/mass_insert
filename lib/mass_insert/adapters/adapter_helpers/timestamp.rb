@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    module Helpers
+    module AdapterHelpers
       module Timestamp
 
         # Returns true o false if the database table has the

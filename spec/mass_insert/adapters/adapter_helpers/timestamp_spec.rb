@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Adapters::Helpers::Timestamp do
+describe MassInsert::Adapters::AdapterHelpers::Timestamp do
   let!(:subject){ MassInsert::Adapters::Adapter.new([], {}) }
 
   describe "#timestamp?" do

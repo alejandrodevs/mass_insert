@@ -1,7 +1,7 @@
 module MassInsert
   module Adapters
     class Adapter
-      include Helpers
+      include AdapterHelpers
 
       attr_accessor :values, :options, :columns
 

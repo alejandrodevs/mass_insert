@@ -1,8 +1,8 @@
-Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each{ |file| require file }
+Dir[File.dirname(__FILE__) + '/adapter_helpers/*.rb'].each{ |file| require file }
 
 module MassInsert
   module Adapters
-    module Helpers
+    module AdapterHelpers
       include AbstractQuery
       include Timestamp
       include Sanitizer

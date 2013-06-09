@@ -1,11 +1,11 @@
 require './spec/spec_helper'
 require "./lib/mass_insert"
 
-describe MassInsert::Adapters::Helpers::ColumnValue do
+describe MassInsert::Adapters::AdapterHelpers::ColumnValue do
   let(:class_name) { User }
   let(:row) {{ :name	=> "name", :age	=> 10 }}
   let(:column){ :name }
-  let!(:subject){ MassInsert::Adapters::Helpers::ColumnValue.new(row, column, class_name) }
+  let!(:subject){ MassInsert::Adapters::AdapterHelpers::ColumnValue.new(row, column, class_name) }
 
   describe "#initialize" do
     it "should assign class_name param to class_name attribute" do
