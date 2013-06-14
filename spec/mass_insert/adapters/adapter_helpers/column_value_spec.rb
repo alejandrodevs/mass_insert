@@ -27,7 +27,10 @@ describe MassInsert::Adapters::AdapterHelpers::ColumnValue do
     end
 
     it "should return symbol :string" do
-      expect(subject.column_type).to eq(:string)
+      subject.stub(:class_name).and_return("ClassName")
+      subject.class_name.stub(:columns_hash).and_return({"name" => "SomeObject"})
+      subject.class_name.columns_hash["name"].stub(:type).and_return(:column_type)
+      expect(subject.column_type).to eq(:column_type)
     end
   end
 
@@ -80,7 +83,10 @@ describe MassInsert::Adapters::AdapterHelpers::ColumnValue do
     end
 
     it "should return the default database value" do
-      expect(subject.default_db_value).to eq(nil)
+      subject.stub(:class_name).and_return("ClassName")
+      subject.class_name.stub(:columns_hash).and_return({"name" => "SomeObject"})
+      subject.class_name.columns_hash["name"].stub(:default).and_return(:default_db_value)
+      expect(subject.default_db_value).to eq(:default_db_value)
     end
   end
 
