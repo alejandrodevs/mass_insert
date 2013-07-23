@@ -17,6 +17,16 @@ Or install it yourself with:
 
     $ gem install mass_insert
 
+## Advantages
+
+Faster. It's depending of the computer but these are some results...
+
+* PostgreSQL - Saving 10,000 records in 0.84s
+
+## Attention
+
+Since this is a single database insertion your model validation will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
+
 ## Basic Usage
 
 To use MassInsert gem you need to call mass_insert method from your ActiveRecord model and pass it an array with the values that you want to persist into the database.
@@ -77,28 +87,20 @@ OR directly
 
 Some options that you can include are...
 
-`:table_name` : Default value is the table name to your model. This options rarely needs to change but you can do it if you pass a string with the table name. Example...
+**table_name**
+- Default value is the table name to your model. This options rarely needs to change but you can do it if you pass a string with the table name. Example...
 
     options = {:table_name => "users"}
 
-`:primary_key` : Default value is `:id`. You can change the name of primary key column send it a symbol with the column name.
+**primary_key**
+- Default value is `:id`. You can change the name of primary key column send it a symbol with the column name.
 
     options = {:primary_key => :post_id}
 
-`:primary_key_mode` : Default value is `:auto`. When is `:auto` MassInsert knows that the database will generate the value of the primary key column automatically. If you pass `:manual` as primary key mode you need to create your value hashes with the key and value of the primary key column.
+**primary_key_mode**
+- Default value is `:auto`. When is `:auto` MassInsert knows that the database will generate the value of the primary key column automatically. If you pass `:manual` as primary key mode you need to create your value hashes with the key and value of the primary key column.
 
     options = {:primary_key_mode => :manual}
-
-
-## Advantages
-
-Faster. It's depending of the computer but these are some results...
-
-* PostgreSQL - Saving 10,000 records in 0.84s
-
-## Attention
-
-Since this is a single database insertion your model validation will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
 
 ## Contributing
 
