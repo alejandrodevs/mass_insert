@@ -2,21 +2,9 @@ require './spec/spec_helper'
 require "./lib/mass_insert"
 
 describe MassInsert::QueryBuilder do
-  let!(:subject){ MassInsert::QueryBuilder.new([], {}) }
+  let!(:subject){ MassInsert::QueryBuilder.new }
 
   describe "instance methods" do
-    describe "#initialize" do
-      let(:builder){ MassInsert::QueryBuilder.new("values", "options") }
-
-      it "should initialize the values attribute" do
-        expect(builder.values).to eq("values")
-      end
-
-      it "should initialize the options attribute" do
-        expect(builder.options).to eq("options")
-      end
-    end
-
     describe "#build" do
       it "should respond to build method" do
         expect(subject).to respond_to(:build)
@@ -26,7 +14,7 @@ describe MassInsert::QueryBuilder do
         subject.stub(:adapter_class).and_return("adapter_class")
         subject.adapter_class.stub(:new).and_return("adapter_instance")
         subject.adapter_class.new.stub(:execute).and_return("query")
-        expect(subject.build).to eq("query")
+        expect(subject.build([], {})).to eq("query")
       end
     end
 

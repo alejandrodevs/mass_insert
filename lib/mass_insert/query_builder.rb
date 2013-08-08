@@ -1,16 +1,9 @@
 module MassInsert
   class QueryBuilder
 
-    attr_accessor :values, :options
-
-    def initialize values, options
-      @values  = values
-      @options = options
-    end
-
     # This function gets the correct adapter class and returns the
     # sql string ready to be executed.
-    def build
+    def build values, options
       adapter_class.new(values, options).execute
     end
 
