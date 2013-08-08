@@ -1,20 +1,20 @@
 require 'spec_helper'
 
-describe MassInsert::QueryExecution do
-  let!(:subject){ MassInsert::QueryExecution.new("query string") }
+describe MassInsert::Executer::Base do
+  let!(:subject){ MassInsert::Executer::Base.new("query string") }
 
   describe "instance methods" do
     describe "#initialize" do
       context "when params passed is a string" do
         it "query_container should be an array with the param" do
-          execution = MassInsert::QueryExecution.new("option")
+          execution = MassInsert::Executer::Base.new("option")
           expect(execution.query_container).to eq(["option"])
         end
       end
 
       context "when params passed is an array" do
         it "query_container should be the array passed by param" do
-          execution = MassInsert::QueryExecution.new(["one", "two"])
+          execution = MassInsert::Executer::Base.new(["one", "two"])
           expect(execution.query_container).to eq(["one", "two"])
         end
       end

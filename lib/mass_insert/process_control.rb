@@ -28,7 +28,7 @@ module MassInsert
     # This method does a QueryExecution instance where the query will be
     # execute. The query string is the instance variable @query.
     def execute_query
-      QueryExecution.new(@query).execute if @query
+      Executer::Base.new(@query).execute if @query
     end
 
     # Provides an OpenStruc instance to see the process results. This

@@ -2,14 +2,18 @@ require "mass_insert/version"
 
 module MassInsert
 
+  autoload :Base,           'mass_insert/base.rb'
+  autoload :ProcessControl, 'mass_insert/process_control.rb'
+
   module Builder
-    autoload :Adapters,       'mass_insert/builder/adapters.rb'
-    autoload :Base,           'mass_insert/builder/base.rb'
+    autoload :Adapters,     'mass_insert/builder/adapters.rb'
+    autoload :Base,         'mass_insert/builder/base.rb'
   end
 
-  autoload :Base,             'mass_insert/base.rb'
-  autoload :ProcessControl,   'mass_insert/process_control.rb'
-  autoload :QueryExecution,   'mass_insert/query_execution.rb'
+  module Executer
+    autoload :Base,         'mass_insert/executer/base.rb'
+  end
+
 end
 
 if defined?(ActiveRecord::Base)
