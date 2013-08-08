@@ -22,7 +22,7 @@ module MassInsert
     # Returns the correct query string  according to database adapter
     # previosly configured usually in database.yml in Rails project.
     def build_query
-      @query = QueryBuilder.new.build(values, options)
+      @query = Builder::Base.new.build(values, options)
     end
 
     # This method does a QueryExecution instance where the query will be

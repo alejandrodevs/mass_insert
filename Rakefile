@@ -15,7 +15,7 @@ namespace :spec do
   desc "Runs all unit tests"
   task :all do
     system("echo '\e[00;32m\033[1mRunning all unit tests...\e[00m'")
-    system("bundle exec rspec spec/mass_insert_spec.rb spec/mass_insert")
+    system("bundle exec rspec spec/lib/mass_insert_spec.rb spec/lib/mass_insert")
   end
   
   desc "Runs all the mysql2 specs"

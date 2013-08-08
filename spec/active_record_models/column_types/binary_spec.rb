@@ -1,5 +1,4 @@
-require './spec/spec_helper'
-require "./lib/mass_insert"
+require 'spec_helper'
 
 describe "Binary" do
 

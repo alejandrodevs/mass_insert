@@ -1,6 +1,4 @@
-require './spec/spec_helper'
-require "./lib/mass_insert"
-require "./spec/dummy_models/test"
+require 'spec_helper'
 
 describe "Model" do
 
