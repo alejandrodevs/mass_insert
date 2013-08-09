@@ -62,7 +62,7 @@ module MassInsert
       end
 
       options = mass_insert_options(args)
-      @mass_insert_process = ProcessControl.new(values, options)
+      @mass_insert_process = Process.new(values, options)
       @mass_insert_process.start
     end
 

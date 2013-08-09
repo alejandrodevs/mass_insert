@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe MassInsert::ProcessControl do
-  let!(:subject){ MassInsert::ProcessControl.new([], {}) }
+describe MassInsert::Process do
+  let!(:subject){ MassInsert::Process.new([], {}) }
 
   describe "instance methods" do
     describe "#initialize" do
-      let(:process){ MassInsert::ProcessControl.new("values", "options") }
+      let(:process){ MassInsert::Process.new("values", "options") }
 
       it "should initialize the values" do
         expect(process.values).to eq("values")

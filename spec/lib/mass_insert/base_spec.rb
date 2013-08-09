@@ -4,7 +4,7 @@ describe MassInsert::Base do
   describe "class methods" do
     describe ".mass_insert" do
       before :each do
-        MassInsert::ProcessControl.any_instance.stub(:start => true)
+        MassInsert::Process.any_instance.stub(:start => true)
       end
 
       it "should respond to mass_insert class method" do
@@ -27,7 +27,7 @@ describe MassInsert::Base do
       end
 
       it "should call execute ProcessControl method" do
-        process = MassInsert::ProcessControl.any_instance
+        process = MassInsert::Process.any_instance
         process.should_receive(:start).exactly(1).times
         Test.mass_insert([], {})
       end
@@ -46,7 +46,7 @@ describe MassInsert::Base do
 
       context "when mass_insert_process instance variable exists" do
         it "should call results method in ProcessControl class" do
-          process = MassInsert::ProcessControl
+          process = MassInsert::Process
           process.any_instance.stub(:results).and_return(true)
           process.any_instance.should_receive(:results).exactly(1).times
           Test.mass_insert([], {})

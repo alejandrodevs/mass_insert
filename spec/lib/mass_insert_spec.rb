@@ -10,7 +10,7 @@ describe MassInsert do
   end
 
   it 'should define ProcessControl' do
-    expect(MassInsert::ProcessControl).to be
+    expect(MassInsert::Process).to be
   end
 
   it 'should define Adapters in Builder module' do

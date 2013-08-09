@@ -2,7 +2,7 @@ require 'benchmark'
 require 'ostruct'
 
 module MassInsert
-  class ProcessControl
+  class Process
 
     attr_accessor :values, :options
 
