@@ -49,7 +49,7 @@ describe MassInsert::Process do
 
     describe "#execute_query" do
       before :each do
-        @execution = MassInsert::Executer::Base.any_instance
+        @execution = MassInsert::Executer.any_instance
         @execution.stub(:execute)
       end
 

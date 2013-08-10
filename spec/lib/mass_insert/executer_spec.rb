@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe MassInsert::Executer::Base do
-  let!(:subject){ MassInsert::Executer::Base.new }
+describe MassInsert::Executer do
+  let!(:subject){ MassInsert::Executer.new }
 
   describe "instance methods" do
     describe "#execute" do

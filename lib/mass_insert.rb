@@ -3,14 +3,11 @@ require "mass_insert/version"
 module MassInsert
   autoload :Base,       'mass_insert/base.rb'
   autoload :Process,    'mass_insert/process.rb'
+  autoload :Executer,   'mass_insert/executer.rb'
 
   module Builder
-    autoload :Adapters, 'mass_insert/builder/adapters.rb'
     autoload :Base,     'mass_insert/builder/base.rb'
-  end
-
-  module Executer
-    autoload :Base,     'mass_insert/executer/base.rb'
+    autoload :Adapters, 'mass_insert/builder/adapters.rb'
   end
 end
 
