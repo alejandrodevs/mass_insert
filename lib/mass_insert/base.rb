@@ -48,14 +48,6 @@ module MassInsert
     #
     #   options = {:primary_key_mode => :manual}
     #
-    # When a class that inherit from ActiveRecord::Base calls this method
-    # is going to extend the methods in ClassMethods module. This module
-    # contains some methods that provides some necessary functionality.
-    #
-    # After extends the class with methods in ClassMethods module. The
-    # options that were passed by params are sanitized in the method
-    # called mass_insert_options to be passed by params to ProcessControl
-    # class. The record values are passed too.
     def mass_insert values, args = {}
       class_eval do
         extend ClassMethods
@@ -68,19 +60,15 @@ module MassInsert
 
 
     module ClassMethods
-      # Returns an OpenStruc instance where is possible to see the
-      # results of MassInsert process. This method calls results method
-      # in ProcessControl class. Returns nil if there is not a instance
-      # variable with the MassInset process.
+      # Returns an OpenStruct instance where is possible to see the
+      # results of MassInsert process.
       def mass_insert_results
         @mass_insert_process.results if @mass_insert_process
       end
 
       private
         # Sanitizes the MassInset options that were passed by params.
-        # Prepares default options that come in the class that invokes the
-        # mass_insert function and attributes options that were configured
-        # and if the options weren't passed, they would be initialized with
+        # If the options weren't passed, they would be initialized with
         # the default values.
         def mass_insert_options options = {}
           options[:class_name]        ||= self
