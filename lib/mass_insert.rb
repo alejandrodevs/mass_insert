@@ -2,6 +2,7 @@ require "mass_insert/version"
 
 module MassInsert
   autoload :Base,       'mass_insert/base.rb'
+  autoload :Result,     'mass_insert/result.rb'
   autoload :Process,    'mass_insert/process.rb'
   autoload :Executer,   'mass_insert/executer.rb'
 

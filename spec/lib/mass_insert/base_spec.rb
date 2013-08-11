@@ -44,14 +44,16 @@ describe MassInsert::Base do
         expect(Test).to respond_to(:mass_insert_results)
       end
 
-      context "when mass_insert_process instance variable exists" do
-        it "should call results method in ProcessControl class" do
-          process = MassInsert::Process
-          process.any_instance.stub(:results).and_return(true)
-          process.any_instance.should_receive(:results).exactly(1).times
-          Test.mass_insert([], {})
-          Test.mass_insert_results
-        end
+      it "should call results method in ProcessControl class" do
+        Test.mass_insert([], {})
+        process = Test.instance_variable_get(:@mass_insert_process)
+        MassInsert::Result.should_receive(:new).with(process)
+        Test.mass_insert_results
+      end
+
+      it "returns a MassInsert::Result instance" do
+        Test.mass_insert([], {})
+        expect(Test.mass_insert_results).to be_an_instance_of(MassInsert::Result)
       end
     end
 

@@ -9,7 +9,11 @@ describe MassInsert do
     expect(MassInsert::Base).to be
   end
 
-  it 'should define ProcessControl' do
+  it 'should define Result class' do
+    expect(MassInsert::Result).to be
+  end
+
+  it 'should define Process class' do
     expect(MassInsert::Process).to be
   end
 

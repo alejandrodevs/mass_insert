@@ -63,7 +63,7 @@ module MassInsert
       # Returns an OpenStruct instance where is possible to see the
       # results of MassInsert process.
       def mass_insert_results
-        @mass_insert_process.results if @mass_insert_process
+        Result.new(@mass_insert_process)
       end
 
       private
