@@ -3,48 +3,43 @@ module MassInsert
 
     # = MassInsert
     #
-    # This method does a mass database insertion just calling it from your
-    # ActiveRecord model. Example...
+    # Invoke mass insert just calling this from your ActiveRecord model...
     #
     #   User.mass_insert(values)
     #
-    # The values should be an array with the object values in a hash.
-    # Example...
+    # The values should be an array of hashes. Include attributes and values
+    # in every hash. Example...
     #
     #   values = [
-    #     {:name   => "user name", :email  => "user email"},
     #     {:name   => "user name", :email  => "user email"},
     #     {:name   => "user name", :email  => "user email"}
     #   ]
     #
     # == Options
     #
-    # And MassInset gem allow you to send it some options as second param
-    # Example...
+    # MassInset gem allow you to send it options as second param. Example...
     #
     #   User.mass_insert(values, options)
     #
     # === table_name
     #
-    # Default value is the table name to your model. This options rarely
-    # needs to change but you can do it if you pass a string with the table
-    # name. Example...
+    # Default value is the model table name but it's possible to change it
+    # passing other table name. Example...
     #
     #   options = {:table_name => "users"}
     #
     # === primary_key
     #
-    # Default value is :id. You can change the name of primary key column
-    # send it a symbol with the column name.
+    # Default value is :id but it's possible to change passing other primary
+    # key symbol. Example...
     #
     #   options = {:primary_key => :post_id}
     #
     # === primary_key_mode
     #
-    # Default value is :auto. When is :auto MassInsert knows that database
-    # will generate the value of the primary key column automatically. If
-    # you pass :manual as primary key mode you need to create your value
-    # hashes with the key and value of the primary key column.
+    # By default MassInsert knows that the database will generate the
+    # primary key value automatically. If you pass it :manual you need
+    # to include the primary key value in every hash.
     #
     #   options = {:primary_key_mode => :manual}
     #
@@ -60,17 +55,15 @@ module MassInsert
 
 
     module ClassMethods
-      # Returns an OpenStruct instance where is possible to see the
-      # results of MassInsert process.
+
       def mass_insert_results
         Result.new(@mass_insert_process)
       end
 
       private
-        # Sanitizes the MassInset options that were passed by params.
-        # If the options weren't passed, they would be initialized with
-        # the default values.
-        def mass_insert_options options = {}
+        # Sanitizes options. If the options weren't passed, they would
+        # be initialized with default values.
+        def mass_insert_options options
           options[:class_name]        ||= self
           options[:table_name]        ||= self.table_name
           options[:primary_key]       ||= :id
