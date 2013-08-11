@@ -4,41 +4,31 @@ require 'ostruct'
 module MassInsert
   class Process
 
-    attr_accessor :values, :options
-
     def initialize values, options
       @values  = values
       @options = options
     end
 
-    # This method is responsible to call all the necessary process to
-    # complete the mass insertion process and save the time each method
-    # takes being executed.
+    # Calls the necessary methods to complete the mass insertion process
+    # and the time that each method takes being executed.
     def start
-      @build_time   = Benchmark.measure{ build_query }
-      @execute_time = Benchmark.measure{ execute_query }
-    end
+      @building_time  = Benchmark.measure do
+        @queries = Builder::Base.new.build(@values, @options)
+      end
 
-    # Returns the correct query string  according to database adapter
-    # previosly configured usually in database.yml in Rails project.
-    def build_query
-      @query = Builder::Base.new.build(values, options)
-    end
-
-    # This method does a QueryExecution instance where the query will be
-    # execute. The query string is the instance variable @query.
-    def execute_query
-      Executer.new.execute(@query) if @query
+      @execution_time = Benchmark.measure do
+        Executer.new.execute(@queries)
+      end
     end
 
     # Provides an OpenStruc instance to see the process results. This
     # method is usually called from mass_insert_results in Base module.
     def results
       result = OpenStruct.new
-      result.time         = @build_time.total + @execute_time.total
-      result.records      = values.count
-      result.build_time   = @build_time.total
-      result.execute_time = @execute_time.total
+      result.time         = @building_time.total + @execution_time.total
+      result.records      = @values.count
+      result.build_time   = @building_time.total
+      result.execute_time = @execution_time.total
       result
     end
 
