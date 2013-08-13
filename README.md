@@ -66,8 +66,8 @@ Some result options are...
 
 1. `records` : Returns the amount of records that were persisted.
 2. `time` : Returns the time that took to do all the MassInsert process.
-3. `build_time` : Returns the time that took to create the query string that was persisted.
-4. `execute_time` : Returns the time that took to execute the query string that was persisted.
+3. `building_time` : Returns the time that took to create the query string that was persisted.
+4. `execution_time` : Returns the time that took to execute the query string that was persisted.
 
 
 ## Options
