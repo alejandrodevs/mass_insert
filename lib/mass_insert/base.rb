@@ -63,7 +63,7 @@ module MassInsert
       private
         # Sanitizes options. If the options weren't passed, they would
         # be initialized with default values.
-        def mass_insert_options options
+        def mass_insert_options options = {}
           options[:class_name]        ||= self
           options[:table_name]        ||= self.table_name
           options[:primary_key]       ||= :id
