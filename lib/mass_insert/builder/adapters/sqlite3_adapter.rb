@@ -3,31 +3,24 @@ module MassInsert
     module Adapters
       class SQLite3Adapter < Adapter
 
-        MAX_VALUES_PER_INSERTION = 500
+        VALUES_PER_INSERTION = 500
 
-        # This method is overwrite because the query string to the Sqlite3
-        # adapter is different. Then the method in the AbstractQuery module
-        # is ignored.
+        # The method is overwrited because the queries structure to Sqlite3
+        # adapter are different.
         def string_values
           "SELECT #{string_rows_values};"
         end
 
-        # This method is overwrite because the query string to complete the
-        # string rows values is different. The separator to sqlite adapter is
-        # 'UNION SELECT' instead of '), (' in other sql adapters.
+        # The method is overwrited because the record separator to sqlite adapter
+        # is different.
         def string_rows_values
           values.map{ |row| string_single_row_values(row) }.join(" UNION SELECT ")
         end
 
-        # This functions calls the necessary functions to create a complete
-        # sqlite3 query to multiple insertion. The methods are in the Abstract
-        # Query module. If some method is too specific to this database adapter
-        # you can overwrite it. The values that the user gave will be treated
-        # in batches of 500 items because sqlite database allows by default
-        # batches of 500.and each batch will generate a query. This method will
-        # generate an array with batch queries.
+        # Values will be treated in batches of 500 items because its a standard
+        # in sqlite. It'll generate an array with queries.
         def execute
-          @values.each_slice(MAX_VALUES_PER_INSERTION).map do |slice|
+          @values.each_slice(VALUES_PER_INSERTION).map do |slice|
             @values = slice
             super
           end

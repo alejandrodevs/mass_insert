@@ -72,12 +72,12 @@ describe MassInsert::Builder::Adapters::SQLite3Adapter do
     let(:class_name){ MassInsert::Builder::Adapters::SQLite3Adapter }
 
     it "should respond_to" do
-      constant   = :MAX_VALUES_PER_INSERTION
+      constant   = :VALUES_PER_INSERTION
       expect(class_name.const_defined?(constant)).to be_true
     end
 
     it "should return 1000" do
-      expect(class_name::MAX_VALUES_PER_INSERTION).to eq(500)
+      expect(class_name::VALUES_PER_INSERTION).to eq(500)
     end
   end
 end
