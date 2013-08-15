@@ -16,8 +16,8 @@ module MassInsert
           @options.has_key?(method) ? @options[method] : super
         end
 
-        # Returns the array with the column names valid to be included into
-        # the query string according to the options.
+        # Returns an array according to the options with the column names
+        # that will be included in the queries.
         def columns
           @columns ||= sanitized_columns
         end

@@ -3,8 +3,8 @@ module MassInsert
     module Adapters
       class Mysql2Adapter < Adapter
 
-        # This method is overwrite because the timestamp format to this
-        # database engine does not need precision in nanoseconds.
+        # The method is overwrited because the timestamp format to mysql
+        # adapter does not need accuracy with nanoseconds.
         def timestamp_format
           "%Y-%m-%d %H:%M:%S"
         end
