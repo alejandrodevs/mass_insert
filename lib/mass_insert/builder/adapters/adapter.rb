@@ -4,7 +4,7 @@ module MassInsert
       class Adapter
         include AdapterHelpers
 
-        attr_accessor :values, :options, :columns
+        attr_accessor :values, :options
 
         def initialize values, options
           @values  = values
