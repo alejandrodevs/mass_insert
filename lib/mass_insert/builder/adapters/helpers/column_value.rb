@@ -1,7 +1,7 @@
 module MassInsert
   module Builder
     module Adapters
-      module AdapterHelpers
+      module Helpers
         class ColumnValue
 
           attr_accessor :row, :column, :class_name
