@@ -43,19 +43,6 @@ describe MassInsert::Builder::Adapters::AdapterHelpers::ColumnValue do
     end
   end
 
-  describe "#adapter" do
-    it "should respond to adapter method" do
-      expect(subject).to respond_to(:adapter)
-    end
-
-    it "should return the adapter type" do
-      config = {"config" => {:adapter => "sql"}}
-      connection = ActiveRecord::Base.connection
-      connection.stub(:instance_values).and_return(config)
-      expect(subject.adapter).to eq("sql")
-    end
-  end
-
   describe "#default_value" do
     it "should respond to default_value method" do
       expect(subject).to respond_to(:default_value)
@@ -184,7 +171,7 @@ describe MassInsert::Builder::Adapters::AdapterHelpers::ColumnValue do
     end
 
     it "should call a method according to database adapter" do
-      subject.stub(:adapter).and_return("mysql2")
+      MassInsert::Builder::Utilities.stub(:adapter).and_return("mysql2")
       subject.stub(:mysql2_column_value_boolean).and_return("boolean_value")
       expect(subject.column_value_boolean).to eq("boolean_value")
     end

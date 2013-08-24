@@ -17,19 +17,6 @@ describe MassInsert::Builder::Base do
       end
     end
 
-    describe "#adapter" do
-      it "should respond to adapter method" do
-        expect(subject).to respond_to(:adapter)
-      end
-
-      it "should return the adapter type" do
-        config = {"config" => {:adapter => "sql"}}
-        connection = ActiveRecord::Base.connection
-        connection.stub(:instance_values).and_return(config)
-        expect(subject.adapter).to eq("sql")
-      end
-    end
-
     describe "#adapter_class" do
       it "should respond to adapter_class method" do
         expect(subject).to respond_to(:adapter_class)
@@ -37,7 +24,7 @@ describe MassInsert::Builder::Base do
 
       context "when adapter is mysql2" do
         it "should return a Mysql2Adapter instance" do
-          subject.stub(:adapter).and_return("mysql2")
+          MassInsert::Builder::Utilities.stub(:adapter).and_return("mysql2")
           instance_class = MassInsert::Builder::Adapters::Mysql2Adapter
           expect(subject.adapter_class).to eq(instance_class)
         end
@@ -45,7 +32,7 @@ describe MassInsert::Builder::Base do
 
       context "when adapter is postgresql" do
         it "should return a PostgreSQLAdapter instance" do
-          subject.stub(:adapter).and_return("postgresql")
+          MassInsert::Builder::Utilities.stub(:adapter).and_return("postgresql")
           instance_class = MassInsert::Builder::Adapters::PostgreSQLAdapter
           expect(subject.adapter_class).to eq(instance_class)
         end
@@ -53,7 +40,7 @@ describe MassInsert::Builder::Base do
 
       context "when adapter is sqlite3" do
         it "should return a SQLite3Adapter instance" do
-          subject.stub(:adapter).and_return("sqlite3")
+          MassInsert::Builder::Utilities.stub(:adapter).and_return("sqlite3")
           instance_class = MassInsert::Builder::Adapters::SQLite3Adapter
           expect(subject.adapter_class).to eq(instance_class)
         end
@@ -61,7 +48,7 @@ describe MassInsert::Builder::Base do
 
       context "when adapter is sqlserver" do
         it "should return a SQLServerAdapter instance" do
-          subject.stub(:adapter).and_return("sqlserver")
+          MassInsert::Builder::Utilities.stub(:adapter).and_return("sqlserver")
           instance_class = MassInsert::Builder::Adapters::SQLServerAdapter
           expect(subject.adapter_class).to eq(instance_class)
         end

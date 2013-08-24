@@ -27,12 +27,6 @@ module MassInsert
             row.fetch(column){row[@column.to_s]}
           end
 
-          # Returns the string with the database adapter name usually in the
-          # database.yml file in your Rails project.
-          def adapter
-            ActiveRecord::Base.connection.instance_values["config"][:adapter]
-          end
-
           # Returns the default value string to be included in query string.
           # This default value is added to the query if the row hash does not
           # contains the database column value.
@@ -87,7 +81,7 @@ module MassInsert
           # correct method according to the database adapter to return the correct
           # value to that database engine.
           def column_value_boolean
-            self.send(:"#{adapter}_column_value_boolean")
+            self.send(:"#{Utilities.adapter}_column_value_boolean")
           end
 
           # Returns the column value to boolean column like a string. If the

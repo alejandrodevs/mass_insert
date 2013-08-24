@@ -25,6 +25,10 @@ describe MassInsert do
     expect(MassInsert::Builder::Adapters).to be
   end
 
+  it 'should define Utilities in Builder module' do
+    expect(MassInsert::Builder::Utilities).to be
+  end
+
   it 'should define Base in Builder module' do
     expect(MassInsert::Builder::Base).to be
   end
