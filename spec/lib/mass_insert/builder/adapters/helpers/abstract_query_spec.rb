@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe MassInsert::Builder::Adapters::AdapterHelpers::AbstractQuery do
+describe MassInsert::Builder::Adapters::Helpers::AbstractQuery do
   let!(:options){ {:class_name => "SomeClassName"} }
   let!(:subject){ MassInsert::Builder::Adapters::Adapter.new([], options) }
 
@@ -97,7 +97,7 @@ describe MassInsert::Builder::Adapters::AdapterHelpers::AbstractQuery do
     end
 
     it "should call build method in ColumnValue class" do
-      column_value = MassInsert::Builder::Adapters::AdapterHelpers::ColumnValue.any_instance
+      column_value = MassInsert::Builder::Adapters::Helpers::ColumnValue.any_instance
       column_value.stub(:build).and_return("value")
       expect(subject.string_single_value({}, :name)).to eq("value")
     end
