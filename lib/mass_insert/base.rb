@@ -44,12 +44,8 @@ module MassInsert
     #   options = {:primary_key_mode => :manual}
     #
     def mass_insert values, args = {}
-      class_eval do
-        extend ClassMethods
-      end
-
-      options = mass_insert_options(args)
-      @mass_insert_process = Process.new(values, options)
+      extend ClassMethods
+      @mass_insert_process = Process.new(values, mass_insert_options(args))
       @mass_insert_process.start
     end
 
