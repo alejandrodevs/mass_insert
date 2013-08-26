@@ -75,32 +75,22 @@ Some result options are...
 MassInsert accepts options hash by second param when you call `mass_insert` from your model. This options allow you to configure the way that the records will be created. Example...
 
     options = {
-      :primary_key => :user_id,
-      :primary_key_mode => :manual
+      :some_option => some_value,
+      :some_option => some_value
     }
 
     User.mass_insert(values, options)
 
 OR directly
 
-    User.mass_insert(values, :primary_key => :user_id, :primary_key_mode => :manual)
+    User.mass_insert(values, :some_option => some_value)
 
 Some options that you can include are...
 
-**table_name**
-- Default value is the table name to your model. This options rarely needs to change but you can do it if you pass a string with the table name. Example...
-
-    options = {:table_name => "users"}
-
 **primary_key**
-- Default value is `:id`. You can change the name of primary key column send it a symbol with the column name.
+- By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the primary key option on true.
 
-    options = {:primary_key => :post_id}
-
-**primary_key_mode**
-- Default value is `:auto`. When is `:auto` MassInsert knows that the database will generate the value of the primary key column automatically. If you pass `:manual` as primary key mode you need to create your value hashes with the key and value of the primary key column.
-
-    options = {:primary_key_mode => :manual}
+    options = {:primary_key => true}
 
 ## Contributing
 

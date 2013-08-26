@@ -21,27 +21,10 @@ module MassInsert
     #
     #   User.mass_insert(values, options)
     #
-    # === table_name
-    #
-    # Default value is the model table name but it's possible to change it
-    # passing other table name. Example...
-    #
-    #   options = {:table_name => "users"}
-    #
     # === primary_key
     #
-    # Default value is :id but it's possible to change passing other primary
-    # key symbol. Example...
-    #
-    #   options = {:primary_key => :post_id}
-    #
-    # === primary_key_mode
-    #
-    # By default MassInsert knows that the database will generate the
-    # primary key value automatically. If you pass it :manual you need
-    # to include the primary key value in every hash.
-    #
-    #   options = {:primary_key_mode => :manual}
+    # By default primary key is ignored. If you wish primary key doesn't
+    # be ignored you need to pass the primary key option on true.
     #
     def mass_insert values, args = {}
       extend ClassMethods
@@ -57,14 +40,12 @@ module MassInsert
       end
 
       private
-        # Sanitizes options. If the options weren't passed, they would
-        # be initialized with default values.
-        def mass_insert_options options = {}
-          options[:class_name]  ||= self
-          options[:primary_key] ||= false
-          options
-        end
 
+      def mass_insert_options options = {}
+        options[:class_name]  ||= self
+        options[:primary_key] ||= false
+        options
+      end
     end
   end
 end
