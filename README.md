@@ -87,8 +87,9 @@ OR directly
 
 Some options that you can include are...
 
-**primary_key**
-- By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the primary key option on true.
+**Primary key**
+
+By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the primary key option on true.
 
     options = {:primary_key => true}
 
