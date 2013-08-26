@@ -21,7 +21,7 @@ Or install it yourself with:
 
 Faster. It's depending of the computer but these are some results...
 
-* PostgreSQL - Saving 10,000 records in 0.84s
+* PostgreSQL - Saving 10,000 records in 0.79s
 
 ## Attention
 
@@ -43,11 +43,6 @@ The array of values:
         :name   => "Beverly",
         :email  => "nippy_programmer@gmail.com",
         :age    => 24
-      },
-      {
-        :name   => "Scottie",
-        :email  => "angry_programmer@gmail.com",
-        :age    => 32
       }
     ]
 
@@ -58,7 +53,7 @@ And call mass_insert method from your model:
 
 ## Results
 
-Sometimes after MassInsert process you need to see some necessary information about the process. MassInsert gem provides a simple way to do it. Only call the next methods from your model after MassInsert execution.
+Sometimes after MassInsert process you need to see some necessary information about the process. MassInsert gem provides a simple way to do it. Just call the next methods from your model after MassInsert execution.
 
     User.mass_insert_results.records                    # => 120000
 
@@ -83,15 +78,15 @@ MassInsert accepts options hash by second param when you call `mass_insert` from
 
 OR directly
 
-    User.mass_insert(values, :some_option => some_value)
+    User.mass_insert(values, :option => value)
 
-Some options that you can include are...
+Some options you can include are...
 
 **Primary key**
 
-By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the primary key option on true.
+By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the primary key option on true. Example...
 
-    options = {:primary_key => true}
+    User.mass_insert(values, :primary_key => true)
 
 ## Contributing
 
