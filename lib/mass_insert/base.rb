@@ -21,10 +21,12 @@ module MassInsert
     #
     #   User.mass_insert(values, options)
     #
-    # === primary_key
+    # === Primary key
     #
     # By default primary key is ignored. If you wish primary key doesn't
     # be ignored you need to pass the primary key option on true.
+    #
+    #   options = {:primary_key => true}
     #
     def mass_insert values, options = {}
       extend ClassMethods
