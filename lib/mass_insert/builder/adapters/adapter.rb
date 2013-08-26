@@ -29,9 +29,9 @@ module MassInsert
 
         # Prepare array with the column names according to the options.
         def sanitized_columns
-          columns = table_columns
-          columns.delete(primary_key) if primary_key_mode == :auto
-          columns
+          columns = class_name.column_names
+          columns.delete(class_name.primary_key) unless primary_key
+          columns.map(&:to_sym)
         end
 
         # Returns true o false if the database table has timestamp columns.

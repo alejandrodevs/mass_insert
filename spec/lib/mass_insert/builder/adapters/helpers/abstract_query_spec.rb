@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MassInsert::Builder::Adapters::Helpers::AbstractQuery do
-  let!(:options){ {:class_name => "SomeClassName"} }
+  let!(:options){ {:class_name => Test} }
   let!(:subject){ MassInsert::Builder::Adapters::Adapter.new([], options) }
 
   describe "#begin_string" do
@@ -11,7 +11,7 @@ describe MassInsert::Builder::Adapters::Helpers::AbstractQuery do
 
     it "should returns the correct string" do
       subject.stub(:table_name).and_return("users")
-      expect(subject.begin_string).to eq("INSERT INTO users ")
+      expect(subject.begin_string).to eq("INSERT INTO tests ")
     end
   end
 

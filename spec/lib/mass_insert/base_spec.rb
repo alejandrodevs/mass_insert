@@ -71,42 +71,16 @@ describe MassInsert::Base do
         end
       end
 
-      describe "table_name" do
-        it "returns class table_name that call if options doesn't exist" do
-          options = Test.send(:mass_insert_options)
-          expect(options[:table_name]).to eq(Test.table_name)
-        end
-
-        it "returns table_name option if is in the options" do
-          args = {:table_name => "OtherTable"}
-          options = Test.send(:mass_insert_options, args)
-          expect(options[:table_name]).to eq("OtherTable")
-        end
-      end
-
       describe "primary_key" do
         it "returns :id if option primary_key doesn't exist" do
           options = Test.send(:mass_insert_options)
-          expect(options[:primary_key]).to eq(:id)
+          expect(options[:primary_key]).to eq(false)
         end
 
         it "returns primary_key option if is in the options" do
-          args = {:primary_key => :user_id}
+          args = {:primary_key => true}
           options = Test.send(:mass_insert_options, args)
-          expect(options[:primary_key]).to eq(:user_id)
-        end
-      end
-
-      describe "primary_key_mode" do
-        it "returns :auto if option primary_key_mode doesn't exist" do
-          options = Test.send(:mass_insert_options)
-          expect(options[:primary_key_mode]).to eq(:auto)
-        end
-
-        it "returns primary_key_mode option if is in the options" do
-          args = {:primary_key_mode => :manual}
-          options = Test.send(:mass_insert_options, args)
-          expect(options[:primary_key_mode]).to eq(:manual)
+          expect(options[:primary_key]).to eq(true)
         end
       end
     end

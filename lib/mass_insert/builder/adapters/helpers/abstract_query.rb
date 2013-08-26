@@ -6,7 +6,7 @@ module MassInsert
 
           # Returns a basic beginning of the query.
           def begin_string
-            "INSERT INTO #{table_name} "
+            "INSERT INTO #{class_name.table_name} "
           end
 
           # Returns a basic part of the query with the columns definition.

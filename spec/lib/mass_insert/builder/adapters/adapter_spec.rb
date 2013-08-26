@@ -33,9 +33,8 @@ describe MassInsert::Builder::Adapters::Adapter do
     describe "#columns" do
       before :each do
         subject.options.merge!({
-          :class_name       => Test,
-          :primary_key      => :id,
-          :primary_key_mode => :auto
+          :class_name   => Test,
+          :primary_key  => false
         })
       end
 
@@ -43,16 +42,16 @@ describe MassInsert::Builder::Adapters::Adapter do
         expect(subject).to respond_to(:columns)
       end
 
-      context "when primary_key is auto" do
+      context "when primary_key is false" do
         it "should return an array without primary key column" do
           column_names = [:name, :email]
           expect(subject.columns).to eq(column_names)
         end
       end
 
-      context "when primary key is manual" do
+      context "when primary key is true" do
         it "should return an array with primary key column" do
-          subject.options.merge!({:primary_key_mode => :manual})
+          subject.options.merge!({:primary_key => true})
           columns_expected = [:id, :name, :email]
           expect(subject.columns).to eq(columns_expected)
         end
@@ -76,27 +75,26 @@ describe MassInsert::Builder::Adapters::Adapter do
     describe "#sanitized_columns" do
       before :each do
         options = {
-          :primary_key      => :id,
-          :primary_key_mode => :auto,
+          :class_name       => Test,
+          :primary_key      => false
         }
         subject.options.merge!(options)
-        subject.stub(:table_columns).and_return([:id, :name])
       end
 
       it "should respond to sanitized_columns" do
         expect(subject).to respond_to(:sanitized_columns)
       end
 
-      context "when primary_key_mode is automatic" do
+      context "when primary_key_mode is false" do
         it "should returns the column without primary_key" do
-          expect(subject.sanitized_columns).to eq([:name])
+          expect(subject.sanitized_columns).to eq([:name, :email])
         end
       end
 
-      context "when primary_key_mode is not automatic" do
+      context "when primary_key is true" do
         it "should returns the columns including primary_key" do
-          subject.options.merge!(:primary_key_mode => :manual)
-          expect(subject.sanitized_columns).to eq([:id, :name])
+          subject.options.merge!(:primary_key => true)
+          expect(subject.sanitized_columns).to eq([:id, :name, :email])
         end
       end
     end

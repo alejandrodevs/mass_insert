@@ -82,14 +82,6 @@ describe "Model" do
   end
 
   context "when is used with options" do
-    context "when the table name doesn't exit" do
-      it "should not save any record" do
-        5.times{ @values << @value_hash }
-        @options.merge!(:table_name => "countries")
-        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
-      end
-    end
-
     context "when the class name not inherit from ActiveRecord" do
       it "should not save any record" do
         5.times{ @values << @value_hash }
