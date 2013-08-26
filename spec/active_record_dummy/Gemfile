@@ -8,7 +8,7 @@ gem 'rails', '3.2.13'
 gem 'sqlite3'
 gem 'mysql2'
 gem 'pg'
-gem 'mass_insert'
+gem 'mass_insert', :path => '../../../mass_insert'
 
 # Gems used only for assets and not required
 # in production environments by default.
