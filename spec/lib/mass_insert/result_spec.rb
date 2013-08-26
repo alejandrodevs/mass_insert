@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe MassInsert::Result do
-  let!(:process){ MassInsert::Process.new([], {}) }
+  let!(:values) { [{name: "name"}] }
+  let!(:options){ {option: "value"} }
+  let!(:process){ MassInsert::Process.new(values, options) }
   let!(:subject){ MassInsert::Result.new(process) }
 
   before :each do
@@ -9,7 +11,6 @@ describe MassInsert::Result do
     benchmark.stub(:total).and_return(10)
     process.instance_variable_set(:@building_time, benchmark)
     process.instance_variable_set(:@execution_time, benchmark)
-    process.instance_variable_set(:@values, [{}, {}])
   end
 
   describe "initialize" do
@@ -38,7 +39,7 @@ describe MassInsert::Result do
 
   describe "#records" do
     it "returns size of instance values variable in process instance" do
-      expect(subject.records).to be(2)
+      expect(subject.records).to be(1)
     end
   end
 end
