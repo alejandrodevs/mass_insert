@@ -22,11 +22,6 @@ module MassInsert
           @columns ||= sanitized_columns
         end
 
-        # Returns an array with the columns in the table like symbols.
-        def table_columns
-          class_name.column_names.map(&:to_sym)
-        end
-
         # Prepare array with the column names according to the options.
         def sanitized_columns
           columns = class_name.column_names

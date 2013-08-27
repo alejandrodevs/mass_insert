@@ -1,199 +1,127 @@
 require 'spec_helper'
 
 describe MassInsert::Builder::Adapters::Adapter do
-  let!(:subject){ MassInsert::Builder::Adapters::Adapter.new([], {}) }
+  let!(:subject){ described_class.new([], {}) }
 
-  describe "instance methods" do
-    describe "#initialize" do
-      let(:adapter){MassInsert::Builder::Adapters::Adapter.new("values", "options")}
+  describe "#initialize" do
+    it "initializes values" do
+      expect(subject.values).to eq([])
+    end
 
-      it "should initialize the values" do
-        expect(adapter.values).to eq("values")
-      end
+    it "initializes options" do
+      expect(subject.options).to eq({})
+    end
+  end
 
-      it "should initialize the options" do
-        expect(adapter.options).to eq("options")
+  describe "#class_name" do
+    it "returns class_name option value" do
+      subject.options = {:class_name => "FakeModel"}
+      expect(subject.class_name).to eq("FakeModel")
+    end
+  end
+
+  describe "#primary_key" do
+    it "returns primary_key option value" do
+      subject.options = {:primary_key => true}
+      expect(subject.primary_key).to be_true
+    end
+  end
+
+  describe "#each_slice" do
+    it "returns each_slice option value" do
+      subject.options = {:each_slice => 10000}
+      expect(subject.each_slice).to be 10000
+    end
+  end
+
+  describe "#columns" do
+    context "when instance columns variable isn't defined" do
+      it "returns sanitized_columns result" do
+        subject.stub(:sanitized_columns).and_return("sanitized_columns")
+        expect(subject.columns).to eq("sanitized_columns")
       end
     end
 
-    describe "#class_name" do
-      it "should returns the class_name in options" do
-        subject.options = {:class_name => Test}
-        expect(subject.class_name).to eq(Test)
+    context "when instance columns variable has been defined" do
+      it "returns instance columns variable" do
+        subject.stub(:sanitized_columns).and_return("sanitized_columns")
+        subject.columns
+        subject.stub(:sanitized_columns).and_return("sanitized_columns_other")
+        expect(subject.columns).to eq("sanitized_columns")
+      end
+    end
+  end
+
+  describe "#sanitized_columns" do
+    before :each do
+      subject.options.merge!({:class_name => Test})
+    end
+
+    context "when primary_key is false" do
+      it "returns the columns array without primary key column" do
+        subject.options.merge!({:primary_key => false})
+        expect(subject.columns).to eq([:name, :email])
       end
     end
 
-    describe "#table_name" do
-      it "should returns the table_name in options" do
-        subject.options = {:table_name => "users"}
-        expect(subject.table_name).to eq("users")
+    context "when primary key is true" do
+      it "returns the columns array with primary key column" do
+        subject.options.merge!({:primary_key => true})
+        expect(subject.columns).to eq([:id, :name, :email])
+      end
+    end
+  end
+
+  describe "#timestamp?" do
+    context "when respond to timestamp columns" do
+      it "returns true" do
+        subject.stub(:columns).and_return([:updated_at, :created_at])
+        expect(subject.timestamp?).to be_true
       end
     end
 
-    describe "#columns" do
-      before :each do
-        subject.options.merge!({
-          :class_name   => Test,
-          :primary_key  => false
-        })
+    context "when doesn't respond to timestamp columns" do
+      it "returns false" do
+        subject.stub(:columns).and_return([:created_at])
+        expect(subject.timestamp?).to be_false
       end
+    end
+  end
 
-      it "should respond to columns method" do
-        expect(subject).to respond_to(:columns)
-      end
+  describe "#timestamp_format" do
+    it "returns default timestamp format" do
+      expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%6N")
+    end
+  end
 
-      context "when primary_key is false" do
-        it "should return an array without primary key column" do
-          column_names = [:name, :email]
-          expect(subject.columns).to eq(column_names)
-        end
-      end
+  describe "#timestamp" do
+    it "returns default timestamp value with correct format" do
+      subject.stub(:timestamp_format).and_return("%Y-%m-%d %H:%M:%S")
+      expect(subject.timestamp).to eq(Time.now.strftime("%Y-%m-%d %H:%M:%S"))
+    end
+  end
 
-      context "when primary key is true" do
-        it "should return an array with primary key column" do
-          subject.options.merge!({:primary_key => true})
-          columns_expected = [:id, :name, :email]
-          expect(subject.columns).to eq(columns_expected)
-        end
+  describe "#timestamp_hash" do
+    it "returns a timestamp hash" do
+      timestamp = Time.now.strftime("%Y-%m-%d %H:%M:%S")
+      subject.stub(:timestamp).and_return(timestamp)
+      expect(subject.timestamp_hash).to eq({:created_at => timestamp, :updated_at => timestamp})
+    end
+  end
+
+  describe "#values_per_insertion" do
+    context "when each_slice option is not false" do
+      it "returns each_slice value" do
+        subject.options.merge!(each_slice: 10)
+        expect(subject.values_per_insertion).to eq(10)
       end
     end
 
-    describe "#primary_key" do
-      it "should returns the primary_key in options" do
-        subject.options = {:primary_key => :user_id}
-        expect(subject.primary_key).to eq(:user_id)
-      end
-    end
-
-    describe "#primary_key_mode" do
-      it "should returns the primary_key_mode in options" do
-        subject.options = {:primary_key_mode => :auto}
-        expect(subject.primary_key_mode).to eq(:auto)
-      end
-    end
-
-    describe "#sanitized_columns" do
-      before :each do
-        options = {
-          :class_name       => Test,
-          :primary_key      => false
-        }
-        subject.options.merge!(options)
-      end
-
-      it "should respond to sanitized_columns" do
-        expect(subject).to respond_to(:sanitized_columns)
-      end
-
-      context "when primary_key_mode is false" do
-        it "should returns the column without primary_key" do
-          expect(subject.sanitized_columns).to eq([:name, :email])
-        end
-      end
-
-      context "when primary_key is true" do
-        it "should returns the columns including primary_key" do
-          subject.options.merge!(:primary_key => true)
-          expect(subject.sanitized_columns).to eq([:id, :name, :email])
-        end
-      end
-    end
-
-    describe "#table_columns" do
-      it "should respond to table_columns method" do
-        expect(subject).to respond_to(:table_columns)
-      end
-
-      it "should returns the table_columns in ActiveRecord class" do
-        subject.options = {:class_name => Test}
-        columns = [:id, :name, :email]
-        expect(subject.table_columns).to eq(columns)
-      end
-    end
-
-    describe "#timestamp?" do
-      it "should respond_to timestamp? method" do
-        expect(subject).to respond_to(:timestamp?)
-      end
-
-      context "when respond to timestamp columns" do
-        it "should return true" do
-          subject.stub(:columns).and_return([:updated_at, :created_at])
-          expect(subject.timestamp?).to be_true
-        end
-      end
-
-      context "when not respond to timestamp columns" do
-        it "should return false" do
-          subject.stub(:columns).and_return([:created_at])
-          expect(subject.timestamp?).to be_false
-        end
-      end
-    end
-
-    describe "#timestamp_format" do
-      it "should respond_to timestamp_format method" do
-        expect(subject).to respond_to(:timestamp_format)
-      end
-
-      it "should return the default timestamp format" do
-        expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%6N")
-      end
-    end
-
-    describe "#timestamp" do
-      it "should respond_to timestamp method" do
-        expect(subject).to respond_to(:timestamp)
-      end
-
-      it "should return the default timestamp value with correct format" do
-        subject.stub(:timestamp_format).and_return("%Y-%m-%d %H:%M:%S")
-        timestamp_value = Time.now.strftime("%Y-%m-%d %H:%M:%S")
-        expect(subject.timestamp).to eq(timestamp_value)
-      end
-    end
-
-    describe "#timestamp_hash" do
-      it "should respond_to timestamp_hash method" do
-        expect(subject).to respond_to(:timestamp_hash)
-      end
-
-      context "when have high precision" do
-        it "should no be equals" do
-          timestamp_hash_expected = {
-            :created_at => subject.timestamp,
-            :updated_at => subject.timestamp
-          }
-          expect(subject.timestamp_hash).not_to eq(timestamp_hash_expected)
-        end
-      end
-
-      context "when do not have precision" do
-        it "should be equals" do
-          subject.stub(:timestamp_format).and_return("%Y-%m-%d %H:%M:%S")
-          timestamp_hash_expected = {
-            :created_at => subject.timestamp,
-            :updated_at => subject.timestamp
-          }
-          expect(subject.timestamp_hash).to eq(timestamp_hash_expected)
-        end
-      end
-    end
-
-    describe "#values_per_insertion" do
-      context "when each_slice option is not false" do
-        it "returns each_slice value" do
-          subject.options.merge!(each_slice: 10)
-          expect(subject.values_per_insertion).to eq(10)
-        end
-      end
-
-      context "when each_slice option is false" do
-        it "returns length of values" do
-          subject.values = [{}, {}]
-          subject.options.merge!(each_slice: false)
-          expect(subject.values_per_insertion).to eq(2)
-        end
+    context "when each_slice option is false" do
+      it "returns length of values" do
+        subject.values = [{}, {}]
+        subject.options.merge!(each_slice: false)
+        expect(subject.values_per_insertion).to eq(2)
       end
     end
   end

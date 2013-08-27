@@ -1,21 +1,15 @@
 require 'spec_helper'
 
 describe MassInsert::Builder::Adapters::Mysql2Adapter do
-  let!(:subject){ MassInsert::Builder::Adapters::Mysql2Adapter.new([], {}) }
+  let!(:subject){ described_class.new([], {}) }
 
-  it "should inherit from Adapter class" do
-    expect(subject).to be_a(MassInsert::Builder::Adapters::Adapter)
+  it "inherits from Adapter class" do
+    expect(described_class < MassInsert::Builder::Adapters::Adapter).to be_true
   end
 
-  describe "instance methods" do
-    describe "#timestamp_format" do
-      it "should respond to timestamp_format method" do
-        expect(subject).to respond_to(:timestamp_format)
-      end
-
-      it "should return the format string" do
-        expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S")
-      end
+  describe "#timestamp_format" do
+    it "returns format string" do
+      expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S")
     end
   end
 end

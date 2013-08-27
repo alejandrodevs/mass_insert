@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe MassInsert::Builder::Adapters::PostgreSQLAdapter do
-  let!(:subject){ MassInsert::Builder::Adapters::PostgreSQLAdapter.new([], {}) }
+  let!(:subject){ described_class.new([], {}) }
 
-  it "should inherit from Adapter class" do
-    expect(subject).to be_a(MassInsert::Builder::Adapters::Adapter)
+  it "inherits from Adapter class" do
+    expect(described_class < MassInsert::Builder::Adapters::Adapter).to be_true
   end
-
 end
