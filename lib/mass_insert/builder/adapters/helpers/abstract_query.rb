@@ -36,9 +36,13 @@ module MassInsert
             ColumnValue.new(row, column, class_name).build
           end
 
-          # Calls the necessary methods to create a complete basic query.
+          # Values will be treated in batches according to the values per
+          # insertion value. It'll generate an array with queries.
           def execute
-            "#{begin_string}#{string_columns}#{string_values}"
+            @values.each_slice(values_per_insertion).map do |slice|
+              @values = slice;
+              "#{begin_string}#{string_columns}#{string_values}"
+            end
           end
 
         end

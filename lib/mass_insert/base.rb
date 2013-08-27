@@ -32,6 +32,7 @@ module MassInsert
       extend ClassMethods
 
       options[:class_name]  ||= self
+      options[:each_slice]  ||= false
       options[:primary_key] ||= false
 
       @mass_insert_process = Process.new(values, options)

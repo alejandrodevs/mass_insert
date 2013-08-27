@@ -179,5 +179,22 @@ describe MassInsert::Builder::Adapters::Adapter do
         end
       end
     end
+
+    describe "#values_per_insertion" do
+      context "when each_slice option is not false" do
+        it "returns each_slice value" do
+          subject.options.merge!(each_slice: 10)
+          expect(subject.values_per_insertion).to eq(10)
+        end
+      end
+
+      context "when each_slice option is false" do
+        it "returns length of values" do
+          subject.values = [{}, {}]
+          subject.options.merge!(each_slice: false)
+          expect(subject.values_per_insertion).to eq(2)
+        end
+      end
+    end
   end
 end

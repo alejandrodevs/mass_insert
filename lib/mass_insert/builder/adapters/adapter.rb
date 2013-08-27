@@ -58,6 +58,12 @@ module MassInsert
           {:created_at => timestamp_value, :updated_at => timestamp_value}
         end
 
+        # Returns the amount of records to each query. Tries to take the
+        # each_slice option value or the length of values.
+        def values_per_insertion
+          each_slice || @values.count
+        end
+
       end
     end
   end

@@ -3,58 +3,30 @@ require 'spec_helper'
 describe MassInsert::Builder::Adapters::SQLServerAdapter do
   let!(:subject){ MassInsert::Builder::Adapters::SQLServerAdapter.new([], {}) }
 
-  it "should inherit from Adapter class" do
-    expect(subject).to be_a(MassInsert::Builder::Adapters::Adapter)
+  it "inherits from Adapter class" do
+    expect(described_class < MassInsert::Builder::Adapters::Adapter).to be_true
   end
 
-  describe "instance methods" do
-    describe "#timestamp_format" do
-      it "should respond to timestamp_format method" do
-        expect(subject).to respond_to(:timestamp_format)
-      end
-
-      it "should return the format string" do
-        expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%3N")
+  describe "#values_per_insertion" do
+    context "when each_slice option is not false" do
+      it "returns each_slice value" do
+        subject.options.merge!(each_slice: 10)
+        expect(subject.values_per_insertion).to eq(10)
       end
     end
 
-    describe "#execute" do
-      before :each do
-        subject.stub(:begin_string).and_return("a")
-        subject.stub(:string_columns).and_return("b")
-        subject.stub(:string_values).and_return("c")
-      end
-
-      it "should respond to execute method" do
-        expect(subject).to respond_to(:execute)
-      end
-
-      context "when have less than 1000 values" do
-        it "call methods and returns their values concatenated" do
-          subject.values = [{}]
-          expect(subject.execute).to eq(["abc"])
-        end
-      end
-
-      context "when have more than 1000 values" do
-        it "call methods and returns their values concatenated" do
-          1500.times{ subject.values << {} }
-          expect(subject.execute).to eq(["abc", "abc"])
-        end
+    context "when each_slice option is false" do
+      it "returns length of values" do
+        subject.values = [{}, {}]
+        subject.options.merge!(each_slice: false)
+        expect(subject.values_per_insertion).to eq(1000)
       end
     end
   end
 
-  describe "MAX_VALUES_PER_INSERTION" do
-    let(:class_name){ MassInsert::Builder::Adapters::SQLServerAdapter }
-
-    it "should respond_to" do
-      constant   = :VALUES_PER_INSERTION
-      expect(class_name.const_defined?(constant)).to be_true
-    end
-
-    it "should return 1000" do
-      expect(class_name::VALUES_PER_INSERTION).to eq(1000)
+  describe "#timestamp_format" do
+    it "returns format string" do
+      expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%3N")
     end
   end
 end
