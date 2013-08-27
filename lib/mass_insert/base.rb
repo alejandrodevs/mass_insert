@@ -24,9 +24,17 @@ module MassInsert
     # === Primary key
     #
     # By default primary key is ignored. If you wish primary key doesn't
-    # be ignored you need to pass the primary key option on true.
+    # be ignored you need to pass the primary_key option on true.
     #
     #   options = {:primary_key => true}
+    #
+    # === Each slice
+    #
+    # Due you can get a database timeout error you can specify that the
+    # insertion will be in batches. You need to pass the each_slice option
+    # with the records per batch. Example...
+    #
+    #   User.mass_insert(values, :each_slice => 10000)
     #
     def mass_insert values, options = {}
       extend ClassMethods
