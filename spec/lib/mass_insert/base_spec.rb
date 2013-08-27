@@ -17,7 +17,7 @@ describe MassInsert::Base do
       expect{ User.mass_insert(values) }.to_not raise_error
     end
 
-    it "can't call without params" do
+    it "can't be called without params" do
       expect{ User.mass_insert }.to raise_error
     end
   end
