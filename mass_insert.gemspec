@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = MassInsert::VERSION
   spec.authors       = ["Alejandro Gutiérrez"]
   spec.email         = ["alejandrodevs@gmail.com"]
-  spec.description   = "Mass database insertion in Rails"
-  spec.summary       = "This gem aims to provide an easy and faster way to do single database insertions in Rails."
+  spec.summary       = "Mass database insertion in Rails"
+  spec.description   = "This gem aims to provide an easy and faster way to do single database insertions in Rails."
   spec.homepage      = "https://github.com/alejandrogutierrez/mass_insert"
   spec.license       = "MIT"
 
