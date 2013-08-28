@@ -1,8 +1,6 @@
 require 'dummy/config/environment'
-require 'models/test.rb'
-require "./lib/mass_insert"
 require 'simplecov'
-require 'support/mass_insert_support'
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 SimpleCov.start do
   minimum_coverage 90
