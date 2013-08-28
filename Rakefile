@@ -15,6 +15,14 @@ namespace :spec do
       system("bundle exec rspec spec/active_record_models")
     end
   end
+
+  desc "Runs all specs"
+  task :all do
+    Rake.application['spec:unit'].invoke
+    Rake.application['spec:mysql2'].invoke
+    Rake.application['spec:postgresql'].invoke
+    Rake.application['spec:sqlite3'].invoke
+  end
 end
 
-task default: ['spec:mysql2', 'spec:postgresql', 'spec:sqlite3', 'spec:unit']
+task default: 'spec:all'
