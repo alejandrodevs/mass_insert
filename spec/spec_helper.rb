@@ -1,4 +1,4 @@
-require 'active_record_dummy/config/environment'
+require 'dummy/config/environment'
 require 'models/test.rb'
 require "./lib/mass_insert"
 require 'simplecov'
