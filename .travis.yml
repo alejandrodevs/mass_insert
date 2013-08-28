@@ -7,3 +7,4 @@ rvm:
 before_script:
   - cd spec/active_record_dummy
   - rake db:migrate RAILS_ENV=sqlite3
+  - cd ../..
