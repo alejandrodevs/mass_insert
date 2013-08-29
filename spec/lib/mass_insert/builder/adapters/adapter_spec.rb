@@ -54,7 +54,8 @@ describe MassInsert::Builder::Adapters::Adapter do
 
   describe "#sanitized_columns" do
     before :each do
-      subject.options.merge!({:class_name => Test})
+      subject.options.merge!({:class_name => User})
+      User.stub(:column_names).and_return(["id", "name", "email"])
     end
 
     context "when primary_key is false" do

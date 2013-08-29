@@ -71,11 +71,36 @@ describe MassInsert::Builder::Adapters::Helpers::AbstractQuery do
   end
 
   describe "#string_single_value" do
-    it "calls build method in ColumnValue class" do
-      column_value = MassInsert::Builder::Adapters::Helpers::ColumnValue.any_instance
-      column_value.stub(:build).and_return("value")
+    let(:row){ Hash.new }
+    let(:column){ :name }
+    let(:column_value_class){ MassInsert::Builder::Adapters::Helpers::ColumnValue }
+
+    before :each do
       subject.stub(:class_name).and_return(User)
-      expect(subject.string_single_value({}, :name)).to eq("value")
+    end
+
+    it "instances ColumnValue class exactly one time" do
+      column_value_class.stub(:new).and_return("column_value_instance")
+      column_value_class.new.stub(:build).and_return("column_value")
+      column_value_class.should_receive(:new).exactly(1).times
+      subject.string_single_value(row, column)
+    end
+
+    it "instances ColumnValue class with the correct params" do
+      column_value_class.stub(:new).and_return("column_value_instance")
+      column_value_class.new.stub(:build).and_return("column_value")
+      column_value_class.should_receive(:new).with(row, column, User)
+      subject.string_single_value(row, column)
+    end
+
+    it "calls ColumnValue#build exactly one time" do
+      column_value_class.any_instance.should_receive(:build).exactly(1).times
+      subject.string_single_value(row, column)
+    end
+
+    it "returns ColumnValue#build method result" do
+      column_value_class.any_instance.stub(:build).and_return("column_value1")
+      expect(subject.string_single_value(row, column)).to eq("column_value1")
     end
   end
 
