@@ -76,12 +76,12 @@ module MassInsert
             column_value ? "true" : "false"
           end
           alias :postgresql_column_value_boolean :mysql2_column_value_boolean
-          alias :sqlserver_column_value_boolean  :mysql2_column_value_boolean
 
           # Returns the column value to boolean column to sqlite database.
           def sqlite3_column_value_boolean
             column_value ? "1" : "0"
           end
+          alias :sqlserver_column_value_boolean  :sqlite3_column_value_boolean
 
         end
       end
