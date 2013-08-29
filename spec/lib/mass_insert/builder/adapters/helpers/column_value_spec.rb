@@ -180,7 +180,6 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
   [
     :mysql2,
     :postgresql,
-    :sqlserver,
   ].each do |adapter|
     method = :"#{adapter}_column_value_boolean"
 
@@ -205,22 +204,29 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
     end
   end
 
-  describe "#sqlite3_column_value_boolean" do
-    it "should respond to sqlite3_column_value_boolean method" do
-      expect(subject).to respond_to(:sqlite3_column_value_boolean)
-    end
+  [
+    :sqlite3,
+    :sqlserver,
+  ].each do |adapter|
+    method = :"#{adapter}_column_value_boolean"
 
-    context "when column_value method return true value" do
-      it "should return true string" do
-        subject.stub(:column_value).and_return(true)
-        expect(subject.sqlite3_column_value_boolean).to eq("1")
+    describe "##{method.to_s}" do
+      it "should respond to #{method.to_s} method" do
+        expect(subject).to respond_to(method)
       end
-    end
 
-    context "when column_value method return false value" do
-      it "should return false string" do
-        subject.stub(:column_value).and_return(false)
-        expect(subject.sqlite3_column_value_boolean).to eq("0")
+      context "when column_value method return true value" do
+        it "should return true string" do
+          subject.stub(:column_value).and_return(true)
+          expect(subject.send(method)).to eq("1")
+        end
+      end
+
+      context "when column_value method return false value" do
+        it "should return false string" do
+          subject.stub(:column_value).and_return(false)
+          expect(subject.send(method)).to eq("0")
+        end
       end
     end
   end
