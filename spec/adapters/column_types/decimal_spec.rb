@@ -22,15 +22,15 @@ describe "Decimal" do
 
   context "when contains a digits string" do
     it "converts string value to decimal" do
-      values.first.merge!(age: "100")
+      values.first.merge!(money: "100")
       User.mass_insert(values, options)
-      expect(User.last.age).to eq(100.0)
+      expect(User.last.money).to eq(100.0)
     end
 
     it "converts string value to decimal" do
-      values.first.merge!(age: "200.50")
+      values.first.merge!(money: "200.50")
       User.mass_insert(values, options)
-      expect(User.last.age).to eq(200.50)
+      expect(User.last.money).to eq(200.50)
     end
   end
 
