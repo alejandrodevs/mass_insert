@@ -23,6 +23,7 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
   describe "#column_type" do
     it "returns column type symbol" do
       subject.stub(:class_name).and_return(User)
+      subject.class_name.stub(:columns_hash).and_return({"name" => "SomeObject"})
       subject.class_name.columns_hash["name"].stub(:type).and_return(:column_type)
       expect(subject.column_type).to eq(:column_type)
     end
@@ -53,6 +54,7 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
   describe "#default_db_value" do
     it "returns the default database value" do
       subject.stub(:class_name).and_return(User)
+      subject.class_name.stub(:columns_hash).and_return({"name" => "SomeObject"})
       subject.class_name.columns_hash["name"].stub(:default).and_return(:default_db_value)
       expect(subject.default_db_value).to eq(:default_db_value)
     end
