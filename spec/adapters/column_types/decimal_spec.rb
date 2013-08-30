@@ -1,47 +1,58 @@
 require 'spec_helper'
 
 describe "Decimal" do
+  let!(:values){ [{}] }
+  let!(:options){ Hash.new }
 
-  before :each do
-    @values, @options  = [{:money => 20.50}], {}
+  context "when contains an integer" do
+    it "converts integer value to decimal" do
+      values.first.merge!(money: 10)
+      User.mass_insert(values, options)
+      expect(User.last.money).to eq(10.0)
+    end
   end
 
-  context "when exist in values hashes" do
-    context "when contains an integer" do
-      it "should convert integer value to decimal" do
-        @values.first.merge!(:money => 10)
-        User.mass_insert(@values, @options)
-        expect(User.last.money).to eq(10.0)
-      end
+  context "when contains a string without digits" do
+    it "converts string value to decimal" do
+      values.first.merge!(money: "string")
+      User.mass_insert(values, options)
+      expect(User.last.money).to eq(0.0)
+    end
+  end
+
+  context "when contains a digits string" do
+    it "converts string value to decimal" do
+      values.first.merge!(age: "100")
+      User.mass_insert(values, options)
+      expect(User.last.age).to eq(100.0)
     end
 
-    context "when contains a string" do
-      it "should convert string value to decimal" do
-        @values.first.merge!(:money => "string")
-        User.mass_insert(@values, @options)
-        expect(User.last.money).to eq(0.0)
-      end
+    it "converts string value to decimal" do
+      values.first.merge!(age: "200.50")
+      User.mass_insert(values, options)
+      expect(User.last.age).to eq(200.50)
     end
+  end
 
-    context "when contains a decimal" do
-      it "should save the correct value" do
-        User.mass_insert(@values, @options)
-        expect(User.last.money).to eq(20.50)
-      end
+  context "when contains a decimal" do
+    it "saves the correct value" do
+      values.first.merge!(money: 20.50)
+      User.mass_insert(values, options)
+      expect(User.last.money).to eq(20.50)
     end
+  end
 
-    context "when contains a boolean" do
-      it "should raise an exception" do
-        @values.first.merge!(:money => true)
-        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
-      end
+  context "when contains a boolean" do
+    it "raises an exception" do
+      values.first.merge!(money: true)
+      expect(lambda{ User.mass_insert(values, options) }).to raise_exception
     end
   end
 
   context "when not exist in values hashes" do
-    it "should save the default value" do
-      @values.first.delete(:money)
-      User.mass_insert(@values, @options)
+    it "saves the default value" do
+      values.first.delete(:money)
+      User.mass_insert(values, options)
       expect(User.last.money).to eq(nil)
     end
   end
