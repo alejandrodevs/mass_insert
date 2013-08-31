@@ -80,14 +80,4 @@ describe "Model" do
       expect(User.count).to eq(1200)
     end
   end
-
-  context "when is used with options" do
-    context "when the class name not inherit from ActiveRecord" do
-      it "should not save any record" do
-        5.times{ @values << @value_hash }
-        @options.merge!(:class_name => Test)
-        expect(lambda{ User.mass_insert(@values, @options) }).to raise_exception
-      end
-    end
-  end
 end
