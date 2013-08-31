@@ -1,7 +1,7 @@
 # MassInsert [![Build Status](https://travis-ci.org/alejandrogutierrez/mass_insert.png?branch=master)](https://travis-ci.org/alejandrogutierrez/mass_insert)
 
 This gem aims to provide an easy and faster way to do single database insertions in Rails.
-Support Mysql, PostgreSQL, SQLite3 and SQLServer adapters.
+Support Mysql, PostgreSQL and SQLite3 adapters.
 
 ## Installation
 
@@ -21,7 +21,7 @@ Or install it yourself with:
 
 Faster. It's depending of the computer but these are some results...
 
-* PostgreSQL - Saving 10,000 records in 0.79s
+* PostgreSQL - Saving 10,000 records in 0.49s
 
 ## Attention
 
