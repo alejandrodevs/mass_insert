@@ -91,7 +91,8 @@ describe MassInsert::Builder::Adapters::Adapter do
 
   describe "#timestamp_hash" do
     it "returns a timestamp hash" do
-      Time.stub(:now).and_return(DateTime.now)
+      time = Time.now
+      Time.stub(:now).and_return(time)
       expect(subject.timestamp_hash).to eq({:created_at => Time.now, :updated_at => Time.now})
     end
   end
