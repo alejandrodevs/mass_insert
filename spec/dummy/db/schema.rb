@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130412154541) do
     t.decimal  "money",      :precision => 10, :scale => 4
     t.boolean  "active"
     t.binary   "checked"
+    t.date     "birthday"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

@@ -67,21 +67,13 @@ module MassInsert
           # Returns the correct value to boolean column. This column calls
           # the correct method according to the database adapter.
           def column_value_boolean
-            self.send(:"#{Utilities.adapter}_column_value_boolean")
+            case Utilities.adapter
+            when 'mysql2', 'postgresql'
+              column_value ? "true" : "false"
+            when 'sqlite3', 'sqlserver'
+              column_value ? "1" : "0"
+            end
           end
-
-          # Returns the column value to boolean column to mysql, postgresql
-          # and sqlserver databases.
-          def mysql2_column_value_boolean
-            column_value ? "true" : "false"
-          end
-          alias :postgresql_column_value_boolean :mysql2_column_value_boolean
-
-          # Returns the column value to boolean column to sqlite database.
-          def sqlite3_column_value_boolean
-            column_value ? "1" : "0"
-          end
-          alias :sqlserver_column_value_boolean  :sqlite3_column_value_boolean
 
         end
       end

@@ -40,7 +40,7 @@ module MassInsert
           # insertion value. It'll generate an array with queries.
           def execute
             @values.each_slice(values_per_insertion).map do |slice|
-              @values = slice;
+              @values = slice
               "#{begin_string}#{string_columns}#{string_values}"
             end
           end
