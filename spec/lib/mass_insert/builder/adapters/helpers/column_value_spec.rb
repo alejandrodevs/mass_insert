@@ -82,9 +82,6 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
     :string,
     :text,
     :date,
-    :time,
-    :datetime,
-    :timestamp,
     :binary
   ].each do |column_type|
     method = :"column_value_#{column_type}"
@@ -93,6 +90,50 @@ describe MassInsert::Builder::Adapters::Helpers::ColumnValue do
       it "returns the column value" do
         subject.stub(:column_value).and_return("name")
         expect(subject.send(method)).to eq("'name'")
+      end
+    end
+  end
+
+  [
+    :time,
+    :datetime,
+    :timestamp,
+  ].each do |column_type|
+    method = :"column_value_#{column_type}"
+
+    describe "##{method.to_s}" do
+      before :each do
+        time = Time.now
+        Time.stub(:now).and_return(time)
+        subject.stub(:column_value).and_return(Time.now)
+      end
+
+      context "when adapter is mysql2" do
+        it "returns date with the correct format" do
+          MassInsert::Builder::Utilities.stub(:adapter).and_return('mysql2')
+          expect(subject.send(method)).to eq("'#{Time.now.strftime("%Y-%m-%d %H:%M:%S")}'")
+        end
+      end
+
+      context "when adapter is sqlserver" do
+        it "returns date with the correct format" do
+          MassInsert::Builder::Utilities.stub(:adapter).and_return('sqlserver')
+          expect(subject.send(method)).to eq("'#{Time.now.strftime("%Y-%m-%d %H:%M:%S.%3N")}'")
+        end
+      end
+
+      context "when adapter is sqlite3" do
+        it "returns date with the correct format" do
+          MassInsert::Builder::Utilities.stub(:adapter).and_return('sqlite3')
+          expect(subject.send(method)).to eq("'#{Time.now.strftime("%Y-%m-%d %H:%M:%S.%6N")}'")
+        end
+      end
+
+      context "when adapter is postgresql" do
+        it "returns date with the correct format" do
+          MassInsert::Builder::Utilities.stub(:adapter).and_return('postgresql')
+          expect(subject.send(method)).to eq("'#{Time.now.strftime("%Y-%m-%d %H:%M:%S.%6N")}'")
+        end
       end
     end
   end

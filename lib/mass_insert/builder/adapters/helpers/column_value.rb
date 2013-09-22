@@ -48,10 +48,18 @@ module MassInsert
           end
           alias :column_value_text      :column_value_string
           alias :column_value_date      :column_value_string
-          alias :column_value_time      :column_value_string
-          alias :column_value_datetime  :column_value_string
-          alias :column_value_timestamp :column_value_string
           alias :column_value_binary    :column_value_string
+
+          def column_value_time
+            case Utilities.adapter
+            when 'mysql2'     then format = "%Y-%m-%d %H:%M:%S"
+            when 'sqlserver'  then format = "%Y-%m-%d %H:%M:%S.%3N"
+            else                   format = "%Y-%m-%d %H:%M:%S.%6N"
+            end
+            "'#{column_value.strftime(format)}'"
+          end
+          alias :column_value_timestamp :column_value_time
+          alias :column_value_datetime  :column_value_time
 
           # Returns the correct value to integer column.
           def column_value_integer

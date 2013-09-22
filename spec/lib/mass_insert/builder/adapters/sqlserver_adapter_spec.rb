@@ -29,10 +29,4 @@ describe MassInsert::Builder::Adapters::SQLServerAdapter do
       end
     end
   end
-
-  describe "#timestamp_format" do
-    it "returns timestamp format string" do
-      expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%3N")
-    end
-  end
 end

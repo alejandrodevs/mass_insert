@@ -89,24 +89,10 @@ describe MassInsert::Builder::Adapters::Adapter do
     end
   end
 
-  describe "#timestamp_format" do
-    it "returns default timestamp format" do
-      expect(subject.timestamp_format).to eq("%Y-%m-%d %H:%M:%S.%6N")
-    end
-  end
-
-  describe "#timestamp" do
-    it "returns default timestamp value with correct format" do
-      subject.stub(:timestamp_format).and_return("%Y-%m-%d %H:%M:%S")
-      expect(subject.timestamp).to eq(Time.now.strftime("%Y-%m-%d %H:%M:%S"))
-    end
-  end
-
   describe "#timestamp_hash" do
     it "returns a timestamp hash" do
-      timestamp = Time.now.strftime("%Y-%m-%d %H:%M:%S")
-      subject.stub(:timestamp).and_return(timestamp)
-      expect(subject.timestamp_hash).to eq({:created_at => timestamp, :updated_at => timestamp})
+      Time.stub(:now).and_return(DateTime.now)
+      expect(subject.timestamp_hash).to eq({:created_at => Time.now, :updated_at => Time.now})
     end
   end
 

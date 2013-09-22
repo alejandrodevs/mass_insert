@@ -14,12 +14,6 @@ module MassInsert
           each_slice || 1000
         end
 
-        # The method is overwrited because the timestamp format to SQLServer
-        # adapter needs accuracy with three nanoseconds.
-        def timestamp_format
-          "%Y-%m-%d %H:%M:%S.%3N"
-        end
-
       end
     end
   end
