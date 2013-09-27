@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130412154541) do
     t.boolean  "active"
     t.binary   "checked"
     t.date     "birthday"
+    t.time     "birthtime"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :active
       t.binary :checked
       t.date :birthday
+      t.time :birthtime
 
       t.timestamps
     end
