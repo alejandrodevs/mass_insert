@@ -26,7 +26,7 @@ module MassInsert
     # By default primary key is ignored. If you wish primary key doesn't
     # be ignored you need to pass the primary_key option on true.
     #
-    #   options = {:primary_key => true}
+    #   User.mass_insert(values, :primary_key => true)
     #
     # === Each slice
     #
@@ -50,6 +50,36 @@ module MassInsert
 
     module ClassMethods
 
+      # == Results
+      #
+      # Sometimes after MassInsert process you need to see information about
+      # the process. MassInsert provides a simple way to do it. Just call the
+      # next methods from your model after MassInsert execution:
+      #
+      # === Records
+      #
+      # Returns the amount of records that were persisted.
+      #
+      #   User.mass_insert_results.records          # => 120000
+      #
+      # === Time
+      #
+      # Returns the time that took to do all the MassInsert process.
+      #
+      #   User.mass_insert_results.time             # => 0.67
+      #
+      # === Building time
+      #
+      # Returns the time that took to create the query string that was persisted.
+      #
+      #   User.mass_insert_results.building_time    # => 0.58
+      #
+      # === Execution time
+      #
+      # Returns the time that took to execute the query string that was persisted.
+      #
+      #   User.mass_insert_results.execution_time   # => 0.09
+      #
       def mass_insert_results
         Result.new(@mass_insert_process)
       end

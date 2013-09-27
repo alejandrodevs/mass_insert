@@ -53,7 +53,7 @@ And call mass_insert method from your model:
 
 ## Results
 
-Sometimes after MassInsert process you need to see some necessary information about the process. MassInsert gem provides a simple way to do it. Just call the next methods from your model after MassInsert execution.
+Sometimes after MassInsert process you need to see information about the process. MassInsert provides a simple way to do it. Just call the next methods from your model after MassInsert execution.
 
     User.mass_insert_results.records                    # => 120000
 
