@@ -1,3 +1,7 @@
+require 'coveralls'
+Coveralls.wear!
+Coveralls::Output.silent = true
+
 require 'dummy/config/environment'
 require 'simplecov'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

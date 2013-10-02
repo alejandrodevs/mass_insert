@@ -9,3 +9,4 @@ gem "pg"
 gem "rspec"
 gem "simplecov"
 gem "rake"
+gem "coveralls", require: false
