@@ -25,7 +25,7 @@ Faster. It's depending of the computer but these are some results...
 
 ## Attention
 
-Since this is a single database insertion your model validation will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
+Since this is a single database insertion your model validations will be ignored, then if you use this gem you need to be sure that information is OK to be persisted.
 
 ## Basic Usage
 
@@ -67,7 +67,7 @@ Some result options are...
 
 ## Options
 
-MassInsert accepts options hash by second param when you call `mass_insert` from your model. This options allow you to configure the way that the records will be created. Example...
+MassInsert accepts options hash by second param when you call `mass_insert` from your model. These options allow you to configure the way that records will be persisted. Example...
 
     options = {
       :some_option => some_value,
@@ -84,13 +84,13 @@ Some options you can include are...
 
 **Primary key**
 
-By default primary key is ignored. If you wish primary key doesn't be ignored you need to pass the `primary_key` option on true. Example...
+By default primary key is generated automatically. If you wish to set primary key manually you need to pass the `primary_key` option on true. Example...
 
     User.mass_insert(values, :primary_key => true)
 
 **Each slice**
 
-Due you can get a database timeout error you can specify that the insertion will be in batches. You need to pass the `each_slice` option with the records per batch. Example...
+Due you can get a database timeout error you can specify that the insertion will be in batches. Just pass the `each_slice` option with the records per batch. Example...
 
     User.mass_insert(values, :each_slice => 10000)
 

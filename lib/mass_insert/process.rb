@@ -8,17 +8,24 @@ module MassInsert
       @options = options
     end
 
-    # Calls the necessary methods to complete the mass insertion process
-    # and the time that each method takes being executed.
+    # Calls necessary methods to complete mass insertion process and
+    # saves the time that each method takes being executed.
     def start
       @building_time  = Benchmark.measure do
-        @queries = Builder::Base.new.build(@values, @options)
+        @queries = builder.build(@values, @options)
       end
 
       @execution_time = Benchmark.measure do
-        Executer.new.execute(@queries)
+        executer.execute(@queries)
       end
     end
 
+    def builder
+      @builder ||= Builder::Base.new
+    end
+
+    def executer
+      @executer ||= Executer.new
+    end
   end
 end
