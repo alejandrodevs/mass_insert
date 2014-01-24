@@ -1,12 +1,16 @@
 module MassInsert
   module Builder
     class Base
-      ADAPTERS = { 
-         'mysql2' => Adapters::Mysql2Adapter,
-         'postgresql' => Adapters::PostgreSQLAdapter,
-         'sqlite3' => Adapters::SQLite3Adapter,
-         'sqlserver' => Adapters::SQLServerAdapter
+
+      # Supported adapters hash. Key is the adapter name and value
+      # is its adapter class.
+      ADAPTERS = {
+        'mysql2'     => Adapters::Mysql2Adapter,
+        'postgresql' => Adapters::PostgreSQLAdapter,
+        'sqlite3'    => Adapters::SQLite3Adapter,
+        'sqlserver'  => Adapters::SQLServerAdapter
       }
+
       # This function gets the correct adapter class and returns the
       # sql string ready to be executed.
       def build values, options
