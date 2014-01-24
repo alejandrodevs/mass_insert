@@ -8,13 +8,15 @@ module MassInsert
       @options = options
     end
 
-    # Calls necessary methods to complete mass insertion process and
-    # saves the time that each method takes being executed.
     def start
+      # MassInsert process is completed by two actions. The first one
+      # gets queries that will be persisted.
       @building_time  = Benchmark.measure do
         @queries = builder.build(@values, @options)
       end
 
+      # The second one executes queries into the database using an
+      # ActiveRecord connection.
       @execution_time = Benchmark.measure do
         executer.execute(@queries)
       end
