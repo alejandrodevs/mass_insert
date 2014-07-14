@@ -23,7 +23,7 @@ describe MassInsert::Builder::Adapters::Adapter do
   describe "#primary_key" do
     it "returns primary_key option value" do
       subject.options = {:primary_key => true}
-      expect(subject.primary_key).to be_true
+      expect(subject.primary_key).to eql true
     end
   end
 
@@ -77,14 +77,14 @@ describe MassInsert::Builder::Adapters::Adapter do
     context "when respond to timestamp columns" do
       it "returns true" do
         subject.stub(:columns).and_return([:updated_at, :created_at])
-        expect(subject.timestamp?).to be_true
+        expect(subject.timestamp?).to eql true
       end
     end
 
     context "when doesn't respond to timestamp columns" do
       it "returns false" do
         subject.stub(:columns).and_return([:created_at])
-        expect(subject.timestamp?).to be_false
+        expect(subject.timestamp?).to eql false
       end
     end
   end

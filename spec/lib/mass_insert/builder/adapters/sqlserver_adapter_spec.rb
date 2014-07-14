@@ -4,7 +4,7 @@ describe MassInsert::Builder::Adapters::SQLServerAdapter do
   let!(:subject){ described_class.new([], {}) }
 
   it "inherits from Adapter class" do
-    expect(described_class < MassInsert::Builder::Adapters::Adapter).to be_true
+    expect(described_class < MassInsert::Builder::Adapters::Adapter).to eql true
   end
 
   describe "#string_columns" do

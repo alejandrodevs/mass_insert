@@ -4,7 +4,7 @@ describe MassInsert::Builder::Adapters::SQLite3Adapter do
   let!(:subject){ described_class.new([], {}) }
 
   it "inherits from Adapter class" do
-    expect(described_class < MassInsert::Builder::Adapters::Adapter).to be_true
+    expect(described_class < MassInsert::Builder::Adapters::Adapter).to eql true
   end
 
   describe "#values_per_insertion" do
