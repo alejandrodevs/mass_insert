@@ -28,13 +28,13 @@ and pass it an array with the values that you want to persist into the database.
 ```ruby
 values = [
   {
-    name:   "Jay",
-    email:  "tremendous_gamer@gmail.com",
+    name:   'Jay',
+    email:  'tremendous_gamer@gmail.com',
     age:    15
   },
   {
-    name:   "Beverly",
-    email:  "nippy_programmer@gmail.com",
+    name:   'Beverly',
+    email:  'nippy_programmer@gmail.com',
     age:    24
   }
 ]
