@@ -59,20 +59,6 @@ User.mass_insert(values, primary_key: true)
 ```
 
 
-## Results
-Sometimes after MassInsert process you need to see information about the process. MassInsert
-provides a simple way to do it. Just call the next methods from your model after MassInsert execution.
-```ruby
-User.mass_insert_results.records        # => 120000
-```
-
-Some result options are...
-* `records` : Returns the amount of records that were persisted.
-* `time` : Returns the time that took to do all the MassInsert process.
-* `building_time` : Returns the time that took to create the query string that was persisted.
-* `execution_time` : Returns the time that took to execute the query string that was persisted.
-
-
 ## Contributing
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)

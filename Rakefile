@@ -30,4 +30,4 @@ namespace :spec do
   end
 end
 
-task default: 'spec:all'
+task default: 'spec:postgresql'
