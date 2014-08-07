@@ -51,14 +51,6 @@ User.mass_insert(values, each_slice: 10000)
 ```
 
 
-## Manually primary key
-By default primary key is generated automatically. If you wish to set primary key manually you
-need to pass the `primary_key` option on true. Example...
-```ruby
-User.mass_insert(values, primary_key: true)
-```
-
-
 ## Contributing
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
