@@ -27,7 +27,7 @@ module MassInsert
     end
 
     def per_batch
-      options[:each_slice] || Utilities.per_batch
+      options[:per_batch] || Utilities.per_batch
     end
   end
 end

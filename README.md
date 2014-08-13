@@ -45,9 +45,9 @@ User.mass_insert(values)
 
 ## Insertion per batches
 Due you can get a database timeout error you can specify that the insertion will be in batches.
-Just pass the `each_slice` option with the records per batch. Example...
+Just pass the `per_batch` option with the records per batch. Example...
 ```ruby
-User.mass_insert(values, each_slice: 10000)
+User.mass_insert(values, per_batch: 1000)
 ```
 
 
