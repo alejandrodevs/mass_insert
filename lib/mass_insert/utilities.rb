@@ -4,7 +4,6 @@ module MassInsert
       mysql2:     Adapters::Mysql2Adapter,
       postgresql: Adapters::PostgreSQLAdapter,
       sqlite3:    Adapters::SQLite3Adapter,
-      sqlserver:  Adapters::SQLServerAdapter
     }
 
     def self.adapter

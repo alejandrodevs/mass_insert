@@ -11,11 +11,6 @@ module MassInsert
     autoload :Mysql2Adapter,      'mass_insert/adapters/mysql2_adapter.rb'
     autoload :PostgreSQLAdapter,  'mass_insert/adapters/postgresql_adapter.rb'
     autoload :SQLite3Adapter,     'mass_insert/adapters/sqlite3_adapter.rb'
-
-    module Helpers
-      autoload :AbstractQuery,  'mass_insert/adapters/helpers/abstract_query.rb'
-      autoload :ColumnValue,    'mass_insert/adapters/helpers/column_value.rb'
-    end
   end
 end
 

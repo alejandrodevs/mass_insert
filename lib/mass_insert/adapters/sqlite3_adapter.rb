@@ -1,12 +1,12 @@
 module MassInsert
   module Adapters
     class SQLite3Adapter < Adapter
-      def string_values
-        "SELECT #{string_rows_values};"
+      def insert_sql
+        "INSERT INTO #{quoted_table_name} #{columns_sql} SELECT"
       end
 
-      def string_rows_values
-        values.map { |row| string_single_row_values(row) }.join(' UNION SELECT ')
+      def values_sql
+        "(#{array_of_attributes_sql.join(' UNION SELECT ')})"
       end
     end
   end

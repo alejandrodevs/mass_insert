@@ -1,33 +1,53 @@
 module MassInsert
   module Adapters
-    class Adapter
-      include Helpers::AbstractQuery
-
+    class Adapter < SimpleDelegator
       attr_accessor :values, :options
 
-      def initialize values, options
+      def initialize(class_name, values, options)
         @values  = values
         @options = options
+        super(class_name)
       end
+
+      def to_sql
+        "#{insert_sql} #{values_sql}"
+      end
+
+      private
 
       def columns
         @columns ||= begin
-          columns = class_name.column_names
-          columns.delete(class_name.primary_key)
+          columns = column_names
+          columns.delete(primary_key)
           columns.map(&:to_sym)
         end
       end
 
-      def timestamp?
-        columns.include?(:created_at) && columns.include?(:updated_at)
+      def quoted_columns
+        columns.map do |name|
+          connection.quote_column_name(name)
+        end
       end
 
-      def timestamp_hash
-        { created_at: Time.now, updated_at: Time.now }
+      def insert_sql
+        "INSERT INTO #{quoted_table_name} #{columns_sql} VALUES"
       end
 
-      def class_name
-        options[:class_name]
+      def columns_sql
+        "(#{quoted_columns.join(',')})"
+      end
+
+      def values_sql
+        "(#{array_of_attributes_sql.join('),(')});"
+      end
+
+      def array_of_attributes_sql
+        values.map do |attrs|
+          columns.map do |name|
+            value = attrs[name.to_sym] || attrs[name.to_s]
+            connection.quote(value, columns_hash[name.to_s])
+          end.join(',')
+        end
       end
     end
   end
