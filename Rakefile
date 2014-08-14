@@ -1,10 +1,27 @@
 require 'bundler/gem_tasks'
+require 'rake/testtask'
 
-namespace :specs do
-  desc 'Unit tests'
-  task :unit do
-    system('bundle exec rspec')
+ADAPTERS = %w(mysql2 postgresql sqlite3)
+
+ADAPTERS.each do |adapter|
+  namespace :test do
+    desc "Runs #{adapter} tests."
+    Rake::TestTask.new(adapter) do |t|
+      ENV['DATABASE_ADAPTER'] = adapter
+      t.libs << 'test'
+      t.test_files = FileList["test/adapters/#{adapter}/**/*_test.rb"]
+    end
   end
 end
 
-task default: 'specs:unit'
+namespace :test do
+  desc 'Runs tests.'
+  task :all do |t|
+    ADAPTERS.each do |adapter|
+      Rake.application["test:#{adapter}"].invoke
+    end
+  end
+end
+
+
+task default: 'test:all'

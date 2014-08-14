@@ -1,0 +1,18 @@
+common: &common
+  username: root
+  password:
+  encoding: utf8
+  database: mass_insert_test
+
+mysql2: &mysql2
+  <<: *common
+  adapter: mysql2
+
+postgresql: &postgresql
+  <<: *common
+  username: postgres
+  adapter: postgresql
+
+sqlite3: &sqlite3
+  adapter: sqlite3
+  database: tmp/test.db

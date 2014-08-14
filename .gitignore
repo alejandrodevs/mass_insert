@@ -8,12 +8,14 @@ InstalledFiles
 _yardoc
 coverage
 doc/
+log/
 lib/bundler/man
 pkg
 rdoc
 spec/reports
 test/tmp
 test/version_tmp
+test/database.yml
 tmp
 .rvmrc
 .rspec
