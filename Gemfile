@@ -8,3 +8,5 @@ gem 'pg'
 
 gem 'simplecov'
 gem 'coveralls', require: false
+
+gem 'activerecord', '>= 3.2'
