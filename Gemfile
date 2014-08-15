@@ -9,4 +9,5 @@ gem 'pg'
 gem 'simplecov'
 gem 'coveralls', require: false
 
+gem 'rake'
 gem 'activerecord', '>= 3.2'
