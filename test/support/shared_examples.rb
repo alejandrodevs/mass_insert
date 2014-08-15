@@ -41,20 +41,16 @@ def shared_examples
         end
       end
 
-      describe '500 records' do
-        it 'saves them correctly' do
-          values = array_of_values_with(500)
-          User.mass_insert(values)
-          assert_equal User.count, 500
-        end
+      it 'saves 500 records correctly' do
+        values = array_of_values_with(500)
+        User.mass_insert(values)
+        assert_equal User.count, 500
       end
 
-      describe '1000 records' do
-        it 'saves them correctly' do
-          values = array_of_values_with(1000)
-          User.mass_insert(values)
-          assert_equal User.count, 1000
-        end
+      it 'saves 1000 records correctly' do
+        values = array_of_values_with(1000)
+        User.mass_insert(values)
+        assert_equal User.count, 1000
       end
     end
   end
