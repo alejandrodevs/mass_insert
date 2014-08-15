@@ -1,7 +1,7 @@
 require 'minitest/autorun'
-require 'mass_insert'
 require 'logger'
 require 'active_record'
+require 'mass_insert'
 require 'fileutils'
 
 adapter = ENV['DATABASE_ADAPTER'] || 'sqlite3'

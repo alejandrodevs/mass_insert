@@ -1,6 +1,6 @@
 module MassInsert
   module Adapters
-    class Adapter < SimpleDelegator
+    class AbstractAdapter < SimpleDelegator
       attr_accessor :values, :options
 
       def initialize(class_name, values, options)

@@ -7,9 +7,10 @@ ADAPTERS.each do |adapter|
   namespace :test do
     desc "Runs #{adapter} tests."
     Rake::TestTask.new(adapter) do |t|
-      ENV['DATABASE_ADAPTER'] = adapter
       t.libs << 'test'
-      t.test_files = FileList["test/adapters/#{adapter}/**/*_test.rb"]
+      t.test_files = FileList[
+        "test/support/adapters/#{adapter}.rb",
+        "test/adapters/#{adapter}/**/*_test.rb"]
     end
   end
 end

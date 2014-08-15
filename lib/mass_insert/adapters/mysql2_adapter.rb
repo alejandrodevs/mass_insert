@@ -1,5 +1,5 @@
 module MassInsert
   module Adapters
-    class Mysql2Adapter < Adapter; end
+    class Mysql2Adapter < AbstractAdapter; end
   end
 end

@@ -1,0 +1,1 @@
+ENV['DATABASE_ADAPTER'] = 'sqlite3'

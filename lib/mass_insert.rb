@@ -1,3 +1,5 @@
+require 'delegate'
+
 module MassInsert
   autoload :Base,        'mass_insert/base.rb'
   autoload :Builder,     'mass_insert/builder.rb'
@@ -7,7 +9,7 @@ module MassInsert
   autoload :VERSION,     'mass_insert/version.rb'
 
   module Adapters
-    autoload :Adapter,            'mass_insert/adapters/adapter.rb'
+    autoload :AbstractAdapter,    'mass_insert/adapters/abstract_adapter.rb'
     autoload :Mysql2Adapter,      'mass_insert/adapters/mysql2_adapter.rb'
     autoload :PostgreSQLAdapter,  'mass_insert/adapters/postgresql_adapter.rb'
     autoload :SQLite3Adapter,     'mass_insert/adapters/sqlite3_adapter.rb'

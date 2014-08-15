@@ -3,8 +3,14 @@ rvm:
   - '1.9.3'
   - '2.0.0'
   - '2.1.0'
-env:
-  - 'AR_VERSION=3.2.17'
-  - 'AR_VERSION=4.0.3'
-  - 'AR_VERSION=4.1.0'
-  - 'AR_VERSION=master'
+
+#env:
+  #- 'AR_VERSION=3.2.17'
+  #- 'AR_VERSION=4.0.3'
+  #- 'AR_VERSION=4.1.0'
+  #- 'AR_VERSION=master'
+
+before_script:
+  - cp test/database.yml.example test/database.yml
+  - mysql -e 'CREATE DATABASE mass_insert_test;'
+  - psql -c 'CREATE DATABASE mass_insert_test;' -U postgres

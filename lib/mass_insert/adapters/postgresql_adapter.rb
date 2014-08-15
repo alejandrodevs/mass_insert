@@ -1,5 +1,5 @@
 module MassInsert
   module Adapters
-    class PostgreSQLAdapter < Adapter; end
+    class PostgreSQLAdapter < AbstractAdapter; end
   end
 end
