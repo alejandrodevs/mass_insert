@@ -25,4 +25,4 @@ namespace :test do
 end
 
 
-task default: 'test:all'
+task default: 'test:postgresql'
