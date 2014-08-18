@@ -12,7 +12,7 @@ def shared_examples
       }
     end
 
-    before :each do
+    after :each do
       User.delete_all
     end
 
