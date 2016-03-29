@@ -1,14 +1,10 @@
 language: ruby
 rvm:
-  - '1.9.3'
-  - '2.0.0'
-  - '2.1.0'
-
-#env:
-  #- 'AR_VERSION=3.2.17'
-  #- 'AR_VERSION=4.0.3'
-  #- 'AR_VERSION=4.1.0'
-  #- 'AR_VERSION=master'
+  - 2.0.0
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
+  - ruby-head
 
 before_script:
   - cp test/database.yml.example test/database.yml

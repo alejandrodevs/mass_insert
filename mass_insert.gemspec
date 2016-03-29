@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['alejandrodevs@gmail.com']
   spec.summary       = 'Mass database insertion in Rails'
   spec.description   = 'This gem aims to provide an easy and faster way to do single database insertions in Rails.'
-  spec.homepage      = 'https://github.com/alejandrogutierrez/mass_insert'
+  spec.homepage      = 'https://github.com/alejandrodevs/mass_insert'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
@@ -18,6 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 1.9.3'
-  spec.add_dependency 'activerecord', '>= 3.2'
+  spec.required_ruby_version = '>= 2.0.0'
+  spec.add_dependency 'activerecord', '>= 4.0'
 end

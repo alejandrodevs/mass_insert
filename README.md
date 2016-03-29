@@ -1,4 +1,5 @@
-# MassInsert [![Build Status](https://travis-ci.org/alejandrogutierrez/mass_insert.png?branch=master)](https://travis-ci.org/alejandrogutierrez/mass_insert) [![Coverage Status](https://coveralls.io/repos/alejandrogutierrez/mass_insert/badge.png)](https://coveralls.io/r/alejandrogutierrez/mass_insert)
+# MassInsert
+[![Build Status](https://travis-ci.org/alejandrodevs/mass_insert.png?branch=master)](https://travis-ci.org/alejandrodevs/mass_insert) [![Coverage Status](https://coveralls.io/repos/github/alejandrodevs/mass_insert/badge.svg?branch=master)](https://coveralls.io/github/alejandrodevs/mass_insert?branch=master)
 
 This gem aims to provide an easy and faster way to do single database insertions in Rails.
 Support Mysql, PostgreSQL and SQLite3 adapters. It depends on ActiveRecord.
