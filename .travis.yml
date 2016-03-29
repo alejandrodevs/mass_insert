@@ -4,7 +4,6 @@ rvm:
   - 2.1.8
   - 2.2.4
   - 2.3.0
-  - ruby-head
 
 before_script:
   - cp test/database.yml.example test/database.yml

@@ -1,3 +1,9 @@
+require 'coveralls'
+Coveralls.wear!
+
+require 'simplecov'
+SimpleCov.start
+
 require 'minitest/autorun'
 require 'logger'
 require 'active_record'
