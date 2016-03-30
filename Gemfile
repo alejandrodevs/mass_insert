@@ -6,6 +6,6 @@ gem 'pg'
 gem 'mysql2'
 gem 'sqlite3'
 gem 'rake'
-gem 'activerecord', '>= 3.2'
 gem 'simplecov'
+gem 'activerecord', '>= 4.0'
 gem 'coveralls', require: false
