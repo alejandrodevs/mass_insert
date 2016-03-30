@@ -4,8 +4,8 @@ Coveralls.wear!
 require 'simplecov'
 SimpleCov.start
 
-require 'minitest/autorun'
 require 'logger'
+require 'minitest/autorun'
 require 'active_record'
 require 'mass_insert'
 require 'fileutils'

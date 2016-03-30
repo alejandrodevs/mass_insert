@@ -1,10 +1,7 @@
 source 'https://rubygems.org'
 
+# Specify your gem's dependencies in mass_insert.gemspec
 gemspec
 
-gem 'pg'
-gem 'mysql2'
-gem 'sqlite3'
 gem 'simplecov'
-gem 'activerecord', '>= 4.0'
 gem 'coveralls', require: false

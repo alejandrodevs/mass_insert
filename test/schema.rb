@@ -6,6 +6,6 @@ ActiveRecord::Schema.define do
     t.decimal :money, precision: 10, scale: 2
     t.date    :birth_date
 
-    t.timestamps
+    t.timestamps null: false
   end
 end
