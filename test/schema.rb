@@ -8,4 +8,10 @@ ActiveRecord::Schema.define do
 
     t.timestamps null: false
   end
+
+  create_table :kinds, force: true do |t|
+    t.string  :name
+
+    t.index ["name"], name: "index_kinds_on_name", unique: true, using: :btree
+  end
 end
