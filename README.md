@@ -69,7 +69,7 @@ INSERT INTO table (a,b,c) VALUES (1,2,3)
 
 
 ## Running tests
-First copy `test/database.yml.example` to `test/database.yml` and update username and password
+First at all copy `test/database.yml.example` to `test/database.yml` and update username and password
 for every database adapters. Then, run the following to test the gem against all adapters.
 ```
 bundle exec rake test:all
