@@ -4,9 +4,7 @@ shared_examples
 
 describe 'Database Adapters' do
   let(:attributes) do
-    {
-      name: 'Ruby',
-    }
+    { name: 'Ruby' }
   end
 
   after :each do

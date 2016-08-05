@@ -51,24 +51,21 @@ Just pass the `per_batch` option with the records per batch. Example...
 User.mass_insert(values, per_batch: 1000)
 ```
 
-## Handle unique index on MySQL
-Some times we want to ignore errors when adding duplicated records. MySQL has
-the ability to do that with `ON DUPLICATE KEY UPDATE`.
 
-By using the option `handle_duplication` we will ignore the new values by doing:
+## Handle unique index on MySQL
+Sometimes we want to ignore errors when adding duplicated records. MySQL has
+the ability to do that with `ON DUPLICATE KEY UPDATE`. By using the option
+`handle_duplication` we will ignore the new values by doing:
+```ruby
+User.mass_insert(values, handle_duplication: true)
+```
 
 ```sql
 INSERT INTO table (a,b,c) VALUES (1,2,3)
   ON DUPLICATE KEY UPDATE a=a,b=b,c=c;
 ```
 
-[Read more about the MySQL feature.](http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html).
-
-Usage:
-
-```ruby
-User.mass_insert(values, handle_duplication: true)
-```
+[Read more about MySQL ON DUPLICATE KEY UPDATE.](http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html).
 
 
 ## Contributing
@@ -77,7 +74,3 @@ User.mass_insert(values, handle_duplication: true)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/alejandrodevs/mass_insert/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
