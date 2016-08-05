@@ -5,13 +5,11 @@ ActiveRecord::Schema.define do
     t.integer :age
     t.decimal :money, precision: 10, scale: 2
     t.date    :birth_date
-
     t.timestamps null: false
   end
 
   create_table :kinds, force: true do |t|
     t.string  :name
-
-    t.index ["name"], name: "index_kinds_on_name", unique: true, using: :btree
+    t.index ['name'], name: 'index_kinds_on_name', unique: true, using: :btree
   end
 end

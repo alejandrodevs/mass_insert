@@ -45,7 +45,7 @@ module MassInsert
         values.map do |attrs|
           columns.map do |name|
             value = attrs[name.to_sym] || attrs[name.to_s]
-            connection.quote(value, columns_hash[name.to_s])
+            connection.quote(value)
           end.join(',')
         end
       end
