@@ -18,9 +18,17 @@ FileUtils.mkdir_p('log')
 ActiveRecord::Base.logger = Logger.new('log/test.log')
 ActiveRecord::Base.logger.level = Logger::DEBUG
 
-database_config = YAML.load_file(File.dirname(__FILE__) + '/database.yml')[adapter]
-ActiveRecord::Base.configurations['test'] = database_config
+database_configuration = YAML.load_file(File.dirname(__FILE__) + '/database.yml')[adapter]
+ActiveRecord::Base.configurations['test'] = database_configuration
 ActiveRecord::Base.establish_connection(:test)
+
+begin
+  ActiveRecord::Base.connection
+rescue
+  # Ensures database exists.
+  ActiveRecord::Tasks::DatabaseTasks.database_configuration = database_configuration
+  ActiveRecord::Tasks::DatabaseTasks.create_current('test')
+end
 
 require File.dirname(__FILE__) + '/schema.rb'
 

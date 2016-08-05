@@ -1,5 +1,5 @@
 common: &common
-  encoding: unicode
+  encoding: utf8
   database: mass_insert_test
 
 mysql2:

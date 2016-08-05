@@ -44,7 +44,7 @@ User.mass_insert(values)
 ```
 
 
-## Insertion per batches
+### Insertion per batches
 Due you can get a database timeout error you can specify that the insertion will be in batches.
 Just pass the `per_batch` option with the records per batch. Example...
 ```ruby
@@ -52,7 +52,7 @@ User.mass_insert(values, per_batch: 1000)
 ```
 
 
-## Handle unique index on MySQL
+### Handle unique index on MySQL
 Sometimes we want to ignore errors when adding duplicated records. MySQL has
 the ability to do that with `ON DUPLICATE KEY UPDATE`. By using the option
 `handle_duplication` we will ignore the new values by doing:
@@ -65,7 +65,15 @@ INSERT INTO table (a,b,c) VALUES (1,2,3)
   ON DUPLICATE KEY UPDATE a=a,b=b,c=c;
 ```
 
-[Read more about MySQL ON DUPLICATE KEY UPDATE.](http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html).
+[Read more about MySQL ON DUPLICATE KEY UPDATE...](http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html)
+
+
+## Running tests
+First copy `test/database.yml.example` to `test/database.yml` and update username and password
+for every database adapters. Then, run the following to test the gem against all adapters.
+```
+bundle exec rake test:all
+```
 
 
 ## Contributing
