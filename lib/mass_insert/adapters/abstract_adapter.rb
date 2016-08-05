@@ -10,7 +10,7 @@ module MassInsert
       end
 
       def to_sql
-        "#{insert_sql} #{values_sql}"
+        "#{insert_sql} #{values_sql};"
       end
 
       private
@@ -38,7 +38,7 @@ module MassInsert
       end
 
       def values_sql
-        "(#{array_of_attributes_sql.join('),(')});"
+        "(#{array_of_attributes_sql.join('),(')})"
       end
 
       def array_of_attributes_sql
