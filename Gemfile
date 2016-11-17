@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'simplecov'
+gem 'appraisal'
 gem 'coveralls', require: false
