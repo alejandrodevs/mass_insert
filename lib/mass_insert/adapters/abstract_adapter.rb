@@ -44,9 +44,15 @@ module MassInsert
       def array_of_attributes_sql
         values.map do |attrs|
           columns.map do |name|
-            value = attrs[name.to_sym] || attrs[name.to_s]
+            value = column_value(attrs, name)
             connection.quote(value)
           end.join(',')
+        end
+      end
+
+      def column_value(attrs, column)
+        attrs.fetch(column.to_sym) do
+          attrs.fetch(column.to_s, nil)
         end
       end
     end
