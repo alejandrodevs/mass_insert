@@ -44,6 +44,24 @@ User.mass_insert(values)
 ```
 
 
+
+### Allow primary key
+Sometimes you can need to insert records forcing primary keys.
+Just pass the `primary_key` option with true. Example...
+```ruby
+values = [
+  {
+    id:     1000, # Force primary key.
+    name:   'Jay',
+    email:  'tremendous_gamer@gmail.com',
+    age:    15
+  }
+]
+
+User.mass_insert(values, primary_key: true)
+```
+
+
 ### Insertion per batches
 Due you can get a database timeout error you can specify that the insertion will be in batches.
 Just pass the `per_batch` option with the records per batch. Example...

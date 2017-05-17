@@ -18,7 +18,7 @@ module MassInsert
       def columns
         @columns ||= begin
           columns = column_names
-          columns.delete(primary_key)
+          columns.delete(primary_key) unless options[:primary_key]
           columns.map(&:to_sym)
         end
       end
