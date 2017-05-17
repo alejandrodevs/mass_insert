@@ -3,10 +3,10 @@ module MassInsert
     class AbstractAdapter < SimpleDelegator
       attr_accessor :values, :options
 
-      def initialize(class_name, values, options)
+      def initialize(values, options)
+        super(options.fetch(:class_name))
         @values  = values
         @options = options
-        super(class_name)
       end
 
       def to_sql
