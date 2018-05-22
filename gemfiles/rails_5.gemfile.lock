@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    mass_insert (0.2.5)
+    mass_insert (0.2.6)
       activerecord (>= 4.0)
 
 GEM
