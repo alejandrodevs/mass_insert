@@ -10,13 +10,13 @@ rvm:
   - 2.5.5
   - 2.6.3
 
-before_install:
-  - gem install bundler -v 2.0.2
-
 before_script:
   - cp test/database.yml.example test/database.yml
-  - mysql -e 'CREATE DATABASE mass_insert_test;'
-  - psql -c 'CREATE DATABASE mass_insert_test;' -U postgres
+  - mysql -e 'create database mass_insert_test;'
+  - psql -c 'create database mass_insert_test;' -U postgres
+
+before_install:
+  - gem install bundler -v 2.0.2
 
 gemfile:
   - gemfiles/rails_5.2.gemfile
