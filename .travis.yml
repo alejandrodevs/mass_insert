@@ -1,16 +1,19 @@
+sudo: false
+cache: bundler
 language: ruby
 
 rvm:
-  - 2.3.0
-  - 2.4.0
-  - 2.5.0
+  - 2.5.5
+  - 2.6.3
 
-gemfile:
-  - gemfiles/rails_4.gemfile
-  - gemfiles/rails_5.gemfile
-  - gemfiles/rails_5.2.gemfile
+before_install:
+  - gem install bundler -v 2.0.2
 
 before_script:
   - cp test/database.yml.example test/database.yml
   - mysql -e 'CREATE DATABASE mass_insert_test;'
   - psql -c 'CREATE DATABASE mass_insert_test;' -U postgres
+
+gemfile:
+  - gemfiles/rails_5.2.gemfile
+  - gemfiles/rails_6.0.gemfile

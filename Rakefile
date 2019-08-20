@@ -1,13 +1,14 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 
-ADAPTERS = %w(mysql2 postgresql sqlite3)
+ADAPTERS = %w(mysql2 postgresql sqlite3).freeze
 
 ADAPTERS.each do |adapter|
   namespace :test do
     desc "Runs #{adapter} tests."
     Rake::TestTask.new(adapter) do |t|
       t.libs << 'test'
+      t.libs << 'lib'
       t.test_files = FileList[
         "test/support/adapters/#{adapter}.rb",
         "test/adapters/#{adapter}/**/*_test.rb"]
@@ -24,5 +25,4 @@ namespace :test do
   end
 end
 
-
-task default: 'test:postgresql'
+task default: 'test:all'
