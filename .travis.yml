@@ -22,3 +22,9 @@ before_install:
 gemfile:
   - gemfiles/rails_5.2.gemfile
   - gemfiles/rails_6.0.gemfile
+  - gemfiles/rails_6.1.gemfile
+
+matrix:
+  allow_failures:
+    - gemfile: gemfiles/rails_5.2.gemfile
+      rvm: 3.0.0
