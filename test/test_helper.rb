@@ -9,14 +9,21 @@ require 'minitest/autorun'
 
 adapter = ENV['DATABASE_ADAPTER'] || 'sqlite3'
 database_configuration = YAML.load_file(File.dirname(__FILE__) + '/database.yml')[adapter]
-ActiveRecord::Base.configurations['test'] = database_configuration
+
+if defined?(ActiveRecord::DatabaseConfigurations)
+  ActiveRecord::Base.configurations = ActiveRecord::DatabaseConfigurations.new(database_configuration)
+else
+  ActiveRecord::Base.configurations = database_configuration
+end
+
 ActiveRecord::Base.establish_connection(:test)
 
 begin
   ActiveRecord::Base.connection
 rescue
   # Ensures database exists.
-  ActiveRecord::Tasks::DatabaseTasks.database_configuration = database_configuration
+  puts 'Creating database using config in database.yml...'
+  ActiveRecord::Tasks::DatabaseTasks.database_configuration = database_configuration['test']
   ActiveRecord::Tasks::DatabaseTasks.create_current('test')
 end
 

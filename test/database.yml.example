@@ -3,18 +3,21 @@ common: &common
   database: mass_insert_test
 
 mysql2:
-  <<: *common
-  adapter: mysql2
-  username: #your_mysql_username
-  password: #your_mysql_password
+  test:
+    <<: *common
+    adapter: mysql2
+    username: #your_mysql_username
+    password: #your_mysql_password
 
 postgresql:
-  <<: *common
-  adapter: postgresql
-  username: #your_postgresql_username
-  password: #your_postgresql_password
+  test:
+    <<: *common
+    adapter: postgresql
+    username: #your_postgresql_username
+    password: #your_postgresql_password
 
 sqlite3:
-  <<: *common
-  adapter: sqlite3
-  database: tmp/mass_insert_test.db
+  test:
+    <<: *common
+    adapter: sqlite3
+    database: tmp/mass_insert_test.db

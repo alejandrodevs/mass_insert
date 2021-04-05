@@ -7,8 +7,9 @@ services:
   - postgresql
 
 rvm:
-  - 2.5.5
-  - 2.6.3
+  - 2.6.7
+  - 2.7.3
+  - 3.0.0
 
 before_script:
   - cp test/database.yml.example test/database.yml
