@@ -87,7 +87,7 @@ INSERT INTO table (a,b,c) VALUES (1,2,3)
 
 ## Advantages
 
-Faster. It's depending of the computer but these are some results...
+Faster. It depends on the computer and the data but these are some results...
 * PostgreSQL - Saving 10,000 records in 0.49s
 
 ## Attention
